@@ -34,4 +34,7 @@ def test_user_can_auth():
     btn_login.click()
     browser.implicitly_wait(10)
     assert "inventory" in browser.current_url, "Wrong page"
+
+    # здесь будет новый тест-кейс
+
     browser.quit()  # comment
