@@ -25,5 +25,5 @@ def test_user_can_auth():
     password_input.send_keys(password)
     browser.find_element(By.XPATH, '//*[@id="login-button"]').click()
     browser.implicitly_wait(10)
-
-    browser.quit()
+    browser.find_element(By.XPATH, '//*[@id="item_4_title_link"]/div').click()
+    browser.quit()  # comment
