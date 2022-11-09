@@ -11,9 +11,10 @@ problem_user = "problem_user"
 performance_glitch_user = "performance_glitch_user"
 password = "secret_sauce"
 
-# TC_001.00.01 Login page > Авторизация под валидными данными
-def test_user_can_auth():
 
+# TC_001.00.01 Login page > Авторизация под валидными данными
+
+def test_user_can_auth():
     options = webdriver.ChromeOptions()
     options.add_argument("--window-size=1600,1080")
     options.headless = True
