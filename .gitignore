@@ -1,0 +1,13 @@
+__pycache__/
+__pycache__
+*.log
+# Environments
+.env
+.venv
+env/
+venv/
+sauce
+
+#idea
+.idea
+.vscode
