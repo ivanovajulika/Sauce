@@ -27,4 +27,3 @@ def test_user_can_auth():
     browser.implicitly_wait(10)
 
     browser.quit()
-    
