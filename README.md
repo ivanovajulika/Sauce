@@ -1,6 +1,5 @@
-### Links
-
-target: https://www.saucedemo.com/
+### Links https://www.saucedemo.com/
+[![selenium_test](https://github.com/ivanovajulika/Sauce/actions/workflows/action.yml/badge.svg)](https://github.com/ivanovajulika/Sauce/actions/workflows/action.yml)
 
 ## Инструкция по запуску проекта автоматизации:
 
