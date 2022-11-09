@@ -2,9 +2,9 @@ name: selenium_test
 
 on:
   push:
-    branches: [develop]
+    branches: [main]
   pull_request:
-    branches: [develop]
+    branches: [main]
 
 permissions:
   checks: write
