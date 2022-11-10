@@ -13,8 +13,6 @@ password = "secret_sauce"
 
 
 # TC_001.00.01 Login page > Авторизация под валидными данными
-
-
 def test_user_can_auth():
     options = webdriver.ChromeOptions()
     options.add_argument("--window-size=1600,1080")
@@ -32,7 +30,7 @@ def test_user_can_auth():
     password_input.send_keys(password)
     btn_login = browser.find_element(By.XPATH, '//*[@id="login-button"]')
     btn_login.click()
-    browser.implicitly_wait(10)
+    browser.implicitly_wait(2)
     assert "inventory" in browser.current_url, "Wrong page"
     browser.quit()
 
@@ -90,5 +88,4 @@ def test_locked_out_user():
     )
     assert (
         error.text == "Epic sadface: Sorry, this user has been locked out."
-    ), "Wrong text"
     browser.quit()
