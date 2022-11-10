@@ -86,6 +86,5 @@ def test_locked_out_user():
     error = browser.find_element(
         By.XPATH, '//*[@id="login_button_container"]//div[3]/h3'
     )
-    assert (
-        error.text == "Epic sadface: Sorry, this user has been locked out."
+    assert error.text == "Epic sadface: Sorry, this user has been locked out."
     browser.quit()
