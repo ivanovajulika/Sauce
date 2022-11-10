@@ -64,6 +64,7 @@ def test_password_is_empty():
     ), "Wrong error message"
     browser.quit()
 
+
 # TC_001.00.10 | Login page > Авторизация заблокированного пользователя
 def test_locked_out_user():
     options = webdriver.ChromeOptions()
@@ -90,5 +91,4 @@ def test_locked_out_user():
     assert (
         error.text == "Epic sadface: Sorry, this user has been locked out."
     ), "Wrong text"
-
     browser.quit()
