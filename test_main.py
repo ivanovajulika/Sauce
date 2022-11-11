@@ -150,7 +150,7 @@ def test_filter_is_present():
         browser.quit()
 
 
-# TC_001.00.08 | Login page > Авторизация при вводе пробелов в поле "Password"
+# TC_001.00.08 | Login page > Авторизация при вводе пробелов в поле "Password".
 def test_password_is_whitespace():
     password_whitespace = "   "
     # browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
