@@ -34,7 +34,7 @@ jobs:
           extra-pylint-options: ""
           extra-pycodestyle-options: ""
           extra-flake8-options: "--count --benchmark --ignore=E501"
-          extra-black-options: ". -S"
+          extra-black-options: "--line-length 120 . -S"
           extra-mypy-options: ""
           extra-isort-options: ""
       - name: install Chrome
