@@ -94,12 +94,13 @@ def test_locked_out_user():
 
 # AT_010.00.01 | Filter > Проверка наличия фильтра на странице "Products"
 def test_filter_is_present():
-    browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    # options = webdriver.ChromeOptions()
-    # options.add_argument("--window-size=1600,1080")
-    # options.headless = True
-    # browser = webdriver.Chrome(
-    # )
+    # browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    options = webdriver.ChromeOptions()
+    options.add_argument("--window-size=1600,1080")
+    options.headless = True
+    browser = webdriver.Chrome(
+        service=ChromeService(ChromeDriverManager().install()), options=options
+    )
 
     browser.get(link)
     browser.implicitly_wait(10)
