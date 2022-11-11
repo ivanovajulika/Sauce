@@ -30,7 +30,7 @@ def test_user_can_auth():
     password_input.send_keys(password)
     btn_login = browser.find_element(By.XPATH, '//*[@id="login-button"]')
     btn_login.click()
-    browser.implicitly_wait(2)
+    browser.implicitly_wait(10)
     assert "inventory" in browser.current_url, "Wrong page"
     browser.quit()
 
@@ -56,6 +56,7 @@ def test_password_is_empty():
     btn_login = browser.find_element(By.XPATH, '//*[@id="login-button"]')
     btn_login.click()
     browser.implicitly_wait(10)
+    assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
         error_message.text == "Epic sadface: Password is required"
@@ -73,7 +74,7 @@ def test_locked_out_user():
     )
 
     browser.get(link)
-    browser.implicitly_wait(1)
+    browser.implicitly_wait(10)
 
     username_input = browser.find_element(By.XPATH, '//*[@id="user-name"]')
     username_input.send_keys(locked_out_user)
@@ -81,7 +82,7 @@ def test_locked_out_user():
     password_input.send_keys(password)
     btn_login = browser.find_element(By.XPATH, '//*[@id="login-button"]')
     btn_login.click()
-    browser.implicitly_wait(2)
+    browser.implicitly_wait(10)
     assert "inventory" not in browser.current_url, "Wrong page"
     error = browser.find_element(
         By.XPATH, '//*[@id="login_button_container"]//div[3]/h3'
