@@ -152,7 +152,7 @@ def test_username_is_empty():
     browser.quit()
 
 
-# TC_001.00.08 | Login page > Авторизация при вводе пробелов в поле "Password"
+# TC_001.00.08 | Login page > Авторизация при вводе пробелов в поле "Password".
 def test_password_is_whitespace():
     password_whitespace = "   "
     # browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
@@ -175,8 +175,5 @@ def test_password_is_whitespace():
     browser.implicitly_wait(10)
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
-    assert (
-        error_message.text
-        == "Epic sadface: Username and password do not match any user in this service"
-    ), "Wrong error message"
+    assert (error_message.text == "Epic sadface: Username and password do not match any user in this service"), "Wrong error message"
     browser.quit()
