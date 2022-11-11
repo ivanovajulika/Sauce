@@ -113,7 +113,6 @@ def test_password_is_login():
     browser.implicitly_wait(10)
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
-        error_message.text
-        == "Epic sadface: Username and password do not match any user in this service"
-    ), "Wrong error message"
+        error_message.text == "Epic sadface: Username and password do not match any user in this service"
+    ), " Wrong error message"
     browser.quit()
