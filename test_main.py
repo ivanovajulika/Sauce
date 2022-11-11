@@ -93,7 +93,7 @@ def test_locked_out_user():
 # TC_001.00.04 | Login page > Авторизация при вводе в поле "Password" валидного логина
 def test_password_is_login():
     password = "standard_user"
-    browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    # browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     options = webdriver.ChromeOptions()
     options.add_argument("--window-size=1600,1080")
     options.headless = True
