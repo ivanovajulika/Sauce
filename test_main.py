@@ -37,8 +37,8 @@ def test_user_can_auth():
 
 # TC_001.00.02 | Login page > Авторизация при пустом поле "Password"
 def test_password_is_empty():
+
     password = ""
-    # browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     options = webdriver.ChromeOptions()
     options.add_argument("--window-size=1600,1080")
     options.headless = True
