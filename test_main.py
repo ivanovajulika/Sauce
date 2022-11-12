@@ -116,3 +116,4 @@ def test_password_is_login():
         error_message.text == "Epic sadface: Username and password do not match any user in this service"
     ), " Wrong error message"
     browser.quit()
+
