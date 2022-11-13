@@ -223,9 +223,9 @@ def test_username_is_whitespace():
     browser.implicitly_wait(10)
 
     username_input = browser.find_element(By.XPATH, '//*[@id="user-name"]')
-    username_input.send_keys(standard_user)
+    username_input.send_keys(username_whitespace)
     password_input = browser.find_element(By.XPATH, '//*[@id="password"]')
-    password_input.send_keys(username_whitespace)
+    password_input.send_keys(password)
     btn_login = browser.find_element(By.XPATH, '//*[@id="login-button"]')
     btn_login.click()
     browser.implicitly_wait(10)
@@ -235,4 +235,7 @@ def test_username_is_whitespace():
         error_message.text == "Epic sadface: Username and password do not match any user in this service"
     ), "Wrong error message"
     browser.quit()
+
+
+
 
