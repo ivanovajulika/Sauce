@@ -175,7 +175,8 @@ def test_password_is_whitespace():
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
-        error_message.text == "Epic sadface: Username and password do not match any user in this service"
+        error_message.text
+        == "Epic sadface: Username and password do not match any user in this service"
     ), "Wrong error message"
     browser.quit()
 
@@ -203,7 +204,8 @@ def test_password_is_login():
     browser.implicitly_wait(10)
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
-        error_message.text == "Epic sadface: Username and password do not match any user in this service"
+        error_message.text
+        == "Epic sadface: Username and password do not match any user in this service"
     ), " Wrong error message"
     browser.quit()
 
@@ -232,10 +234,7 @@ def test_username_is_whitespace():
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
-        error_message.text == "Epic sadface: Username and password do not match any user in this service"
+        error_message.text
+        == "Epic sadface: Username and password do not match any user in this service"
     ), "Wrong error message"
     browser.quit()
-
-
-
-
