@@ -34,7 +34,7 @@ def test_user_can_auth():
     browser.implicitly_wait(10)
     assert "inventory" in browser.current_url, "Wrong page"
     browser.quit()
-
+    
 
 # TC_001.00.02 | Login page > Авторизация при пустом поле "Password"
 def test_password_is_empty():
@@ -235,7 +235,4 @@ def test_username_is_whitespace():
         error_message.text == "Epic sadface: Username and password do not match any user in this service"
     ), "Wrong error message"
     browser.quit()
-
-
-
 
