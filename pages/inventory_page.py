@@ -17,4 +17,3 @@ class InventoryPage(BasePage):
         except NoSuchElementException:
             assert False
         assert True
-
