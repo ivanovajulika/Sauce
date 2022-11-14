@@ -1,6 +1,4 @@
 from pages.inventory_page import InventoryPage
-from pages.cart_page import CartPage
-from pages.base_page import BasePage
 import time
 
 
