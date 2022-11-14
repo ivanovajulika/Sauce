@@ -13,11 +13,11 @@ password = "secret_sauce"
 
 @pytest.fixture(scope="function")
 def browser():
-    # options = webdriver.ChromeOptions()
-    # options.add_argument("--window-size=1600,1080")
-    # options.headless = True
+    options = webdriver.ChromeOptions()
+    options.add_argument("--window-size=1600,1080")
+    options.headless = True
     browser = webdriver.Chrome(
-        service=ChromeService(ChromeDriverManager().install())  # , options=options
+        service=ChromeService(ChromeDriverManager().install()), options=options
     )
 
     browser.get(link)
