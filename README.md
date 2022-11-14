@@ -1,5 +1,5 @@
 ### Links https://www.saucedemo.com/
-[![selenium_test](https://github.com/ivanovajulika/Sauce/actions/workflows/action.yml/badge.svg)](https://github.com/ivanovajulika/Sauce/actions/workflows/action.yml)
+[![selenium_test](https://github.com/ivanovajulika/Sauce/actions/workflows/action.yml/badge.svg)](https://github.com/ivanovajulika/Sauce/actions/workflows/action.yml) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## Инструкция по запуску проекта автоматизации:
 
