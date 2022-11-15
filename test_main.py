@@ -22,6 +22,6 @@ def test_link_to_inventory_backpack(browser):
     page = InventoryPage(browser, link)
     page.open_page()
     time.sleep(5)
-    # Нужно добавить element_is_present
+    page.element_is_present()
     page.item_backpack()
     time.sleep(5)
