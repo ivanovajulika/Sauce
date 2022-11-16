@@ -1,0 +1,4 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Wed Nov 16 08:19:24 GMT 2022","Wed Nov 16 08:19:34 GMT 2022","10164","","test_main","","","","test_link_to_inventory_backpack",""
+"passed","Wed Nov 16 08:19:21 GMT 2022","Wed Nov 16 08:19:21 GMT 2022","96","","test_main","","","","test_user_can_go_cart",""
+"passed","Wed Nov 16 08:19:22 GMT 2022","Wed Nov 16 08:19:23 GMT 2022","751","","test_main","","","","test_user_can_go_continue_shopping",""
