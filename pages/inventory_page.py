@@ -1,6 +1,5 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
 
 
 class InventoryPage(BasePage):
@@ -11,9 +10,9 @@ class InventoryPage(BasePage):
         self.browser.find_element(By.XPATH, '//*[@id="item_4_title_link"]').click()
         assert "id=4" in self.browser.current_url, "Wrong page"
 
-    def element_is_present(self):
-        try:
-            self.browser.find_element(By.ID, "item_4_title_link")
-        except NoSuchElementException:
-            assert False
-        assert True
+    def should_be_item_baclpack(self):
+        assert self.element_is_present(By.ID, "item_4_title_link")
+
+    def img_backpack(self):
+        self.browser.find_element(By.CSS_SELECTOR, "#item_4_img_link > img").click()
+        assert "id=4" in self.browser.current_url, "Wrong page"
