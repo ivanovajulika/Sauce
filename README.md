@@ -14,7 +14,7 @@
 6. Далее в PowerShell ввести команду `poetry install`, данная команда установит зависимости(библиотеки) из файла `.toml` для работы проекта.
 
 
-[ALLURE REPORT](ivanovajulika.github.io/Sauce/)
+[ALLURE REPORT](https://ivanovajulika.github.io/Sauce/)
 
 
 [![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
