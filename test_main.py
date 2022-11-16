@@ -1,5 +1,6 @@
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
+from pages.item_id4 import ItemPage_4
 import time
 import allure
 from allure_commons.types import AttachmentType
@@ -42,17 +43,20 @@ def test_link_to_inventory_backpack(browser):
     page = InventoryPage(browser, link)
     page.open_page()
     time.sleep(5)
-    page.should_be_item_baclpack()
+    page.should_be_item_backpack()
     page.item_backpack()
     time.sleep(5)
 
 
 # TC_003.00.01 | Inventory item > Переход на страницу товара по клику на картинку товара в его карточке.
+@allure.story("TC_003.00.01")
 def test_link_go_from_img(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     page.open_page()
     time.sleep(5)
     page.img_backpack()
-    # проверить что фото товара увеличенное
+    link = "https://www.saucedemo.com/inventory-item.html?id=4"
+    page = ItemPage_4(browser, link)
+    page.photo_size_required()
     time.sleep(5)
