@@ -10,7 +10,7 @@ class InventoryPage(BasePage):
         self.browser.find_element(By.XPATH, '//*[@id="item_4_title_link"]').click()
         assert "id=4" in self.browser.current_url, "Wrong page"
 
-    def should_be_item_baclpack(self):
+    def should_be_item_backpack(self):
         assert self.element_is_present(By.ID, "item_4_title_link")
 
     def img_backpack(self):
