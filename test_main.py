@@ -40,5 +40,3 @@ def test_link_to_price_backpack(browser):
     time.sleep(5)
     page.price_backpack()
     time.sleep(5)
-
-
