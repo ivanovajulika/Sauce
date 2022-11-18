@@ -16,3 +16,7 @@ class InventoryPage(BasePage):
     def img_backpack(self):
         self.browser.find_element(By.CSS_SELECTOR, "#item_4_img_link > img").click()
         assert "id=4" in self.browser.current_url, "Wrong page"
+
+    def count_products(self):
+        elements = len(self.browser.find_elements(By.CSS_SELECTOR, ".inventory_item"))
+        assert elements == 6
