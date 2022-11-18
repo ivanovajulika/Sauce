@@ -61,6 +61,7 @@ def test_link_go_from_img(browser):
     page.photo_size_required()
     time.sleep(5)
 
+
 # TC_003.00.03 | Inventory item > Удаление товара из корзины на странице "Inventory item".
 @allure.story("TC_003.00.03")
 def test_add_remove_backpack(browser):
@@ -78,10 +79,3 @@ def test_add_remove_backpack(browser):
     page.empty_cart_counter()
     page.go_to_cart()
     page.empty_cart()
-
-
-
-
-
-
-

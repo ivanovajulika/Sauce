@@ -34,18 +34,10 @@ class ItemPage_4(InventoryPage):
         assert self.element_is_present(By.ID, "add-to-cart-sauce-labs-backpack")
 
     def empty_cart_counter(self):
-        text = self.browser.find_element(By.CSS_SELECTOR, "#shopping_cart_container").text
+        text = self.browser.find_element(
+            By.CSS_SELECTOR, "#shopping_cart_container"
+        ).text
         assert text == ""
 
     def empty_cart(self):
         assert not self.element_is_present(By.CLASS_NAME, "cart_quantity")
-
-
-
-
-
-
-
-
-
-
