@@ -60,3 +60,28 @@ def test_link_go_from_img(browser):
     page = ItemPage_4(browser, link)
     page.photo_size_required()
     time.sleep(5)
+
+# TC_003.00.03 | Inventory item > Удаление товара из корзины на странице "Inventory item".
+@allure.story("TC_003.00.03")
+def test_add_remove_backpack(browser):
+    link = "https://www.saucedemo.com/inventory-item.html?id=4"
+    page = ItemPage_4(browser, link)
+    page.open_page()
+    page.add_to_cart()
+    page.remove_from_cart_btn()
+    page.cart_counter()
+    page.go_to_cart()
+    page.cart_page_counter()
+    page.return_to_item_page()
+    page.remove_from_cart()
+    page.add_to_cart_btn()
+    page.empty_cart_counter()
+    page.go_to_cart()
+    page.empty_cart()
+
+
+
+
+
+
+
