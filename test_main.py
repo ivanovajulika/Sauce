@@ -70,7 +70,7 @@ def test_add_remove_backpack(browser):
     page.open_page()
     page.add_to_cart()
     page.remove_from_cart_btn()
-    page.cart_counter()
+    page.cart_counter(quantity="1")
     page.go_to_cart()
     page.cart_page_counter()
     page.return_to_item_page()

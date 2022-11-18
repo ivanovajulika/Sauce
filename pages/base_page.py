@@ -1,4 +1,5 @@
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 
 class BasePage:
@@ -15,3 +16,7 @@ class BasePage:
         except NoSuchElementException:
             return False
         return True
+
+    def cart_counter(self, quantity):
+        text = self.browser.find_element(By.ID, "shopping_cart_container").text
+        assert text == quantity
