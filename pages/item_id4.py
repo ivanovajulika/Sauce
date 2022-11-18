@@ -13,10 +13,6 @@ class ItemPage_4(InventoryPage):
     def remove_from_cart_btn(self):
         assert self.element_is_present(By.ID, "remove-sauce-labs-backpack")
 
-    def cart_counter(self):
-        text = self.browser.find_element(By.ID, "shopping_cart_container").text
-        assert text == "1"
-
     def go_to_cart(self):
         self.browser.find_element(By.XPATH, "//div[3]/a").click()
 
