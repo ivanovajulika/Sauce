@@ -1,7 +1,6 @@
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
-import time
 import allure
 from allure_commons.types import AttachmentType
 
