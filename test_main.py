@@ -95,5 +95,4 @@ def test_link_to_price_backpack(browser):
     page = InventoryPage(browser, link)
     page.open_page()
     page.should_be_item_backpack()
-    page.item_backpack()
     page.price_backpack()
