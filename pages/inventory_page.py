@@ -22,7 +22,9 @@ class InventoryPage(BasePage):
         assert elements == 6
 
     def price_backpack(self):
-        price = self.browser.find_element(By.XPATH, "(//*[@class='inventory_item_price'])[1]").text
+        price = self.browser.find_element(
+            By.XPATH, "(//*[@class='inventory_item_price'])[1]"
+        ).text
         assert price == "$29.99", "Wrong price"
 
     def should_be_filter(self):
