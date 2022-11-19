@@ -86,6 +86,18 @@ def test_add_remove_backpack(browser):
     page.empty_cart()
 
 
+# AT_002.02.01 | Products > Цена товара на странице "Products" - Backpack
+@allure.feature("Sauce Labs")
+@allure.story("TC_002.02.01")
+@allure.severity("minor")
+def test_link_to_price_backpack(browser):
+    link = "https://www.saucedemo.com/inventory.html"
+    page = InventoryPage(browser, link)
+    page.open_page()
+    page.should_be_item_backpack()
+    page.price_backpack()
+
+
 @allure.feature("US_010.00 | Filter")
 @allure.story("TC_010.00.01 | Filter > Проверка наличия фильтра на странице 'Products'")
 def test_filter_is_present(browser):
