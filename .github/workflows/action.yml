@@ -1,8 +1,6 @@
 name: selenium_test
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
@@ -44,20 +42,8 @@ jobs:
       - name: install Poetry
         run: pip install poetry
       - name: install dependencies
-
         run: poetry update
-      - name: Run the pytest and generate junit xml report
-        run: poetry run pytest --junitxml report.xml
-      - name: Create test summary
-        uses: test-summary/action@v2.0
-        with:
-          paths: report.xml
-        if: always()
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          junit_files: "report.xml"
+      
       - name: Run Test
         if: always()
         run: poetry run pytest --alluredir=allure-results
@@ -70,9 +56,7 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages
-      #----------------------------------------------
-      #    Generate allure report  report
-      #----------------------------------------------
+      
       - name: Allure Report action from marketplace
         uses: simple-elf/allure-report-action@master
         if: always()

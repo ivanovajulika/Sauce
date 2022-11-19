@@ -8,6 +8,7 @@ env/
 venv/
 sauce
 results
+temp
 
 #idea
 .idea
