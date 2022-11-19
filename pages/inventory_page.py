@@ -11,7 +11,7 @@ class InventoryPage(BasePage):
         assert "id=4" in self.browser.current_url, "Wrong page"
 
     def should_be_item_backpack(self):
-        assert self.element_is_present(By.ID, "item_4_title_link")
+        assert self.element_is_present(By.ID, "item_4_title_link"), "Element is absent"
 
     def img_backpack(self):
         self.browser.find_element(By.CSS_SELECTOR, "#item_4_img_link > img").click()
@@ -25,3 +25,7 @@ class InventoryPage(BasePage):
         price = self.browser.find_element(By.XPATH, "(//*[@class='inventory_item_price'])[1]").text
         assert price == "$29.99", "Wrong price"
 
+    def should_be_filter(self):
+        assert self.element_is_present(
+            By.CLASS_NAME, "product_sort_container"
+        ), "Element is absent"

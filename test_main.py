@@ -96,3 +96,13 @@ def test_link_to_price_backpack(browser):
     page.open_page()
     page.should_be_item_backpack()
     page.price_backpack()
+
+
+@allure.feature("US_010.00 | Filter")
+@allure.story("TC_010.00.01 | Filter > Проверка наличия фильтра на странице 'Products'")
+def test_filter_is_present(browser):
+    assert "inventory" in browser.current_url, "Wrong page"
+    link = "https://www.saucedemo.com/inventory.html"
+    page = InventoryPage(browser, link)
+    page.should_be_filter()
+    
