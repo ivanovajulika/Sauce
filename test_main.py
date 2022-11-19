@@ -105,4 +105,3 @@ def test_filter_is_present(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     page.should_be_filter()
-    
