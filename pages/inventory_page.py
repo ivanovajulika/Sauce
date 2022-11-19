@@ -31,3 +31,51 @@ class InventoryPage(BasePage):
         assert self.element_is_present(
             By.CLASS_NAME, "product_sort_container"
         ), "Element is absent"
+
+    def should_be_img_backpack(self):
+        element = self.browser.find_element(By.CSS_SELECTOR, "#item_4_img_link > img")
+        img = element.get_attribute("src")
+        assert (
+            img
+            == "https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.34e7aa42.jpg"
+        )
+
+    def should_be_img_bike_light(self):
+        element = self.browser.find_element(By.CSS_SELECTOR, "#item_0_img_link > img")
+        img = element.get_attribute("src")
+        assert (
+            img
+            == "https://www.saucedemo.com/static/media/bike-light-1200x1500.a0c9caae.jpg"
+        )
+
+    def should_be_img_bolt_t_shirt(self):
+        element = self.browser.find_element(By.CSS_SELECTOR, "#item_1_img_link > img")
+        img = element.get_attribute("src")
+        assert (
+            img
+            == "https://www.saucedemo.com/static/media/bolt-shirt-1200x1500.c0dae290.jpg"
+        )
+
+    def should_be_img_fleece_jacket(self):
+        element = self.browser.find_element(By.CSS_SELECTOR, "#item_5_img_link > img")
+        img = element.get_attribute("src")
+        assert (
+            img
+            == "https://www.saucedemo.com/static/media/sauce-pullover-1200x1500.439fc934.jpg"
+        )
+
+    def should_be_img_onesie(self):
+        element = self.browser.find_element(By.CSS_SELECTOR, "#item_2_img_link > img")
+        img = element.get_attribute("src")
+        assert (
+            img
+            == "https://www.saucedemo.com/static/media/red-onesie-1200x1500.1b15e1fa.jpg"
+        )
+
+    def should_be_img_t_shirt(self):
+        element = self.browser.find_element(By.CSS_SELECTOR, "#item_3_img_link > img")
+        img = element.get_attribute("src")
+        assert (
+            img
+            == "https://www.saucedemo.com/static/media/red-tatt-1200x1500.e32b4ef9.jpg"
+        )
