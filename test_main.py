@@ -86,9 +86,8 @@ def test_add_remove_backpack(browser):
     page.empty_cart()
 
 
-@allure.feature("US_001.00 | Login page > Страница авторизации.")
+@allure.feature("US_010.00 | Filter")
 @allure.story("TC_010.00.01 | Filter > Проверка наличия фильтра на странице 'Products'")
-# AT_010.00.01 | Filter > Проверка наличия фильтра на странице "Products"
 def test_filter_is_present(browser):
     assert "inventory" in browser.current_url, "Wrong page"
     link = "https://www.saucedemo.com/inventory.html"
