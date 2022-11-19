@@ -13,14 +13,26 @@ list_username = [
 
 @allure.feature("US_001.00 | Login page > Страница авторизации.")
 @allure.story("TC_001.00.01 Login page > Авторизация под валидными данными")
-def test_user_can_auth(browser):
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param(
+            "locked_out_user", marks=pytest.mark.xfail(reason="User was not registred")
+        ),
+        "problem_user",
+        "performance_glitch_user",
+    ],
+)
+def test_user_can_auth(browser, username):
     assert "inventory" in browser.current_url, "Wrong page"
 
 
 @allure.feature("US_001.00 | Login page > Страница авторизации.")
 @allure.story("TC_001.00.02 | Login page > Авторизация при пустом поле 'Password'")
 @pytest.mark.parametrize("password", [""])
-def test_password_is_empty(browser, password):
+@pytest.mark.parametrize("username", list_username)
+def test_password_is_empty(browser, password, username):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
@@ -44,7 +56,8 @@ def test_username_is_empty(browser, username):
     "TC_001.00.04 | Login page > Авторизация при вводе в поле 'Password' валидного логина"
 )
 @pytest.mark.parametrize("password", list_username)
-def test_password_is_login(browser, password):
+@pytest.mark.parametrize("username", list_username)
+def test_password_is_login(browser, password, username):
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
         error_message.text
@@ -71,7 +84,8 @@ def test_username_is_whitespace(browser, username):
     "TC_001.00.08 | Login page > Авторизация при вводе пробелов в поле 'Password'"
 )
 @pytest.mark.parametrize("password", ["   "])
-def test_password_is_whitespace(browser, password):
+@pytest.mark.parametrize("username", list_username)
+def test_password_is_whitespace(browser, password, username):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
