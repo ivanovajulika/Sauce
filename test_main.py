@@ -7,7 +7,7 @@ from allure_commons.types import AttachmentType
 
 # это пример теста
 @allure.feature("Sauce Labs")
-@allure.story("ТС_001_01")
+@allure.story("ТС_001_01 это пример теста")
 @allure.severity("blocker")
 def test_user_can_go_cart(browser):
     link = "https://www.saucedemo.com/inventory.html"
@@ -18,7 +18,7 @@ def test_user_can_go_cart(browser):
 
 # это пример теста
 @allure.feature("Sauce Labs")
-@allure.story("ТС_001_02")
+@allure.story("ТС_001_02 это пример теста")
 @allure.severity("critical")
 def test_user_can_go_continue_shopping(browser):
     link = "https://www.saucedemo.com/cart.html"
