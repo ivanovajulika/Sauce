@@ -1,5 +1,10 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+
+# locators
+BTN_FILTER = (By.CLASS_NAME, "product_sort_container")
+ALL_NAMES = (By.CLASS_NAME, "inventory_item_name")
 
 
 class InventoryPage(BasePage):
@@ -27,10 +32,49 @@ class InventoryPage(BasePage):
         ).text
         assert price == "$29.99", "Wrong price"
 
+    # проверка наличия фильтра
     def should_be_filter(self):
-        assert self.element_is_present(
-            By.CLASS_NAME, "product_sort_container"
-        ), "Element is absent"
+        assert self.element_is_present(*BTN_FILTER), "Element is absent"
+
+    # нажать кнопку фильтр
+    def click_filter(self):
+        self.browser.find_element(*BTN_FILTER).click()
+
+    # выбор меню фильтра Z-A
+    def choice_z_a(self):
+        select = Select(self.browser.find_element(By.TAG_NAME, "select"))
+        select.select_by_value("za")
+
+    # выбор меню фильтра A-Z
+    def choice_a_z(self):
+        select = Select(self.browser.find_element(By.TAG_NAME, "select"))
+        select.select_by_value("az")
+
+    # выбор меню фильтра Price (low to high)
+    def choice_price_lo_to_hi(self):
+        select = Select(self.browser.find_element(By.TAG_NAME, "select"))
+        select.select_by_value("lohi")
+
+    # выбор меню фильтра Price (high to low)
+    def choice_price_hi_to_lo(self):
+        select = Select(self.browser.find_element(By.TAG_NAME, "select"))
+        select.select_by_value("hilo")
+
+    # проверка сортировки списка в реверсивном порядке
+    def get_all_names_and_sort_reverse(self):
+        all_names = self.browser.find_elements(*ALL_NAMES)
+        list_all_names =[]
+        for element in [all_names]:
+            element.extend(list_all_names)
+        print(list_all_names)
+        # list_all_names = list(all_names.get_attribute('text'))
+        assert list_all_names.sort(reverse=True) == list_all_names
+
+    # проверка сортировки списка в прямом порядке
+    def get_all_names_and_sort(self):
+        all_names = self.browser.find_elements(*ALL_NAMES)
+        list_all_names = list(all_names.get_attribute('text'))
+        assert list_all_names.sort(reverse=False) == list_all_names
 
     def should_be_img_backpack(self):
         element = self.browser.find_element(By.CSS_SELECTOR, "#item_4_img_link > img")
