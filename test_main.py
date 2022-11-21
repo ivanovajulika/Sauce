@@ -6,6 +6,7 @@ import allure
 from allure_commons.types import AttachmentType
 import pytest
 
+
 # это пример теста
 @allure.feature("Sauce Labs")
 @allure.story("ТС_001_01 это пример теста")
@@ -39,7 +40,6 @@ def test_user_can_go_continue_shopping(browser):
 def test_count_products(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
-    # page.open_page()
     page.count_products()
 
 
@@ -48,9 +48,8 @@ def test_count_products(browser):
 def test_photo_products(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
-    # page.open_page()
     page.should_be_img_all_item()
-    
+
 
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story("TC_002.02.01 | Products > Цена товара на странице 'Products' - Backpack")
