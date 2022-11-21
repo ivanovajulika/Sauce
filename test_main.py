@@ -115,6 +115,7 @@ def test_add_remove_backpack(browser):
     page.go_to_cart()
     page.empty_cart()
 
+
 # TC_004.03.01 | Your cart > Оформление заказа с пустой Корзиной.
 @allure.story("TC_004.03.01")
 @pytest.mark.xfail
@@ -132,7 +133,6 @@ def test_empty_cart_order(
     page = Checkout_page(browser, link)
     page.checkout_user()
     page.finish_btn()
-
 
 
 @allure.feature("US_010.00 | Filter")
@@ -202,5 +202,3 @@ def test_sorted_hi_to_low(browser):
     page.choice_price_hi_to_lo()
     # проверить, что все наименования отсортированы.
     page.get_all_prices_and_sort_hi_to_low()
-
-
