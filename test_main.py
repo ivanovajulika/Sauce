@@ -48,13 +48,8 @@ def test_photo_products(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     # page.open_page()
-    page.should_be_img_backpack()
-    page.should_be_img_bike_light()
-    page.should_be_img_bolt_t_shirt()
-    page.should_be_img_fleece_jacket()
-    page.should_be_img_onesie()
-    page.should_be_img_t_shirt()
-
+    page.should_be_img_all_item()
+    
 
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story("TC_002.02.01 | Products > Цена товара на странице 'Products' - Backpack")

@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 BTN_FILTER = (By.CLASS_NAME, "product_sort_container")
 ALL_NAMES = (By.CLASS_NAME, "inventory_item_name")
 ALL_PRICES = (By.CLASS_NAME, "inventory_item_price")
+ALL_IMG = (By.CSS_SELECTOR, "[class='inventory_item_img']:nth-last-child(1)")
 
 
 class InventoryPage(BasePage):
@@ -98,50 +99,20 @@ class InventoryPage(BasePage):
             list_all_prices.append(float(name[1:]))
         assert sorted(list_all_prices, reverse=True) == list_all_prices
 
-    def should_be_img_backpack(self):
-        element = self.browser.find_element(By.CSS_SELECTOR, "#item_4_img_link > img")
-        img = element.get_attribute("src")
-        assert (
-            img
-            == "https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.34e7aa42.jpg"
-        )
+        # проверка наличия фотографий всех товаров
 
-    def should_be_img_bike_light(self):
-        element = self.browser.find_element(By.CSS_SELECTOR, "#item_0_img_link > img")
-        img = element.get_attribute("src")
-        assert (
-            img
-            == "https://www.saucedemo.com/static/media/bike-light-1200x1500.a0c9caae.jpg"
-        )
-
-    def should_be_img_bolt_t_shirt(self):
-        element = self.browser.find_element(By.CSS_SELECTOR, "#item_1_img_link > img")
-        img = element.get_attribute("src")
-        assert (
-            img
-            == "https://www.saucedemo.com/static/media/bolt-shirt-1200x1500.c0dae290.jpg"
-        )
-
-    def should_be_img_fleece_jacket(self):
-        element = self.browser.find_element(By.CSS_SELECTOR, "#item_5_img_link > img")
-        img = element.get_attribute("src")
-        assert (
-            img
-            == "https://www.saucedemo.com/static/media/sauce-pullover-1200x1500.439fc934.jpg"
-        )
-
-    def should_be_img_onesie(self):
-        element = self.browser.find_element(By.CSS_SELECTOR, "#item_2_img_link > img")
-        img = element.get_attribute("src")
-        assert (
-            img
-            == "https://www.saucedemo.com/static/media/red-onesie-1200x1500.1b15e1fa.jpg"
-        )
-
-    def should_be_img_t_shirt(self):
-        element = self.browser.find_element(By.CSS_SELECTOR, "#item_3_img_link > img")
-        img = element.get_attribute("src")
-        assert (
-            img
-            == "https://www.saucedemo.com/static/media/red-tatt-1200x1500.e32b4ef9.jpg"
-        )
+    def should_be_img_all_item(self):
+        list_required_img = [
+            "https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.34e7aa42.jpg",
+            "https://www.saucedemo.com/static/media/bike-light-1200x1500.a0c9caae.jpg",
+            "https://www.saucedemo.com/static/media/bolt-shirt-1200x1500.c0dae290.jpg",
+            "https://www.saucedemo.com/static/media/sauce-pullover-1200x1500.439fc934.jpg",
+            "https://www.saucedemo.com/static/media/red-onesie-1200x1500.1b15e1fa.jpg",
+            "https://www.saucedemo.com/static/media/red-tatt-1200x1500.e32b4ef9.jpg",
+        ]
+        all_img = list(self.browser.find_elements(*ALL_IMG))
+        list_all_img = []
+        for number, img in enumerate(all_img):
+            img = all_img[number].get_attribute("src")
+            list_all_img.append(img)
+        assert list_all_img == list_required_img
