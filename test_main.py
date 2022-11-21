@@ -14,7 +14,6 @@ import pytest
 def test_user_can_go_cart(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
-    # page.open_page()
     page.element_cart()
 
 
@@ -57,7 +56,6 @@ def test_photo_products(browser):
 def test_link_to_price_backpack(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
-    # page.open_page()
     page.should_be_item_backpack()
     page.price_backpack()
 
@@ -70,7 +68,6 @@ def test_link_to_price_backpack(browser):
 def test_link_to_inventory_backpack(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
-    # page.open_page()
     page.should_be_item_backpack()
     page.item_backpack()
 
@@ -96,7 +93,6 @@ def test_link_go_from_img(browser):
 def test_add_remove_backpack(browser):
     link = "https://www.saucedemo.com/inventory-item.html?id=4"
     page = ItemPage_4(browser, link)
-    # page.open_page()
     page.add_to_cart()
     page.remove_from_cart_btn()
     page.cart_counter(quantity="1")
