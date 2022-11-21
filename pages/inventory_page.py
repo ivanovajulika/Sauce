@@ -1,5 +1,11 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+
+# locators
+BTN_FILTER = (By.CLASS_NAME, "product_sort_container")
+ALL_NAMES = (By.CLASS_NAME, "inventory_item_name")
+ALL_PRICES = (By.CLASS_NAME, "inventory_item_price")
 
 
 class InventoryPage(BasePage):
@@ -27,10 +33,70 @@ class InventoryPage(BasePage):
         ).text
         assert price == "$29.99", "Wrong price"
 
+    # проверка наличия фильтра
     def should_be_filter(self):
-        assert self.element_is_present(
-            By.CLASS_NAME, "product_sort_container"
-        ), "Element is absent"
+        assert self.element_is_present(*BTN_FILTER), "Element is absent"
+
+    # нажать кнопку фильтр
+    def click_filter(self):
+        self.browser.find_element(*BTN_FILTER).click()
+
+    # выбор меню фильтра Z-A
+    def choice_z_a(self):
+        select = Select(self.browser.find_element(By.TAG_NAME, "select"))
+        select.select_by_value("za")
+
+    # выбор меню фильтра A-Z
+    def choice_a_z(self):
+        select = Select(self.browser.find_element(By.TAG_NAME, "select"))
+        select.select_by_value("az")
+
+    # выбор меню фильтра Price (low to high)
+    def choice_price_lo_to_hi(self):
+        select = Select(self.browser.find_element(By.TAG_NAME, "select"))
+        select.select_by_value("lohi")
+
+    # выбор меню фильтра Price (high to low)
+    def choice_price_hi_to_lo(self):
+        select = Select(self.browser.find_element(By.TAG_NAME, "select"))
+        select.select_by_value("hilo")
+
+    # проверка сортировки списка названий товаров в реверсивном порядке
+    def get_all_names_and_sort_reverse_alfabet(self):
+        all_names = list(self.browser.find_elements(*ALL_NAMES))
+        list_all_names = []
+        for count, name in enumerate(all_names):
+            name = all_names[count].text
+            list_all_names.append(name)
+        assert sorted(list_all_names, reverse=True) == list_all_names
+
+    #  проверка сортировки списка названий товаров в алфавитном порядке
+    def get_all_names_and_sort_alfabet(self):
+        all_names = list(self.browser.find_elements(*ALL_NAMES))
+        list_all_names = []
+        for count, name in enumerate(all_names):
+            name = all_names[count].text
+            list_all_names.append(name)
+        assert sorted(list_all_names, reverse=False) == list_all_names
+
+    # проверка сортировки по цене товара low to hi
+    def get_all_prices_and_sort_low_to_hi(self):
+        all_prices = list(self.browser.find_elements(*ALL_PRICES))
+        list_all_prices = []
+        for count, name in enumerate(all_prices):
+            name = all_prices[count].text
+            list_all_prices.append(float(name[1:]))
+        assert sorted(list_all_prices, reverse=False) == list_all_prices
+
+        # проверка сортировки по цене товара в hi to low порядке
+
+    def get_all_prices_and_sort_hi_to_low(self):
+        all_prices = list(self.browser.find_elements(*ALL_PRICES))
+        list_all_prices = []
+        for count, name in enumerate(all_prices):
+            name = all_prices[count].text
+            list_all_prices.append(float(name[1:]))
+        assert sorted(list_all_prices, reverse=True) == list_all_prices
 
     def should_be_img_backpack(self):
         element = self.browser.find_element(By.CSS_SELECTOR, "#item_4_img_link > img")
