@@ -1,9 +1,10 @@
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
+from pages.checkout_page import Checkout_page
 import allure
 from allure_commons.types import AttachmentType
-
+import pytest
 
 # это пример теста
 @allure.feature("Sauce Labs")
@@ -108,6 +109,25 @@ def test_add_remove_backpack(browser):
     page.empty_cart_counter()
     page.go_to_cart()
     page.empty_cart()
+
+
+# TC_004.03.01 | Your cart > Оформление заказа с пустой Корзиной.
+@allure.story("TC_004.03.01")
+@pytest.mark.xfail
+def test_empty_cart_order(
+    browser,
+):  # Негативный тест-кейс - не должно быть перехода на checkout-complete!
+    link = "https://www.saucedemo.com/inventory.html"
+    page = InventoryPage(browser, link)
+    page.cart_counter(quantity="")
+    page.go_to_cart()
+    page.empty_cart_counter()
+    page = CartPage(browser, link)
+    page.checkout_btn()
+    link = "https://www.saucedemo.com/checkout-step-one.html"
+    page = Checkout_page(browser, link)
+    page.checkout_user()
+    page.finish_btn()
 
 
 @allure.feature("US_010.00 | Filter")

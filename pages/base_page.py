@@ -20,3 +20,12 @@ class BasePage:
     def cart_counter(self, quantity):
         text = self.browser.find_element(By.ID, "shopping_cart_container").text
         assert text == quantity
+
+    def go_to_cart(self):
+        self.browser.find_element(By.XPATH, "//div[3]/a").click()
+
+    def empty_cart_counter(self):
+        text = self.browser.find_element(
+            By.CSS_SELECTOR, "#shopping_cart_container"
+        ).text
+        assert text == ""
