@@ -3,6 +3,7 @@ from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
 from pages.checkout_page import Checkout_page
+from pages.inventory_page import ALL_ID
 from selenium.webdriver.common.by import By
 import allure
 from allure_commons.types import AttachmentType
@@ -67,9 +68,26 @@ def test_link_to_price_backpack(browser):
 )
 @allure.severity("critical")
 def test_link_to_inventory_backpack(browser):
-    page = InventoryPage(browser, link)
-    page.should_be_item_backpack()
-    page.item_backpack()
+    all_names = browser.find_elements(*ALL_NAMES)
+    list_all_link = []
+    for index in range(len(all_names)):
+        name = browser.find_elements(*ALL_NAMES)[index]
+        name.click()
+        link = browser.current_url
+        list_all_link.append(link[-4:])
+        page = ItemPage_4(browser, link)
+        page.return_to_inventory_page()
+
+    all_id = browser.find_elements(*ALL_ID)
+    list_all_id = []
+    for i in range(len(all_id)):
+        id_ = all_id[i].get_attribute("id")
+        id = 'id=' + id_[5]
+        list_all_id.append(id)
+
+    assert list_all_id == list_all_link, "Wrong page"
+
+
 
 
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
