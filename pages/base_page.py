@@ -1,8 +1,14 @@
+import time
+
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 CART_BADGE = (By.CLASS_NAME, "shopping_cart_badge")
 BTN_CART = (By.ID, "shopping_cart_container")
+BTN_SIDEBAR = (By.ID, "react-burger-menu-btn")
+MENU_RESET = (By.ID, "reset_sidebar_link")
+MENU_ALL_ITEMS = (By.ID, "inventory_sidebar_link")
+CROSS_BTN = (By.ID, "react-burger-cross-btn")
 
 
 class BasePage:
@@ -36,3 +42,13 @@ class BasePage:
 
     def element_cart(self):
         self.browser.find_element(*BTN_CART)
+
+    def reset_cart(self):
+        self.browser.find_element(*BTN_SIDEBAR).click()
+        self.browser.find_element(*MENU_RESET).click()
+        time.sleep(3)
+        self.browser.find_element(*CROSS_BTN).click()
+
+    def return_to_inventory_page(self):
+        self.browser.find_element(*BTN_SIDEBAR).click()
+        self.browser.find_element(*MENU_ALL_ITEMS).click()

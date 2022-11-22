@@ -1,14 +1,14 @@
 from pages.inventory_page import InventoryPage
 from selenium.webdriver.common.by import By
 
-BTN_ADD_TO_CART = (By.ID, "add-to-cart-sauce-labs-backpack")
+BTN_ADD_TO_CART = (By.CLASS_NAME, "btn_primary")
 BTN_REMOVE = (By.ID, "remove-sauce-labs-backpack")
 
 
 class ItemPage_4(InventoryPage):
     def photo_size_required(self):
         photo = self.browser.find_element(By.CSS_SELECTOR, ".inventory_details_img")
-        assert photo.size == {"height": 623, "width": 496}
+        assert photo.size == {"height": 236, "width": 496}
 
     # нажать кнопку ADD to cart на странице 'Backpack'
     def add_to_cart(self):

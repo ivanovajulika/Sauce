@@ -3,11 +3,13 @@ from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
 from pages.checkout_page import Checkout_page
+from selenium.webdriver.common.by import By
 import allure
 from allure_commons.types import AttachmentType
 import pytest
 
 link = "https://www.saucedemo.com/inventory.html"
+ALL_NAMES = (By.CLASS_NAME, "inventory_item_name")
 
 
 # это пример теста
@@ -85,16 +87,23 @@ def test_link_go_from_img(browser):
 @allure.story(
     "TC_003.00.02 | Inventory item > Добавление товара в корзину на странице 'Inventory item'"
 )
-def test_add_backpack(browser):
-    page = ItemPage_4(browser, link)
-    page.add_to_cart_btn_is_present()
-    page.add_to_cart()
-    time.sleep(2)
-    page.cart_counter(quantity="1")
-    page.go_to_cart()
-    page = CartPage(browser, link)
-    page.cart_page_counter()
-    page.return_to_item_page()
+def test_add_all_products_by_one(browser):
+    all_names = browser.find_elements(*ALL_NAMES)
+    count = len(all_names)
+    for index in range(count):
+        name = browser.find_elements(*ALL_NAMES)[index]
+        name.click()
+        link = browser.current_url
+        page = ItemPage_4(browser, link)
+        page.add_to_cart_btn_is_present()
+        page.add_to_cart()
+        page.cart_counter(quantity="1")
+        page.go_to_cart()
+        page = CartPage(browser, link)
+        page.cart_page_counter()
+        page.reset_cart()
+        time.sleep(1)
+        page.return_to_inventory_page()
 
 
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
