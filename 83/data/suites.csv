@@ -1,6 +1,0 @@
-"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Fri Nov 18 07:53:46 GMT 2022","Fri Nov 18 07:53:46 GMT 2022","147","","test_main","","","","test_user_can_go_cart",""
-"passed","Fri Nov 18 07:53:50 GMT 2022","Fri Nov 18 07:54:00 GMT 2022","10197","","test_main","","","","test_link_to_inventory_backpack",""
-"passed","Fri Nov 18 07:54:01 GMT 2022","Fri Nov 18 07:54:12 GMT 2022","10228","","test_main","","","","test_link_go_from_img",""
-"passed","Fri Nov 18 07:53:48 GMT 2022","Fri Nov 18 07:53:48 GMT 2022","758","","test_main","","","","test_user_can_go_continue_shopping",""
-"passed","Fri Nov 18 07:54:13 GMT 2022","Fri Nov 18 07:54:24 GMT 2022","10456","","test_main","","","","test_add_remove_backpack",""
