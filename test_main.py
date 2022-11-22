@@ -9,6 +9,7 @@ import pytest
 
 link = "https://www.saucedemo.com/inventory.html"
 
+
 # это пример теста
 @allure.feature("Sauce Labs")
 @allure.story("ТС_001_01 это пример теста")
