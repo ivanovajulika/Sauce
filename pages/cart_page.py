@@ -14,6 +14,7 @@ class CartPage(BasePage):
         self.browser.find_element(*BTN_CHECKOUT).click()
 
     # возврат со страницы Корзина на страницу 'Backpack'
+    # по клику на ссылку на странице
     def return_to_item_page(self):
         self.browser.find_element(By.ID, "item_4_title_link").click()
 
