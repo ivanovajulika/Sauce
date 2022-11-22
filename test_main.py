@@ -1,3 +1,4 @@
+import time
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
@@ -6,13 +7,14 @@ import allure
 from allure_commons.types import AttachmentType
 import pytest
 
+link = "https://www.saucedemo.com/inventory.html"
+
 
 # это пример теста
 @allure.feature("Sauce Labs")
 @allure.story("ТС_001_01 это пример теста")
 @allure.severity("blocker")
 def test_user_can_go_cart(browser):
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     page.element_cart()
 
@@ -22,9 +24,9 @@ def test_user_can_go_cart(browser):
 @allure.story("ТС_001_02 это пример теста")
 @allure.severity("critical")
 def test_user_can_go_continue_shopping(browser):
-    link = "https://www.saucedemo.com/cart.html"
+    page = InventoryPage(browser, link)
+    page.go_to_cart()
     page = CartPage(browser, link)
-    page.open_page()
     page.user_can_go_continue_shopping()
     with allure.step("Делаем скриншот"):
         allure.attach(
@@ -37,7 +39,6 @@ def test_user_can_go_continue_shopping(browser):
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story("TC_002.01.01 | Products > Количество товаров на странице 'Products'")
 def test_count_products(browser):
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     page.count_products()
 
@@ -45,7 +46,6 @@ def test_count_products(browser):
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story("TC_002.01.02 | Products > Фото товара на странице 'Products'")
 def test_photo_products(browser):
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     page.should_be_img_all_item()
 
@@ -54,7 +54,6 @@ def test_photo_products(browser):
 @allure.story("TC_002.02.01 | Products > Цена товара на странице 'Products' - Backpack")
 @allure.severity("minor")
 def test_link_to_price_backpack(browser):
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     page.should_be_item_backpack()
     page.price_backpack()
@@ -66,7 +65,6 @@ def test_link_to_price_backpack(browser):
 )
 @allure.severity("critical")
 def test_link_to_inventory_backpack(browser):
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     page.should_be_item_backpack()
     page.item_backpack()
@@ -77,13 +75,26 @@ def test_link_to_inventory_backpack(browser):
     "TC_003.00.01 | Inventory item > Переход на страницу товара по клику на картинку товара в его карточке."
 )
 def test_link_go_from_img(browser):
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
-    page.open_page()
     page.img_backpack()
-    link = "https://www.saucedemo.com/inventory-item.html?id=4"
     page = ItemPage_4(browser, link)
     page.photo_size_required()
+
+
+@allure.feature("US_003.00 | Inventory item > Страница товара.")
+@allure.story(
+    "TC_003.00.02 | Inventory item > Добавление товара в корзину на странице 'Inventory item'"
+)
+def test_add_backpack(browser):
+    page = ItemPage_4(browser, link)
+    page.add_to_cart_btn_is_present()
+    page.add_to_cart()
+    time.sleep(2)
+    page.cart_counter(quantity="1")
+    page.go_to_cart()
+    page = CartPage(browser, link)
+    page.cart_page_counter()
+    page.return_to_item_page()
 
 
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
@@ -95,15 +106,19 @@ def test_add_remove_backpack(browser):
     page = ItemPage_4(browser, link)
     page.add_to_cart()
     page.remove_from_cart_btn()
+    time.sleep(2)
     page.cart_counter(quantity="1")
     page.go_to_cart()
+    page = CartPage(browser, link)
     page.cart_page_counter()
     page.return_to_item_page()
+    page = ItemPage_4(browser, link)
     page.remove_from_cart()
-    page.add_to_cart_btn()
+    page.add_to_cart_btn_is_present()
     page.empty_cart_counter()
     page.go_to_cart()
-    page.empty_cart()
+    page = CartPage(browser, link)
+    page.empty_cart_page()
 
 
 # TC_004.03.01 | Your cart > Оформление заказа с пустой Корзиной.
@@ -112,14 +127,12 @@ def test_add_remove_backpack(browser):
 def test_empty_cart_order(
     browser,
 ):  # Негативный тест-кейс - не должно быть перехода на checkout-complete!
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
-    page.cart_counter(quantity="")
+    # page.cart_counter(quantity="")
     page.go_to_cart()
-    page.empty_cart_counter()
     page = CartPage(browser, link)
+    page.empty_cart_page()
     page.checkout_btn()
-    link = "https://www.saucedemo.com/checkout-step-one.html"
     page = Checkout_page(browser, link)
     page.checkout_user()
     page.finish_btn()
@@ -129,7 +142,6 @@ def test_empty_cart_order(
 @allure.story("TC_010.00.01 | Filter > Проверка наличия фильтра на странице 'Products'")
 def test_filter_is_present(browser):
     assert "inventory" in browser.current_url, "Wrong page"
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     page.should_be_filter()
 
@@ -138,7 +150,6 @@ def test_filter_is_present(browser):
 @allure.story("TC_010.00.02 | Filter > Работа фильтра на странице 'Products' (Z-A).")
 def test_sorted_z_to_a(browser):
     assert "inventory" in browser.current_url, "Wrong page"
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     # нажать на символ фильтр
     page.click_filter()
@@ -152,7 +163,6 @@ def test_sorted_z_to_a(browser):
 @allure.story("TC_010.00.03 | Filter > Работа фильтра на странице 'Products' (A-Z).")
 def test_sorted_a_to_z(browser):
     assert "inventory" in browser.current_url, "Wrong page"
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     # нажать на символ фильтр
     page.click_filter()
@@ -168,7 +178,6 @@ def test_sorted_a_to_z(browser):
 )
 def test_sorted_low_to_hi(browser):
     assert "inventory" in browser.current_url, "Wrong page"
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     # нажать на символ фильтр
     page.click_filter()
@@ -184,7 +193,6 @@ def test_sorted_low_to_hi(browser):
 )
 def test_sorted_hi_to_low(browser):
     assert "inventory" in browser.current_url, "Wrong page"
-    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     # нажать на символ фильтр
     page.click_filter()
