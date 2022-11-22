@@ -1,7 +1,7 @@
 from pages.inventory_page import InventoryPage
 from selenium.webdriver.common.by import By
 
-BTN_ADD_TO_CART = (By.ID, "add-to-cart-sauce-labs-backpack")
+BTN_ADD_TO_CART = (By.CLASS_NAME, "btn_primary")
 BTN_REMOVE = (By.ID, "remove-sauce-labs-backpack")
 
 
