@@ -69,3 +69,4 @@ def pytest_runtest_makereport(item, call):
             )
         except Exception as e:
             print("Fail to take screen-shot: {}".format(e))
+
