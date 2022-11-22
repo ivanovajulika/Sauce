@@ -121,8 +121,8 @@ def test_add_remove_backpack(browser):
     page.empty_cart_page()
 
 
-# TC_004.03.01 | Your cart > Оформление заказа с пустой Корзиной.
-@allure.story("TC_004.03.01")
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story("TC_004.03.01 | Your cart > Оформление заказа с пустой Корзиной.")
 @pytest.mark.xfail
 def test_empty_cart_order(browser):
     # Негативный тест-кейс - не должно быть перехода на checkout-complete!
