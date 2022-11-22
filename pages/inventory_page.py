@@ -10,9 +10,8 @@ ALL_IMG = (By.CSS_SELECTOR, "[class='inventory_item_img']:nth-last-child(1)")
 
 
 class InventoryPage(BasePage):
-    def element_cart(self):
-        self.browser.find_element(By.CSS_SELECTOR, ".shopping_cart_container")
-
+    # на странице "Products" кликнуть по 'Backpack'
+    # переход на страницу 'Backpack'
     def item_backpack(self):
         self.browser.find_element(By.XPATH, '//*[@id="item_4_title_link"]').click()
         assert "id=4" in self.browser.current_url, "Wrong page"
