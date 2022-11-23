@@ -122,3 +122,35 @@ class InventoryPage(BasePage):
         add_cart = list(self.browser.find_elements(*BTN_ADD))
         for btn_add_cart in add_cart:
             btn_add_cart.click()
+
+    def add_to_cart_backpack(self):
+        self.browser.find_element(
+            By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack"
+        ).click()
+
+    def add_to_cart_bike_light(self):
+        self.browser.find_element(
+            By.CSS_SELECTOR, "#add-to-cart-sauce-labs-bike-light"
+        ).click()
+
+    def add_to_cart_bolt_t_shirt(self):
+        self.browser.find_element(
+            By.CSS_SELECTOR, "#add-to-cart-sauce-labs-bolt-t-shirt"
+        ).click()
+
+    def add_to_cart_fleece_jacket(self):
+        self.browser.find_element(
+            By.CSS_SELECTOR, "#add-to-cart-sauce-labs-fleece-jacket"
+        ).click()
+
+    def add_to_cart_onesie(self):
+        self.browser.find_element(
+            By.CSS_SELECTOR, "#add-to-cart-sauce-labs-onesie"
+        ).click()
+
+    def add_to_cart_allthethings_t_shirt(self):
+        self.browser.find_element(By.XPATH, "//div[6]/div[2]/div[2]/button").click()
+
+    def count_products_in_the_cart(self):
+        elements = len(self.browser.find_elements(By.CSS_SELECTOR, ".cart_item"))
+        assert elements == 6
