@@ -117,7 +117,8 @@ class InventoryPage(BasePage):
             list_all_img.append(img)
         assert list_all_img == list_required_img
 
+    def add_all_items(self):
 
-
-
-
+        add_cart = list(self.browser.find_elements(*BTN_ADD))
+        for btn_add_cart in add_cart:
+            btn_add_cart.click()
