@@ -13,12 +13,8 @@ def test_conformity_item(browser):
     page = InventoryPage(browser, link)
 
     title = browser.find_element(By.CSS_SELECTOR, "#item_5_title_link > div").text
-    desc = browser.find_element(
-        By.XPATH, '//*[@id="inventory_container"]//div[4]/div[2]/div[1]/div'
-    ).text
-    pr = browser.find_element(
-        By.XPATH, '//*[@id="inventory_container"]//div[4]/div[2]/div[2]/div'
-    ).text
+    desc = browser.find_element(By.XPATH, '(//*[@class="inventory_item_desc"])[4]').text
+    pr = browser.find_element(By.XPATH, '(//*[@class="inventory_item_price"])[4]').text
     dict_id5 = {"name": title, "description": desc, "price": pr}
     browser.find_element(
         By.XPATH, '//*[@id="add-to-cart-sauce-labs-fleece-jacket"]'
@@ -28,11 +24,10 @@ def test_conformity_item(browser):
 
     title_item = browser.find_element(By.CSS_SELECTOR, "#item_5_title_link > div").text
     desc_item = browser.find_element(
-        By.XPATH, '//*[@id="cart_contents_container"]//div[1]/div[3]/div[2]/div[1]'
+        By.XPATH, '(//*[@class="inventory_item_desc"])'
     ).text
     pr_item = browser.find_element(
-        By.XPATH,
-        '//*[@id="cart_contents_container"]//div[1]/div[3]/div[2]/div[2]/div',
+        By.XPATH, '(//*[@class="inventory_item_price"])'
     ).text
     dict_id5_item = {"name": title_item, "description": desc_item, "price": pr_item}
 
