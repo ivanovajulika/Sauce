@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import Select
 # locators
 BTN_FILTER = (By.CLASS_NAME, "product_sort_container")
 ALL_NAMES = (By.CLASS_NAME, "inventory_item_name")
+ALL_ID = (By.XPATH, "//*[@id]//a//div/..")
 ALL_PRICES = (By.CLASS_NAME, "inventory_item_price")
 ALL_IMG = (By.CSS_SELECTOR, "[class='inventory_item_img']:nth-last-child(1)")
 
