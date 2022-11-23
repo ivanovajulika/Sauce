@@ -1,8 +1,13 @@
 from pages.inventory_page import InventoryPage
+from pages.cart_page import CartPage
 from selenium.webdriver.common.by import By
 import allure
+import time
 
 link = "https://www.saucedemo.com/inventory.html"
+ALL_NAMES = (By.CLASS_NAME, "inventory_item_name")
+ALL_DESC = (By.CSS_SELECTOR, ".inventory_item_desc")
+ALL_PRICES = (By.CLASS_NAME, "inventory_item_price")
 
 
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
@@ -32,3 +37,59 @@ def test_conformity_item(browser):
     dict_id5_item = {"name": title_item, "description": desc_item, "price": pr_item}
 
     assert dict_id5_item == dict_id5
+
+
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story("TC_004.02.02 | Your cart > НОВЫЙ")
+def test_conform_all_items(browser):
+
+    page = InventoryPage(browser, link)
+    page.open_page()
+    all_names = list(browser.find_elements(*ALL_NAMES))
+    list_all_names = []
+    for count, name in enumerate(all_names):
+        name = all_names[count].text
+        list_all_names.append(name)
+
+    all_desc = list(browser.find_elements(*ALL_DESC))
+    list_all_desc = []
+    for count, desc in enumerate(all_desc):
+        desc = all_desc[count].text
+        list_all_desc.append(desc)
+
+    all_prices = list(browser.find_elements(*ALL_PRICES))
+    list_all_prices = []
+    for count, name in enumerate(all_prices):
+        name = all_prices[count].text
+        list_all_prices.append(float(name[1:]))
+
+    list_all = zip(list_all_names, list_all_desc, list_all_prices)
+
+    page.add_all_items()
+    time.sleep(5)
+    page.go_to_cart()
+    page = CartPage(browser, link)
+    page.open_page()
+
+    all_names = list(browser.find_elements(*ALL_NAMES))
+    list_all_names = []
+    for count, name in enumerate(all_names):
+        name = all_names[count].text
+        list_all_names.append(name)
+
+    all_desc = list(browser.find_elements(*ALL_DESC))
+    list_all_desc = []
+    for count, desc in enumerate(all_desc):
+        desc = all_desc[count].text
+        list_all_desc.append(desc)
+
+    all_prices = list(browser.find_elements(*ALL_PRICES))
+    list_all_prices = []
+    for count, name in enumerate(all_prices):
+        name = all_prices[count].text
+        list_all_prices.append(float(name[1:]))
+
+    list_all_in_cart = zip(list_all_names, list_all_desc, list_all_prices)
+
+    time.sleep(5)
+    assert list_all == list_all_in_cart
