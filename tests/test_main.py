@@ -4,13 +4,12 @@ from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
 from pages.checkout_page import Checkout_page
 from pages.inventory_page import ALL_ID
-from selenium.webdriver.common.by import By
+from pages.inventory_page import ALL_NAMES
 import allure
 from allure_commons.types import AttachmentType
 import pytest
 
 link = "https://www.saucedemo.com/inventory.html"
-ALL_NAMES = (By.CLASS_NAME, "inventory_item_name")
 
 
 # это пример теста
