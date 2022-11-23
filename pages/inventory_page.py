@@ -115,3 +115,8 @@ class InventoryPage(BasePage):
             img = all_img[number].get_attribute("src")
             list_all_img.append(img)
         assert list_all_img == list_required_img
+
+
+
+
+
