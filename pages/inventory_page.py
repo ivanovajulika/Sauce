@@ -116,14 +116,3 @@ class InventoryPage(BasePage):
             img = all_img[number].get_attribute("src")
             list_all_img.append(img)
         assert list_all_img == list_required_img
-
-    def get_all_id(self):
-        all_id = self.browser.find_elements(*ALL_ID)
-        list_all_id = []
-        count = len(all_id)
-        for index in range(count):
-            id_pred = all_id[index].get_attribute("id")
-            id = 'id=' + id_pred[5]
-            list_all_id.append(id)
-            return list_all_id
-        print(list_all_id)

@@ -64,10 +64,10 @@ def test_link_to_price_backpack(browser):
 
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story(
-    "TC_002.04.01 | Products > Ссылка на страницу товара из карточки товара 'Products' - Backpack."
+    "TC_002.04.00 | Products > Ссылка на страницу товара из карточки товара 'Products'."
 )
 @allure.severity("critical")
-def test_link_to_inventory_backpack(browser):
+def test_get_all_links(browser):
     all_names = browser.find_elements(*ALL_NAMES)
     list_all_link = []
     for index in range(len(all_names)):
@@ -82,12 +82,10 @@ def test_link_to_inventory_backpack(browser):
     list_all_id = []
     for i in range(len(all_id)):
         id_ = all_id[i].get_attribute("id")
-        id = 'id=' + id_[5]
+        id = "id=" + id_[5]
         list_all_id.append(id)
 
     assert list_all_id == list_all_link, "Wrong page"
-
-
 
 
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
