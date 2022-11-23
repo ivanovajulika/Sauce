@@ -8,6 +8,7 @@ ALL_NAMES = (By.CLASS_NAME, "inventory_item_name")
 ALL_ID = (By.XPATH, "//*[@id]//a//div/..")
 ALL_PRICES = (By.CLASS_NAME, "inventory_item_price")
 ALL_IMG = (By.CSS_SELECTOR, "[class='inventory_item_img']:nth-last-child(1)")
+BTN_ADD = (By.CLASS_NAME, "btn_primary")
 
 
 class InventoryPage(BasePage):
@@ -115,3 +116,9 @@ class InventoryPage(BasePage):
             img = all_img[number].get_attribute("src")
             list_all_img.append(img)
         assert list_all_img == list_required_img
+
+    def add_all_items(self):
+
+        add_cart = list(self.browser.find_elements(*BTN_ADD))
+        for btn_add_cart in add_cart:
+            btn_add_cart.click()
