@@ -103,3 +103,17 @@ def test_locked_out_user(browser, username):
     assert (
         error_message.text == "Epic sadface: Sorry, this user has been locked out."
     ), "Wrong error message"
+
+
+@allure.feature("US_001.00 | Login page > Страница авторизации.")
+@allure.story(
+    "AT_001.00.12 | Login page > Авторизация при вводе в поле 'Username' с латинскими и русскими буквами"
+)
+@pytest.mark.parametrize("username", ["stаndаrd_usеr"])
+def test_username_with_rusletters(browser, username):
+    assert "inventory" not in browser.current_url, "Wrong page"
+    error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
+    assert (
+        error_message.text
+        == "Epic sadface: Username and password do not match any user in this service"
+    ), "Wrong error message"
