@@ -19,6 +19,7 @@ class InventoryPage(BasePage):
     def should_be_item_backpack(self):
         assert self.element_is_present(By.ID, "item_4_title_link"), "Element is absent"
 
+    # переход по клику на картинку
     def img_backpack(self):
         self.browser.find_element(By.CSS_SELECTOR, "#item_4_img_link > img").click()
         assert "id=4" in self.browser.current_url, "Wrong page"
@@ -88,8 +89,7 @@ class InventoryPage(BasePage):
             list_all_prices.append(float(name[1:]))
         assert sorted(list_all_prices, reverse=False) == list_all_prices
 
-        # проверка сортировки по цене товара в hi to low порядке
-
+    # проверка сортировки по цене товара в hi to low порядке
     def get_all_prices_and_sort_hi_to_low(self):
         all_prices = list(self.browser.find_elements(*ALL_PRICES))
         list_all_prices = []
@@ -98,8 +98,7 @@ class InventoryPage(BasePage):
             list_all_prices.append(float(name[1:]))
         assert sorted(list_all_prices, reverse=True) == list_all_prices
 
-        # проверка наличия фотографий всех товаров
-
+    # проверка наличия фотографий всех товаров
     def should_be_img_all_item(self):
         list_required_img = [
             "https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.34e7aa42.jpg",
