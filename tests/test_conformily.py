@@ -40,9 +40,32 @@ def test_conformity_item(browser):
 
 
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
-@allure.story("TC_ | Your cart > НОВЫЙ")
-def test_conform_all_items(browser):
+@allure.story(
+    "TC_004-01-04 | Your cart >  проверить количество выбранного товара в корзине."
+)
+def test_add_to_cart_btn_add(browser):
+    page = InventoryPage(browser, link)
+    page.add_to_cart_backpack()
+    page.cart_counter(quantity="1")
+    page.add_to_cart_bike_light()
+    page.cart_counter(quantity="2")
+    page.add_to_cart_bolt_t_shirt()
+    page.cart_counter(quantity="3")
+    page.add_to_cart_fleece_jacket()
+    page.cart_counter(quantity="4")
+    page.add_to_cart_onesie()
+    page.cart_counter(quantity="5")
+    page.add_to_cart_allthethings_t_shirt()
+    page.cart_counter(quantity="6")
+    page.go_to_cart()
+    page.count_products_in_the_cart()
 
+
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story(
+    "TC_004-04-00 | Your cart >  проверить в корзине соответствие названия, описания, цены."
+)
+def test_conform_all_items(browser):
     page = InventoryPage(browser, link)
     page.open_page()
     all_names = list(browser.find_elements(*ALL_NAMES))
