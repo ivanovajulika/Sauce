@@ -109,8 +109,7 @@ def test_locked_out_user(browser, username):
 @allure.story(
     "AT_001.00.12 | Login page > Авторизация при вводе в поле 'Username' с латинскими и русскими буквами"
 )
-@pytest.mark.parametrize("password", list_username)
-@pytest.mark.parametrize("username", ["stаndаrt_usеr"])
+@pytest.mark.parametrize("username", ["stаndаrd_usеr"])
 def test_username_with_rusletters(browser, username):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
