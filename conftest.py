@@ -9,8 +9,6 @@ import os
 
 # TestData
 link = "https://www.saucedemo.com/"
-# standard_user = "standard_user"
-# password = "secret_sauce"
 
 
 @pytest.fixture
