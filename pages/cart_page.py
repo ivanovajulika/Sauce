@@ -1,4 +1,4 @@
-from pages.base_page import BasePage
+from pages.inventory_page import InventoryPage
 from selenium.webdriver.common.by import By
 
 
@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 BTN_CHECKOUT = (By.ID, "checkout")
 
 
-class CartPage(BasePage):
+class CartPage(InventoryPage):
     def user_can_go_continue_shopping(self):
         self.browser.find_element(By.XPATH, '//*[@id="continue-shopping"]').click()
 
@@ -25,3 +25,16 @@ class CartPage(BasePage):
 
     def empty_cart_page(self):
         assert not self.element_is_present(By.CLASS_NAME, "cart_quantity")
+
+    def list_item_id5(self):
+        title_item = self.browser.find_element(
+            By.CSS_SELECTOR, "#item_5_title_link > div"
+        ).text
+        desc_item = self.browser.find_element(
+            By.XPATH, '(//*[@class="inventory_item_desc"])'
+        ).text
+        pr_item = self.browser.find_element(
+            By.XPATH, '(//*[@class="inventory_item_price"])'
+        ).text
+        dict_id5_item = {"name": title_item, "description": desc_item, "price": pr_item}
+        return dict_id5_item

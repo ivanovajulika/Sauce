@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 BTN_FILTER = (By.CLASS_NAME, "product_sort_container")
 ALL_NAMES = (By.CLASS_NAME, "inventory_item_name")
 ALL_ID = (By.XPATH, "//*[@id]//a//div/..")
+ALL_DESC = (By.CSS_SELECTOR, ".inventory_item_desc")
 ALL_PRICES = (By.CLASS_NAME, "inventory_item_price")
 ALL_IMG = (By.CSS_SELECTOR, "[class='inventory_item_img']:nth-last-child(1)")
 BTN_ADD = (By.CLASS_NAME, "btn_primary")
@@ -117,8 +118,8 @@ class InventoryPage(BasePage):
             list_all_img.append(img)
         assert list_all_img == list_required_img
 
+    # Добавляем все товары в корзину
     def add_all_items(self):
-
         add_cart = list(self.browser.find_elements(*BTN_ADD))
         for btn_add_cart in add_cart:
             btn_add_cart.click()
@@ -154,3 +155,39 @@ class InventoryPage(BasePage):
     def count_products_in_the_cart(self):
         elements = len(self.browser.find_elements(By.CSS_SELECTOR, ".cart_item"))
         assert elements == 6
+
+    # Создаем список из списков всех товаров
+    def all_items(self):
+
+        all_names = list(self.browser.find_elements(*ALL_NAMES))
+        list_all_names = [name.text for name in all_names]
+
+        all_desc = list(self.browser.find_elements(*ALL_DESC))
+        list_all_desc = [desc.text for desc in all_desc]
+
+        all_prices = list(self.browser.find_elements(*ALL_PRICES))
+        list_all_prices = [price.text for price in all_prices]
+
+        list_all = [
+            (list_all_names[i], list_all_desc[i], list_all_prices[i])
+            for i in range(len(all_names))
+        ]
+        return list_all
+
+    # Словарь название, описание и цена 5 товара
+    # И кладем его в корзину
+    def list_item(self):
+        title = self.browser.find_element(
+            By.CSS_SELECTOR, "#item_5_title_link > div"
+        ).text
+        desc = self.browser.find_element(
+            By.XPATH, '(//*[@class="inventory_item_desc"])[4]'
+        ).text
+        pr = self.browser.find_element(
+            By.XPATH, '(//*[@class="inventory_item_price"])[4]'
+        ).text
+        dict_id5 = {"name": title, "description": desc, "price": pr}
+        self.browser.find_element(
+            By.XPATH, '//*[@id="add-to-cart-sauce-labs-fleece-jacket"]'
+        ).click()
+        return dict_id5
