@@ -22,6 +22,21 @@ class InventoryPage(BasePage):
     def should_be_item_backpack(self):
         assert self.element_is_present(By.ID, "item_4_title_link"), "Element is absent"
 
+    def should_be_item_t_shirt(self):
+        assert self.element_is_present(By.ID, "#item_1_title_link"), "Element is absent"
+
+    def should_be_item_onesie(self):
+        assert self.element_is_present(By.ID, "#item_2_title_link"), "Element is absent"
+
+    def should_be_item_bike_light(self):
+        assert self.element_is_present(By.ID, "#item_0_title_link"), "Element is absent"
+
+    def should_be_item_fleece_jacket(self):
+        assert self.element_is_present(By.ID, "#item_5_title_link"), "Element is absent"
+
+    def should_be_item_t_shirt_red(self):
+        assert self.element_is_present(By.ID, "#item_3_title_link"), "Element is absent"
+
     # переход по клику на картинку
     def img_backpack(self):
         self.browser.find_element(By.CSS_SELECTOR, "#item_4_img_link > img").click()
@@ -36,6 +51,36 @@ class InventoryPage(BasePage):
             By.XPATH, "(//*[@class='inventory_item_price'])[1]"
         ).text
         assert price == "$29.99", "Wrong price"
+
+    def price_t_shirt(self):
+        price = self.browser.find_element(
+            By.XPATH, "(//*[@class='inventory_item_price'])[3]"
+        ).text
+        assert price == "$15.99", "Wrong price"
+
+    def price_onesie(self):
+        price = self.browser.find_element(
+            By.XPATH, "(//*[@class='inventory_item_price'])[5]"
+        ).text
+        assert price == "$7.99", "Wrong price"
+
+    def price_bike_light(self):
+        price = self.browser.find_element(
+            By.XPATH, "(//*[@class='inventory_item_price'])[2]"
+        ).text
+        assert price == "$9.99", "Wrong price"
+
+    def price_fleece_jacket(self):
+        price = self.browser.find_element(
+            By.XPATH, "(//*[@class='inventory_item_price'])[4]"
+        ).text
+        assert price == "$49.99", "Wrong price"
+
+    def price_t_shirt_red(self):
+        price = self.browser.find_element(
+            By.XPATH, "(//*[@class='inventory_item_price'])[6]"
+        ).text
+        assert price == "$15.99", "Wrong price"
 
     # проверка наличия фильтра
     def should_be_filter(self):

@@ -62,6 +62,59 @@ def test_link_to_price_backpack(browser):
 
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story(
+    "TC_002.02.02 | Products > Цена товара на странице 'Products' - Bolt T-Shirt"
+)
+@allure.severity("minor")
+def test_link_to_price_t_shirt(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_item_t_shirt()
+    page.price_t_shirt()
+
+
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story("TC_002.02.03 | Products > Цена товара на странице 'Products' - Onesie")
+@allure.severity("minor")
+def test_link_to_price_onesie(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_item_onesie()
+    page.price_onesie()
+
+
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
+    "TC_002.02.04 | Products > Цена товара на странице 'Products' - Bike Light"
+)
+@allure.severity("minor")
+def test_link_to_price_bike_light(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_item_bike_light()
+    page.price_bike_light()
+
+
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
+    "TC_002.02.05 | Products > Цена товара на странице 'Products' - Fleece Jacket"
+)
+@allure.severity("minor")
+def test_link_to_price_fleece_jacket(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_item_fleece_jacket()
+    page.price_fleece_jacket()
+
+
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
+    "TC_002.02.06 | Products > Цена товара на странице 'Products' - T-Shirt (Red)"
+)
+@allure.severity("minor")
+def test_link_to_price_t_shirt_red(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_item_t_shirt_red()
+    page.price_t_shirt_red()
+
+
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
     "TC_002.04.00 | Products > Ссылка на страницу товара из карточки товара 'Products'."
 )
 @allure.severity("critical")
