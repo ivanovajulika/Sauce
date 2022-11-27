@@ -162,6 +162,12 @@ def test_empty_cart_order(browser):
     page.finish_btn()
 
 
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story(
+    "TC_004.01.02 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - добавить 1 товар в корзину."
+)
+
+
 @allure.feature("US_010.00 | Filter")
 @allure.story("TC_010.00.01 | Filter > Проверка наличия фильтра на странице 'Products'")
 def test_filter_is_present(browser):
