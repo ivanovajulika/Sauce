@@ -166,12 +166,14 @@ def test_empty_cart_order(browser):
 @allure.story(
     "TC_004.01.02 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - добавить 1 товар в корзину."
 )
-def add_to_cart_random_item(browser):
+def test_add_to_cart_random_item(browser):
     page = InventoryPage(browser, link)
     # добавить в корзину 1 любой товар
     page.add_to_cart_random()
+    time.sleep(5)
     # проверить, что кнопка remove присутствует
     page.btn_remove_is_present_random()
+    time.sleep(5)
     # Создаем список из списков всех товаров положенных в корзину
     list_all_remove = page.get_all_items_remove()
     time.sleep(2)

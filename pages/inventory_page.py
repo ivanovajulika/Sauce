@@ -147,14 +147,15 @@ class InventoryPage(BasePage):
 
     # со страницы Products положить 1 любой товар в корзину
     def add_to_cart_random(self):
-        add_cart = list(self.browser.find_elements(*BTN_ADD))
-        for btn_add_cart in add_cart:
-            random.choice(btn_add_cart).click()
+        all_names = list(self.browser.find_elements(*BTN_ADD))
+        random_index = random.randrange(len(all_names))
+        add_cart_button = self.browser.find_elements(*BTN_ADD)[random_index]
+        add_cart_button.click()
 
     # проверить, что на странице Products присутствуют кнопки Remove
     def btn_remove_is_present_random(self):
         wait = WebDriverWait(self.browser, 10)
-        remove_btn = wait.until(EC.presence_of_element_located(*BTN_REMOVE))
+        remove_btn = wait.until(EC.presence_of_element_located(BTN_REMOVE))
         assert self.element_is_present(*BTN_REMOVE)
 
     # выбрать на странице Products все атрибуты товаров, добавленным в корзину
