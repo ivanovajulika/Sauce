@@ -4,7 +4,6 @@ from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
 from pages.checkout_page import Checkout_page
 from pages.inventory_page import ALL_ID, ALL_NAMES
-from selenium.webdriver.common.by import By
 import allure
 from allure_commons.types import AttachmentType
 import pytest
