@@ -1,6 +1,9 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import random
 
 # locators
 BTN_FILTER = (By.CLASS_NAME, "product_sort_container")
@@ -10,6 +13,16 @@ ALL_DESC = (By.CSS_SELECTOR, ".inventory_item_desc")
 ALL_PRICES = (By.CLASS_NAME, "inventory_item_price")
 ALL_IMG = (By.CSS_SELECTOR, "[class='inventory_item_img']:nth-last-child(1)")
 BTN_ADD = (By.CLASS_NAME, "btn_primary")
+BTN_REMOVE = (By.CSS_SELECTOR, "button[name^='remove-sauce']")
+ALL_NAMES_REMOVE = (By.XPATH, "//button[contains(text(),'Remove')]/../../div/a/div")
+ALL_DESC_REMOVE = (
+    By.XPATH,
+    "//button[contains(text(),'Remove')]/../../div/div[@class='inventory_item_desc']",
+)
+ALL_PRICES_REMOVE = (
+    By.XPATH,
+    "//button[contains(text(),'Remove')]/../../div/following-sibling::div/div",
+)
 
 
 class InventoryPage(BasePage):
@@ -131,6 +144,39 @@ class InventoryPage(BasePage):
     def count_products_in_the_cart(self):
         elements = len(self.browser.find_elements(By.CSS_SELECTOR, ".cart_item"))
         assert elements == 6
+
+    # со страницы Products положить 1 любой товар в корзину
+    def add_to_cart_random(self):
+        add_cart = list(self.browser.find_elements(*BTN_ADD))
+        for btn_add_cart in add_cart:
+            random.choice(btn_add_cart).click()
+
+    # проверить, что на странице Products присутствуют кнопки Remove
+    def btn_remove_is_present_random(self):
+        wait = WebDriverWait(self.browser, 10)
+        remove_btn = wait.until(EC.presence_of_element_located(*BTN_REMOVE))
+        assert self.element_is_present(*BTN_REMOVE)
+
+    # выбрать на странице Products все атрибуты товаров, добавленным в корзину
+    def get_all_items_remove(self):
+        all_names_remove = list(self.browser.find_elements(*ALL_NAMES_REMOVE))
+        list_all_names_remove = [name.text for name in all_names_remove]
+
+        all_desc_remove = list(self.browser.find_elements(*ALL_DESC_REMOVE))
+        list_all_desc_remove = [desc.text for desc in all_desc_remove]
+
+        all_prices_remove = list(self.browser.find_elements(*ALL_PRICES_REMOVE))
+        list_all_prices_remove = [price.text for price in all_prices_remove]
+
+        list_all_remove = [
+            (
+                list_all_names_remove[i],
+                list_all_desc_remove[i],
+                list_all_prices_remove[i],
+            )
+            for i in range(len(all_names_remove))
+        ]
+        return list_all_remove
 
     # Создаем список из списков всех товаров
     def all_items(self):
