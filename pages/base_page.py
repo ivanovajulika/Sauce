@@ -6,6 +6,8 @@ from selenium.webdriver.common.by import By
 CART_BADGE = (By.CLASS_NAME, "shopping_cart_badge")
 BTN_CART = (By.ID, "shopping_cart_container")
 BTN_SIDEBAR = (By.ID, "react-burger-menu-btn")
+MENU_ABOUT = (By.ID, "about_sidebar_link")
+MENU_LOGOUT = (By.ID, "logout_sidebar_link")
 MENU_RESET = (By.ID, "reset_sidebar_link")
 MENU_ALL_ITEMS = (By.ID, "inventory_sidebar_link")
 CROSS_BTN = (By.ID, "react-burger-cross-btn")
@@ -52,3 +54,23 @@ class BasePage:
     def return_to_inventory_page(self):
         self.browser.find_element(*BTN_SIDEBAR).click()
         self.browser.find_element(*MENU_ALL_ITEMS).click()
+        assert "inventory" in self.browser.current_url, "Wrong page"
+
+    def should_be_menu_sidebar(self):
+        self.browser.find_element(*BTN_SIDEBAR).click()
+        assert self.element_is_present(*MENU_ALL_ITEMS), "Element is absent"
+        assert self.element_is_present(*MENU_ABOUT), "Element is absent"
+        assert self.element_is_present(*MENU_LOGOUT), "Element is absent"
+        assert self.element_is_present(*MENU_RESET), "Element is absent"
+        self.browser.find_element(*CROSS_BTN).click()
+
+    def go_to_about(self):
+        self.browser.find_element(*BTN_SIDEBAR).click()
+        self.browser.find_element(*MENU_ABOUT).click()
+        assert "saucelabs.com" in self.browser.current_url, "Wrong page"
+        self.browser.back()
+
+    def go_to_logout(self):
+        self.browser.find_element(*BTN_SIDEBAR).click()
+        self.browser.find_element(*MENU_LOGOUT).click()
+        assert "saucedemo.com" in self.browser.current_url, "Wrong page"
