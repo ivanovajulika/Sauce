@@ -145,7 +145,10 @@ def test_add_remove_backpack(browser):
     page = CartPage(browser, link)
     page.empty_cart_page()
 
-
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story(
+    "TC_004.01.02 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - добавить 1 товар в корзину."
+)
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
 @allure.story("TC_004.03.01 | Your cart > Оформление заказа с пустой Корзиной.")
 @pytest.mark.xfail
