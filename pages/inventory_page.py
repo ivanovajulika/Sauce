@@ -64,41 +64,17 @@ class InventoryPage(BasePage):
         select = Select(self.browser.find_element(By.TAG_NAME, "select"))
         select.select_by_value("hilo")
 
-    # проверка сортировки списка названий товаров в реверсивном порядке
-    def get_all_names_and_sort_reverse_alfabet(self):
+    # получить все наименования товаров
+    def get_all_names(self):
         all_names = list(self.browser.find_elements(*ALL_NAMES))
-        list_all_names = []
-        for count, name in enumerate(all_names):
-            name = all_names[count].text
-            list_all_names.append(name)
-        assert sorted(list_all_names, reverse=True) == list_all_names
+        list_all_names = [name.text for name in all_names]
+        return list_all_names
 
-    #  проверка сортировки списка названий товаров в алфавитном порядке
-    def get_all_names_and_sort_alfabet(self):
-        all_names = list(self.browser.find_elements(*ALL_NAMES))
-        list_all_names = []
-        for count, name in enumerate(all_names):
-            name = all_names[count].text
-            list_all_names.append(name)
-        assert sorted(list_all_names, reverse=False) == list_all_names
-
-    # проверка сортировки по цене товара low to hi
-    def get_all_prices_and_sort_low_to_hi(self):
+    # получить все цены товара (цена товара без знака $)
+    def get_all_prices(self):
         all_prices = list(self.browser.find_elements(*ALL_PRICES))
-        list_all_prices = []
-        for count, name in enumerate(all_prices):
-            name = all_prices[count].text
-            list_all_prices.append(float(name[1:]))
-        assert sorted(list_all_prices, reverse=False) == list_all_prices
-
-    # проверка сортировки по цене товара в hi to low порядке
-    def get_all_prices_and_sort_hi_to_low(self):
-        all_prices = list(self.browser.find_elements(*ALL_PRICES))
-        list_all_prices = []
-        for count, name in enumerate(all_prices):
-            name = all_prices[count].text
-            list_all_prices.append(float(name[1:]))
-        assert sorted(list_all_prices, reverse=True) == list_all_prices
+        list_all_prices = [float(price.text[1:]) for price in all_prices]
+        return list_all_prices
 
     # проверка наличия фотографий всех товаров
     def should_be_img_all_item(self):

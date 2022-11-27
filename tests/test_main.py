@@ -3,8 +3,8 @@ from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
 from pages.checkout_page import Checkout_page
-from pages.inventory_page import ALL_ID
-from pages.inventory_page import ALL_NAMES
+from pages.inventory_page import ALL_ID, ALL_NAMES
+from selenium.webdriver.common.by import By
 import allure
 from allure_commons.types import AttachmentType
 import pytest
@@ -103,8 +103,10 @@ def test_link_go_from_img(browser):
     "TC_003.00.02 | Inventory item > Добавление товара в корзину на странице 'Inventory item'"
 )
 def test_add_all_products_by_one(browser):
-    all_names = browser.find_elements(*ALL_NAMES)
-    count = len(all_names)
+    link = "https://www.saucedemo.com/inventory.html"
+    page = InventoryPage(browser, link)
+    list_all_names = page.get_all_names()
+    count = len(list_all_names)
     for index in range(count):
         name = browser.find_elements(*ALL_NAMES)[index]
         name.click()
@@ -178,8 +180,10 @@ def test_sorted_z_to_a(browser):
     page.click_filter()
     # выбрать в дропдаун меню Z-A
     page.choice_z_a()
+    # создать список из всех наименований товаров
+    list_all_names = page.get_all_names()
     # проверить, что все наименования отсортированы.
-    page.get_all_names_and_sort_reverse_alfabet()
+    assert sorted(list_all_names, reverse=True) == list_all_names
 
 
 @allure.feature("US_010.00 | Filter")
@@ -191,8 +195,10 @@ def test_sorted_a_to_z(browser):
     page.click_filter()
     # выбрать в дропдаун меню Z-A
     page.choice_a_z()
+    # создать список из всех наименований товаров
+    list_all_names = page.get_all_names()
     # проверить, что все наименования отсортированы.
-    page.get_all_names_and_sort_alfabet()
+    assert sorted(list_all_names, reverse=False) == list_all_names
 
 
 @allure.feature("US_010.00 | Filter")
@@ -206,8 +212,10 @@ def test_sorted_low_to_hi(browser):
     page.click_filter()
     # выбрать в дропдаун меню Price (low to high)
     page.choice_price_lo_to_hi()
+    # создать список из всех цен товаров
+    list_all_prices = page.get_all_prices()
     # проверить, что все наименования отсортированы.
-    page.get_all_prices_and_sort_low_to_hi()
+    assert sorted(list_all_prices, reverse=False) == list_all_prices
 
 
 @allure.feature("US_010.00 | Filter")
@@ -221,5 +229,7 @@ def test_sorted_hi_to_low(browser):
     page.click_filter()
     # выбрать в дропдаун меню Price (high to low)
     page.choice_price_hi_to_lo()
+    # создать список из всех цен товаров
+    list_all_prices = page.get_all_prices()
     # проверить, что все наименования отсортированы.
-    page.get_all_prices_and_sort_hi_to_low()
+    assert sorted(list_all_prices, reverse=True) == list_all_prices
