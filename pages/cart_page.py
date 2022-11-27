@@ -4,11 +4,12 @@ from selenium.webdriver.common.by import By
 
 # locators
 BTN_CHECKOUT = (By.ID, "checkout")
+BTN_CONTINUE = (By.ID, "continue-shopping")
 
 
 class CartPage(InventoryPage):
     def user_can_go_continue_shopping(self):
-        self.browser.find_element(By.XPATH, '//*[@id="continue-shopping"]').click()
+        self.browser.find_element(*BTN_CONTINUE).click()
 
     def checkout_btn(self):
         self.browser.find_element(*BTN_CHECKOUT).click()
