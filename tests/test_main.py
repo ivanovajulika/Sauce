@@ -11,32 +11,6 @@ from allure_commons.types import AttachmentType
 link = "https://www.saucedemo.com/inventory.html"
 
 
-# это пример теста
-@allure.feature("Sauce Labs")
-@allure.story("ТС_001_01 это пример теста")
-@allure.severity("blocker")
-def test_user_can_go_cart(browser):
-    page = InventoryPage(browser, link)
-    page.element_cart()
-
-
-# это пример теста
-@allure.feature("Sauce Labs")
-@allure.story("ТС_001_02 это пример теста")
-@allure.severity("critical")
-def test_user_can_go_continue_shopping(browser):
-    page = InventoryPage(browser, link)
-    page.go_to_cart()
-    page = CartPage(browser, link)
-    page.user_can_go_continue_shopping()
-    with allure.step("Делаем скриншот"):
-        allure.attach(
-            browser.get_screenshot_as_png(),
-            name="Screenshot",
-            attachment_type=AttachmentType.PNG,
-        )
-
-
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story("TC_002.01.01 | Products > Количество товаров на странице 'Products'")
 def test_count_products(browser):
