@@ -23,19 +23,19 @@ class InventoryPage(BasePage):
         assert self.element_is_present(By.ID, "item_4_title_link"), "Element is absent"
 
     def should_be_item_t_shirt(self):
-        assert self.element_is_present(By.ID, "#item_1_title_link"), "Element is absent"
+        assert self.element_is_present(By.ID, "item_1_title_link"), "Element is absent"
 
     def should_be_item_onesie(self):
-        assert self.element_is_present(By.ID, "#item_2_title_link"), "Element is absent"
+        assert self.element_is_present(By.ID, "item_2_title_link"), "Element is absent"
 
     def should_be_item_bike_light(self):
-        assert self.element_is_present(By.ID, "#item_0_title_link"), "Element is absent"
+        assert self.element_is_present(By.ID, "item_0_title_link"), "Element is absent"
 
     def should_be_item_fleece_jacket(self):
-        assert self.element_is_present(By.ID, "#item_5_title_link"), "Element is absent"
+        assert self.element_is_present(By.ID, "item_5_title_link"), "Element is absent"
 
     def should_be_item_t_shirt_red(self):
-        assert self.element_is_present(By.ID, "#item_3_title_link"), "Element is absent"
+        assert self.element_is_present(By.ID, "item_3_title_link"), "Element is absent"
 
     # переход по клику на картинку
     def img_backpack(self):
