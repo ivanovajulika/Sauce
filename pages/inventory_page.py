@@ -24,6 +24,7 @@ ALL_PRICES_REMOVE = (
     "//button[contains(text(),'Remove')]/../../div/following-sibling::div/div",
 )
 
+
 class InventoryPage(BasePage):
     # на странице "Products" кликнуть по 'Backpack'
     # переход на страницу 'Backpack'
@@ -188,6 +189,7 @@ class InventoryPage(BasePage):
     def count_products_in_the_cart(self):
         elements = len(self.browser.find_elements(By.CSS_SELECTOR, ".cart_item"))
         assert elements == 6
+
     # со страницы Products положить 1 любой товар в корзину
     def add_to_cart_random(self):
         all_names = list(self.browser.find_elements(*BTN_ADD))
@@ -221,6 +223,7 @@ class InventoryPage(BasePage):
             for i in range(len(all_names_remove))
         ]
         return list_all_remove
+
     # Создаем список из списков всех товаров
     def all_items(self):
 
