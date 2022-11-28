@@ -3,6 +3,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
+
 CART_BADGE = (By.CLASS_NAME, "shopping_cart_badge")
 BTN_CART = (By.ID, "shopping_cart_container")
 BTN_SIDEBAR = (By.ID, "react-burger-menu-btn")
@@ -39,8 +40,9 @@ class BasePage:
     # получить значение счетчика на кнопке Корзина и сравнить с ''
     # счетчик пуст
     def empty_cart_counter(self):
-        text = self.browser.find_element(*CART_BADGE).text
-        assert text == ""
+        # text = self.browser.find_element(*CART_BADGE).text
+        # assert text == ""
+        assert not self.element_is_present(*CART_BADGE)
 
     def element_cart(self):
         self.browser.find_element(*BTN_CART)
@@ -69,7 +71,6 @@ class BasePage:
         self.browser.find_element(*BTN_SIDEBAR).click()
         self.browser.find_element(*MENU_ABOUT).click()
         assert "saucelabs.com" in self.browser.current_url, "Wrong page"
-        self.browser.back()
 
     def go_to_logout(self):
         self.browser.find_element(*BTN_SIDEBAR).click()

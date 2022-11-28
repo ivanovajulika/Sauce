@@ -1,6 +1,5 @@
 import pytest
 import allure
-import time
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
@@ -163,7 +162,7 @@ def test_add_remove_backpack(browser):
     page.cart_counter(quantity="1")
     page.go_to_cart()
     page = CartPage(browser, link)
-    page.cart_page_counter()
+    page.cart_page_counter(quantity="1")
     page.return_to_item_page()
     page = ItemPage_4(browser, link)
     page.remove_from_cart()
@@ -243,7 +242,7 @@ def test_add_to_cart_btn_add(browser):
 def test_empty_cart_order(browser):
     # Негативный тест-кейс - не должно быть перехода на checkout-complete!
     page = InventoryPage(browser, link)
-    # page.cart_counter(quantity="")
+    page.empty_cart_counter()
     page.go_to_cart()
     page = CartPage(browser, link)
     page.empty_cart_page()
