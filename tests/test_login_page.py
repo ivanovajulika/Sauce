@@ -117,3 +117,17 @@ def test_username_with_rusletters(browser, username):
         error_message.text
         == "Epic sadface: Username and password do not match any user in this service"
     ), "Wrong error message"
+
+
+@allure.feature("US_001.00 | Login page > Страница авторизации.")
+@allure.story(
+    "TC_001.00.05 | Login page > Авторизация при вводе в поле 'Username' валидного пароля"
+)
+@pytest.mark.parametrize("username", ["secret_sauce"])
+def test_username_is_password(browser, username):
+    assert "inventory" not in browser.current_url, "Wrong page"
+    error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
+    assert (
+        error_message.text
+        == "Epic sadface: Username and password do not match any user in this service"
+    ), "Wrong error message"
