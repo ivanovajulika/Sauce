@@ -94,14 +94,13 @@ def test_navigating_sidebar(browser):
     page.return_to_inventory_page()
 
 
-# @allure.feature("US_011.00 | Sidebar")
-# @allure.story(
-#     "TC_011.02.02 | Sidebar > Переход со страницы 'Products' на страницу 'https://saucelabs.com/' по пункту меню 'About'"
-# )
-# def test_navigating_sidebar_about(browser):
-#     page = InventoryPage(browser, link)
-#     page.go_to_about()
-#
+@allure.feature("US_011.00 | Sidebar")
+@allure.story(
+    "TC_011.02.02 | Sidebar > Переход со страницы 'Products' на страницу 'https://saucelabs.com/' по пункту меню 'About'"
+)
+def test_navigating_sidebar_about(browser):
+    page = InventoryPage(browser, link)
+    page.go_to_about()
 
 
 @allure.feature("US_011.00 | Sidebar")
@@ -115,12 +114,12 @@ def test_sidebar_reset_cart_inventory(browser):
     page.go_to_cart()
     time.sleep(5)
     page = CartPage(browser, link)
-    page.cart_page_counter()
+    page.cart_page_counter(quantity="1")
     page.user_can_go_continue_shopping()
     time.sleep(5)
     page = InventoryPage(browser, link)
     page.reset_cart()
-    # page.empty_cart_counter()
+    page.empty_cart_counter()
     page.go_to_cart()
     time.sleep(5)
     page = CartPage(browser, link)
@@ -137,11 +136,11 @@ def test_sidebar_reset_cart_yourcart(browser):
     page.cart_counter(quantity="1")
     page.go_to_cart()
     page = CartPage(browser, link)
-    page.cart_page_counter()
+    page.cart_page_counter(quantity="1")
     page.reset_cart()
-    # page.empty_cart_page()
-    # page.refresh()
-    # page.cart_page_counter()
+    page.empty_cart_counter()
+    page.browser.refresh()
+    page.empty_cart_page()
 
 
 @allure.feature("US_011.00 | Sidebar")

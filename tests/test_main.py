@@ -142,10 +142,11 @@ def test_add_all_products_by_one(browser):
         page.cart_counter(quantity="1")
         page.go_to_cart()
         page = CartPage(browser, link)
-        page.cart_page_counter()
+        page.cart_page_counter(quantity="1")
         page.reset_cart()
         browser.implicitly_wait(5)
         page.return_to_inventory_page()
+        browser.implicitly_wait(5)
 
 
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
@@ -161,7 +162,7 @@ def test_add_remove_backpack(browser):
     page.cart_counter(quantity="1")
     page.go_to_cart()
     page = CartPage(browser, link)
-    page.cart_page_counter()
+    page.cart_page_counter(quantity="1")
     page.return_to_item_page()
     page = ItemPage_4(browser, link)
     page.remove_from_cart()
@@ -241,7 +242,7 @@ def test_add_to_cart_btn_add(browser):
 def test_empty_cart_order(browser):
     # Негативный тест-кейс - не должно быть перехода на checkout-complete!
     page = InventoryPage(browser, link)
-    # page.cart_counter(quantity="")
+    page.empty_cart_counter()
     page.go_to_cart()
     page = CartPage(browser, link)
     page.empty_cart_page()
