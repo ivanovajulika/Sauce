@@ -1,6 +1,7 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+import random
 
 # locators
 BTN_FILTER = (By.CLASS_NAME, "product_sort_container")
@@ -10,7 +11,16 @@ ALL_DESC = (By.CSS_SELECTOR, ".inventory_item_desc")
 ALL_PRICES = (By.CLASS_NAME, "inventory_item_price")
 ALL_IMG = (By.CSS_SELECTOR, "[class='inventory_item_img']:nth-last-child(1)")
 BTN_ADD = (By.CLASS_NAME, "btn_primary")
-
+BTN_REMOVE = (By.CSS_SELECTOR, "button[name^='remove-sauce']")
+ALL_NAMES_REMOVE = (By.XPATH, "//button[contains(text(),'Remove')]/../../div/a/div")
+ALL_DESC_REMOVE = (
+    By.XPATH,
+    "//button[contains(text(),'Remove')]/../../div/div[@class='inventory_item_desc']",
+)
+ALL_PRICES_REMOVE = (
+    By.XPATH,
+    "//button[contains(text(),'Remove')]/../../div/following-sibling::div/div",
+)
 
 class InventoryPage(BasePage):
     # на странице "Products" кликнуть по 'Backpack'
