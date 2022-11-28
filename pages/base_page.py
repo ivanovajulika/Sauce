@@ -1,5 +1,5 @@
-import time
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
@@ -48,8 +48,9 @@ class BasePage:
     def reset_cart(self):
         self.browser.find_element(*BTN_SIDEBAR).click()
         self.browser.find_element(*MENU_RESET).click()
-        time.sleep(3)
-        self.browser.find_element(*CROSS_BTN).click()
+        wait = WebDriverWait(self.browser, 10)
+        cross_btn = wait.until(EC.presence_of_element_located(CROSS_BTN))
+        cross_btn.click()
 
     def return_to_inventory_page(self):
         self.browser.find_element(*BTN_SIDEBAR).click()
