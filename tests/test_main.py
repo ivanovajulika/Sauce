@@ -1,5 +1,6 @@
 import pytest
 import allure
+import time
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
@@ -142,10 +143,11 @@ def test_add_all_products_by_one(browser):
         page.cart_counter(quantity="1")
         page.go_to_cart()
         page = CartPage(browser, link)
-        page.cart_page_counter()
+        page.cart_page_counter(quantity="1")
         page.reset_cart()
         browser.implicitly_wait(5)
         page.return_to_inventory_page()
+        browser.implicitly_wait(5)
 
 
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
