@@ -176,7 +176,39 @@ class InventoryPage(BasePage):
     def count_products_in_the_cart(self):
         elements = len(self.browser.find_elements(By.CSS_SELECTOR, ".cart_item"))
         assert elements == 6
+    # со страницы Products положить 1 любой товар в корзину
+    def add_to_cart_random(self):
+        all_names = list(self.browser.find_elements(*BTN_ADD))
+        random_index = random.randrange(len(all_names))
+        add_cart_button = self.browser.find_elements(*BTN_ADD)[random_index]
+        add_cart_button.click()
 
+    # проверить, что на странице Products присутствуют кнопки Remove
+    def btn_remove_is_present_random(self):
+        wait = WebDriverWait(self.browser, 10)
+        remove_btn = wait.until(EC.presence_of_element_located(BTN_REMOVE))
+        assert self.element_is_present(*BTN_REMOVE)
+
+    # выбрать на странице Products все атрибуты товаров, добавленным в корзину
+    def get_all_items_remove(self):
+        all_names_remove = list(self.browser.find_elements(*ALL_NAMES_REMOVE))
+        list_all_names_remove = [name.text for name in all_names_remove]
+
+        all_desc_remove = list(self.browser.find_elements(*ALL_DESC_REMOVE))
+        list_all_desc_remove = [desc.text for desc in all_desc_remove]
+
+        all_prices_remove = list(self.browser.find_elements(*ALL_PRICES_REMOVE))
+        list_all_prices_remove = [price.text for price in all_prices_remove]
+
+        list_all_remove = [
+            (
+                list_all_names_remove[i],
+                list_all_desc_remove[i],
+                list_all_prices_remove[i],
+            )
+            for i in range(len(all_names_remove))
+        ]
+        return list_all_remove
     # Создаем список из списков всех товаров
     def all_items(self):
 
