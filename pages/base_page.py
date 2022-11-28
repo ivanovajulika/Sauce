@@ -62,9 +62,13 @@ class BasePage:
     def should_be_menu_sidebar(self):
         self.browser.find_element(*BTN_SIDEBAR).click()
         assert self.element_is_present(*MENU_ALL_ITEMS), "Element is absent"
+        self.browser.implicitly_wait(10)
         assert self.element_is_present(*MENU_ABOUT), "Element is absent"
+        self.browser.implicitly_wait(10)
         assert self.element_is_present(*MENU_LOGOUT), "Element is absent"
+        self.browser.implicitly_wait(10)
         assert self.element_is_present(*MENU_RESET), "Element is absent"
+        self.browser.implicitly_wait(10)
         self.browser.find_element(*CROSS_BTN).click()
 
     def go_to_about(self):
