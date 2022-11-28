@@ -188,11 +188,35 @@ def test_conformity_item(browser):
     # Создаем словарь из значений товара в корзине
     dict_id5_item = page.list_item_id5()
     assert dict_id5_item == dict_id5
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story(
+    "TC_004.01.02 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - добавить 1 товар в корзину."
+)
+def test_add_to_cart_random_item(browser):
+    page = InventoryPage(browser, link)
+    # добавить в корзину 1 любой товар
+    page.add_to_cart_random()
+    time.sleep(5)
+    # проверить, что кнопка remove присутствует
+    page.btn_remove_is_present_random()
+    time.sleep(5)
+    # Создаем список из списков всех товаров положенных в корзину
+    list_all_remove = page.get_all_items_remove()
+    time.sleep(2)
+    # проверяем счетчик на кнопке Корзина
+    page.cart_counter(quantity="1")
+    # перейти в корзину
+    page.go_to_cart()
+    # создаем экземпляр страницы корзины
+    page = CartPage(browser, link)
+    # Создаем список из списков всех товаров в корзине
+    list_all_items_in_cart = page.all_items()
+    assert list_all_remove == list_all_items_in_cart
 
 
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
 @allure.story(
-    "TC_004-01-04 | Your cart >  проверить количество выбранного товара в корзине."
+    "TC_004.01.04 | Your cart >  проверить количество выбранного товара в корзине."
 )
 def test_add_to_cart_btn_add(browser):
     page = InventoryPage(browser, link)
@@ -230,7 +254,7 @@ def test_empty_cart_order(browser):
 
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
 @allure.story(
-    "TC_004-04-00 | Your cart > Положить в корзину все товары и проверить в корзине соответствие названия, описания, цены."
+    "TC_004.04.00 | Your cart > Положить в корзину все товары и проверить в корзине соответствие названия, описания, цены."
 )
 def test_conform_all_items(browser):
     # Создаем экземпляр страницы с товарами
