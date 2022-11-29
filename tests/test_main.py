@@ -88,6 +88,18 @@ def test_link_to_price_t_shirt_red(browser):
 
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story(
+    "TC_002.03.02 | Products > Описание товара на странице 'Products' - Bolt T-Shirt"
+)
+@allure.severity("minor")
+@pytest.mark.xfail
+def test_correct_description_t_shirt(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_description_t_shirt()
+    page.spell_check_t_shirt()
+
+
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
     "TC_002.04.00 | Products > Ссылка на страницу товара из карточки товара 'Products'."
 )
 @allure.severity("critical")

@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from enchant.checker import SpellChecker
 import random
 
 # locators
@@ -49,6 +50,12 @@ class InventoryPage(BasePage):
 
     def should_be_item_t_shirt_red(self):
         assert self.element_is_present(By.ID, "item_3_title_link"), "Element is absent"
+
+    # проверка наличия описания
+    def should_be_description_t_shirt(self):
+        assert self.element_is_present(
+            By.XPATH, "(//*[@class='inventory_item_desc'])[3]"
+        ), "Element is absent"
 
     # переход по клику на картинку
     def img_backpack(self):
@@ -128,6 +135,12 @@ class InventoryPage(BasePage):
         all_names = list(self.browser.find_elements(*ALL_NAMES))
         list_all_names = [name.text for name in all_names]
         return list_all_names
+
+    # получить все описания товаров
+    def get_all_desc(self):
+        all_desc = list(self.browser.find_elements(*ALL_DESC))
+        list_all_desc = [desc.text for desc in all_desc]
+        return list_all_desc
 
     # получить все цены товара (цена товара без знака $)
     def get_all_prices(self):
@@ -259,3 +272,12 @@ class InventoryPage(BasePage):
             By.XPATH, '//*[@id="add-to-cart-sauce-labs-fleece-jacket"]'
         ).click()
         return dict_id5
+
+    def spell_check_t_shirt(self):
+        checker = SpellChecker("en_US")
+        desc = self.browser.find_element(
+            By.XPATH, "(//*[@class='inventory_item_desc'])[3]"
+        )
+        checker.set_text(desc.text)
+        possible_error = [i.word for i in checker]
+        assert possible_error == [], f"Possibly a typo: {possible_error}"
