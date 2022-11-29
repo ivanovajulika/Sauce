@@ -17,6 +17,7 @@ BTN_TWITTER = (By.CSS_SELECTOR, ".social_twitter a")
 BTN_FACEBOOK = (By.CSS_SELECTOR, ".social_facebook a")
 BTN_LINKEDIN = (By.CSS_SELECTOR, ".social_linkedin a")
 
+
 class BasePage:
     def __init__(self, browser, link):
         self.browser = browser
@@ -93,3 +94,29 @@ class BasePage:
             "cursor"
         )
         assert cssValue == "pointer"
+
+    def should_be_footer(self):
+        # Наличие серого фона
+        self.element_is_present()
+        # наличие рисунка робот
+        self.element_is_present()
+        # наличие Twitter
+        self.element_is_present(*BTN_TWITTER)
+        # переход на  Twitter
+        twitter = self.browser.find_element(*BTN_TWITTER)
+        twitter.click()
+        assert "twitter.com" in self.browser.current_url, "Wrong page"
+        # наличие Facebook
+        self.element_is_present(*BTN_FACEBOOK)
+        # переход на  Facebook
+        facebook = self.browser.find_element(*BTN_FACEBOOK)
+        facebook.click()
+        assert "facebook.com" in self.browser.current_url, "Wrong page"
+        # наличие Linkedin
+        self.element_is_present(*BTN_LINKEDIN)
+        # переход на  Linkedin
+        linkedin = self.browser.find_element(*BTN_LINKEDIN)
+        linkedin.click()
+        assert "linkedin.com.com" in self.browser.current_url, "Wrong page"
+        # наличие копирайта
+        # наличие Privacy Policy
