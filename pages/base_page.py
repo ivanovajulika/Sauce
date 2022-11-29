@@ -16,8 +16,9 @@ LOGO = (By.CLASS_NAME, "app_logo")
 BTN_TWITTER = (By.CSS_SELECTOR, ".social_twitter a")
 BTN_FACEBOOK = (By.CSS_SELECTOR, ".social_facebook a")
 BTN_LINKEDIN = (By.CSS_SELECTOR, ".social_linkedin a")
-FOOTER = (By.TAG_NAME, 'footer')
-IMG_ROBOT = (By.CLASS_NAME, 'footer_robot')
+FOOTER = (By.TAG_NAME, "footer")
+IMG_ROBOT = (By.CLASS_NAME, "footer_robot")
+COPY = (By.CLASS_NAME, 'footer_copy')
 
 class BasePage:
     def __init__(self, browser, link):
@@ -99,28 +100,35 @@ class BasePage:
     def should_be_footer(self):
         # Наличие серого фона
         assert self.element_is_present(*FOOTER), "Element is absent"
-        background_color = self.browser.find_element(*FOOTER).value_of_css_property('background-color')
-        print(background_color)
-        assert background_color == '', 'Wrong background-color'
+        background_color = self.browser.find_element(*FOOTER).value_of_css_property(
+            "background-color"
+        )
+        assert background_color == "rgba(71, 76, 85, 1)", "Wrong background-color"
         # наличие рисунка робот
         assert self.element_is_present(*IMG_ROBOT), "Element is absent"
         # наличие Twitter
+
+        # self.browser.switch_to.window(first_window)
+        # наличие копирайта  # наличие Privacy Policy
+        assert self.element_is_present(*COPY), "Element is absent"
         self.element_is_present(*BTN_TWITTER)
         # переход на  Twitter
-        twitter = self.browser.find_element(*BTN_TWITTER)
-        twitter.click()
-        assert "twitter.com" in self.browser.current_url, "Wrong page"
+        # twitter = self.browser.find_element(*BTN_TWITTER)
+        # twitter.click()
+        # assert "twitter.com" in self.browser.current_url, "Wrong page"
         # наличие Facebook
         self.element_is_present(*BTN_FACEBOOK)
         # переход на  Facebook
-        facebook = self.browser.find_element(*BTN_FACEBOOK)
-        facebook.click()
-        assert "facebook.com" in self.browser.current_url, "Wrong page"
+        # facebook = self.browser.find_element(*BTN_FACEBOOK)
+        # facebook.click()
+        # assert "facebook.com" in self.browser.current_url, "Wrong page"
         # наличие Linkedin
         self.element_is_present(*BTN_LINKEDIN)
         # переход на  Linkedin
         linkedin = self.browser.find_element(*BTN_LINKEDIN)
         linkedin.click()
-        assert "linkedin.com.com" in self.browser.current_url, "Wrong page"
-        # наличие копирайта
-        # наличие Privacy Policy
+        # linkedin_window = self.browser.window_handles[1]
+        # first_window = self.browser.window_handles[0]
+        # self.browser.switch_to.window(linkedin_window)
+        assert "linkedin.com" in self.browser.current_url, "Wrong page"
+
