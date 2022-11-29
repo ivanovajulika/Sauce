@@ -144,9 +144,7 @@ def test_add_all_products_by_one(browser):
         page = CartPage(browser, link)
         page.cart_page_counter(quantity="1")
         page.reset_cart()
-        browser.implicitly_wait(10)
         page.return_to_inventory_page()
-        browser.implicitly_wait(10)
 
 
 @allure.feature("US_003.00 | Inventory item > Страница товара.")

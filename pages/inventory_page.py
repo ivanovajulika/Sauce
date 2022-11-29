@@ -199,8 +199,8 @@ class InventoryPage(BasePage):
 
     # проверить, что на странице Products присутствуют кнопки Remove
     def btn_remove_is_present_random(self):
-        wait = WebDriverWait(self.browser, 10)
-        remove_btn = wait.until(EC.presence_of_element_located(BTN_REMOVE))
+        wait = WebDriverWait(self.browser, 15)
+        btn_remove = wait.until(EC.element_to_be_clickable(BTN_REMOVE))
         assert self.element_is_present(*BTN_REMOVE)
 
     # выбрать на странице Products все атрибуты товаров, добавленным в корзину
