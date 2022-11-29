@@ -18,7 +18,8 @@ BTN_FACEBOOK = (By.CSS_SELECTOR, ".social_facebook a")
 BTN_LINKEDIN = (By.CSS_SELECTOR, ".social_linkedin a")
 FOOTER = (By.TAG_NAME, "footer")
 IMG_ROBOT = (By.CLASS_NAME, "footer_robot")
-COPY = (By.CLASS_NAME, 'footer_copy')
+COPY = (By.CLASS_NAME, "footer_copy")
+
 
 class BasePage:
     def __init__(self, browser, link):
@@ -104,31 +105,50 @@ class BasePage:
             "background-color"
         )
         assert background_color == "rgba(71, 76, 85, 1)", "Wrong background-color"
+
         # наличие рисунка робот
         assert self.element_is_present(*IMG_ROBOT), "Element is absent"
         # наличие Twitter
+        assert self.element_is_present(*BTN_TWITTER), "Element is absent"
+        # наличие Facebook
+        assert self.element_is_present(*BTN_FACEBOOK), "Element is absent"
+        # наличие Linkedin
+        assert self.element_is_present(*BTN_LINKEDIN), "Element is absent"
 
-        # self.browser.switch_to.window(first_window)
         # наличие копирайта  # наличие Privacy Policy
         assert self.element_is_present(*COPY), "Element is absent"
         self.element_is_present(*BTN_TWITTER)
-        # переход на  Twitter
-        # twitter = self.browser.find_element(*BTN_TWITTER)
-        # twitter.click()
-        # assert "twitter.com" in self.browser.current_url, "Wrong page"
-        # наличие Facebook
-        self.element_is_present(*BTN_FACEBOOK)
-        # переход на  Facebook
-        # facebook = self.browser.find_element(*BTN_FACEBOOK)
-        # facebook.click()
-        # assert "facebook.com" in self.browser.current_url, "Wrong page"
-        # наличие Linkedin
-        self.element_is_present(*BTN_LINKEDIN)
+        copy_text = self.browser.find_element(*COPY).text
+        assert (
+            copy_text
+            in "© 2022 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy"
+        ), "Wrong text"
+
         # переход на  Linkedin
         linkedin = self.browser.find_element(*BTN_LINKEDIN)
         linkedin.click()
-        # linkedin_window = self.browser.window_handles[1]
-        # first_window = self.browser.window_handles[0]
-        # self.browser.switch_to.window(linkedin_window)
-        assert "linkedin.com" in self.browser.current_url, "Wrong page"
+        linkedin_window = self.browser.window_handles[1]
+        first_window = self.browser.window_handles[0]
+        self.browser.switch_to.window(linkedin_window)
+        self.browser.implicitly_wait(10)
+        assert "linkedin" in self.browser.current_url, "Wrong page"
+        self.browser.switch_to.window(first_window)
 
+        # САЙТЫ ЗАБЛОКИРОВАНЫ
+        # # переход на  Twitter
+        # twitter = self.browser.find_element(*BTN_TWITTER)
+        # twitter.click()
+        # twitter_window = self.browser.window_handles[1]
+        # first_window = self.browser.window_handles[0]
+        # self.browser.switch_to.window(twitter_window)
+        # assert "twitter.com" in self.browser.current_url, "Wrong page"
+        # self.browser.switch_to.window(first_window)
+        #
+        # # переход на Facebook
+        # facebook = self.browser.find_element(*BTN_FACEBOOK)
+        # facebook.click()
+        # facebook_window = self.browser.window_handles[1]
+        # first_window = self.browser.window_handles[0]
+        # self.browser.switch_to.window(facebook_window)
+        # assert "facebook.com" in self.browser.current_url, "Wrong page"
+        # self.browser.switch_to.window(first_window)
