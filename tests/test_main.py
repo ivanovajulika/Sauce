@@ -270,6 +270,49 @@ def test_conform_all_items(browser):
     assert list_all_items == list_all_items_in_cart
 
 
+@allure.feature("US_009.00 | Footer")
+@allure.story(
+    "TC_009.00.01 | Footer > Наличие футера и работа его элементов на странице 'Products'."
+)
+def test_footer_inventory(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_footer()
+
+
+@allure.feature("US_009.00 | Footer")
+@allure.story(
+    "TC_009.00.02 | Footer > Наличие футера и работа его элементов на странице товара 'Inventory item'."
+)
+def test_footer_inventory_item(browser):
+    page = InventoryPage(browser, link)
+    page.item_backpack()
+    page = ItemPage_4(browser, link)
+    page.should_be_footer()
+
+
+@allure.feature("US_009.00 | Footer")
+@allure.story(
+    "TC_009.00.03 | Footer > Наличие футера и работа его элементов на странице товара 'Your cart'."
+)
+def test_footer_cart_page(browser):
+    page = InventoryPage(browser, link)
+    page.go_to_cart()
+    page = CartPage(browser, link)
+    page.should_be_footer()
+
+
+@allure.feature("US_009.00 | Footer")
+@allure.story(
+    "TC_009.00.04 | Footer > Наличие футера и работа его элементов на странице товара 'Checkout: your information."
+)
+def test_footer_your_information(browser):
+    page = InventoryPage(browser, link)
+    page.go_to_cart()
+    page = CartPage(browser, link)
+    page.checkout_btn()
+    page = Checkout_page(browser, link)
+    page.should_be_footer()
+
 @allure.feature("US_010.00 | Filter")
 @allure.story("TC_010.00.01 | Filter > Проверка наличия фильтра на странице 'Products'")
 def test_filter_is_present(browser):
