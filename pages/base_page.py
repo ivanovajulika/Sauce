@@ -13,7 +13,9 @@ MENU_RESET = (By.ID, "reset_sidebar_link")
 MENU_ALL_ITEMS = (By.ID, "inventory_sidebar_link")
 CROSS_BTN = (By.ID, "react-burger-cross-btn")
 LOGO = (By.CLASS_NAME, "app_logo")
-
+BTN_TWITTER = (By.CSS_SELECTOR, ".social_twitter a")
+BTN_FACEBOOK = (By.CSS_SELECTOR, ".social_facebook a")
+BTN_LINKEDIN = (By.CSS_SELECTOR, ".social_linkedin a")
 
 class BasePage:
     def __init__(self, browser, link):
