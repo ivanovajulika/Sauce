@@ -92,6 +92,10 @@ class BasePage:
     def should_be_logo(self):
         assert self.element_is_present(*LOGO)
 
+    def should_be_click_on_logo(self):
+        self.browser.find_element(*LOGO).click()
+        assert "inventory.html" in self.browser.current_url, "Wrong page"
+
     def should_be_hover(self):
         cssValue = self.browser.find_element(*BTN_SIDEBAR).value_of_css_property(
             "cursor"
