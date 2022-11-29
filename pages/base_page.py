@@ -16,7 +16,8 @@ LOGO = (By.CLASS_NAME, "app_logo")
 BTN_TWITTER = (By.CSS_SELECTOR, ".social_twitter a")
 BTN_FACEBOOK = (By.CSS_SELECTOR, ".social_facebook a")
 BTN_LINKEDIN = (By.CSS_SELECTOR, ".social_linkedin a")
-
+FOOTER = (By.TAG_NAME, 'footer')
+IMG_ROBOT = (By.CLASS_NAME, 'footer_robot')
 
 class BasePage:
     def __init__(self, browser, link):
@@ -97,9 +98,12 @@ class BasePage:
 
     def should_be_footer(self):
         # Наличие серого фона
-        self.element_is_present()
+        assert self.element_is_present(*FOOTER), "Element is absent"
+        background_color = self.browser.find_element(*FOOTER).value_of_css_property('background-color')
+        print(background_color)
+        assert background_color == '', 'Wrong background-color'
         # наличие рисунка робот
-        self.element_is_present()
+        assert self.element_is_present(*IMG_ROBOT), "Element is absent"
         # наличие Twitter
         self.element_is_present(*BTN_TWITTER)
         # переход на  Twitter
