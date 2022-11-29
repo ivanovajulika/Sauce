@@ -16,7 +16,7 @@ class Checkout_page(InventoryPage):
             By.CSS_SELECTOR, "#postal-code"
         )
         zip_postal_code_input.send_keys(zip_postal_code)
-        self.browser.find_element(By.CSS_SELECTOR, "#continue").click()
+        self.browser.find_element(*BTN_CONTINUE).click()
 
     def finish_btn(
         self,

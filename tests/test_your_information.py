@@ -22,10 +22,11 @@ def test_cansel_empty_input(browser):
 
 @allure.feature("US_005.00 | Checkout: your information > Страница 'Ваша информация'")
 @allure.story(
-    "TC_005.01.02 | Checkout: your information > Работа кнопки 'CANCEL' на странице 'Checkout: your information' после ввода личных ."
+    "TC_005.02.01 | Checkout: your information > Работа кнопки 'CANCEL' на странице 'Checkout: your information' после ввода личных данных ."
 )
 def test_cansel_user_input(browser):
     page = InventoryPage(browser, link)
+    page.add_to_cart_random()
     page.go_to_cart()
     page = CartPage(browser, link)
     page.checkout_btn()
