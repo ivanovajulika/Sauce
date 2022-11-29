@@ -12,6 +12,7 @@ MENU_LOGOUT = (By.ID, "logout_sidebar_link")
 MENU_RESET = (By.ID, "reset_sidebar_link")
 MENU_ALL_ITEMS = (By.ID, "inventory_sidebar_link")
 CROSS_BTN = (By.ID, "react-burger-cross-btn")
+LOGO = (By.CLASS_NAME, "app_logo")
 
 
 class BasePage:
@@ -80,3 +81,12 @@ class BasePage:
         self.browser.find_element(*BTN_SIDEBAR).click()
         self.browser.find_element(*MENU_LOGOUT).click()
         assert "saucedemo.com" in self.browser.current_url, "Wrong page"
+
+    def should_be_logo(self):
+        assert self.element_is_present(*LOGO)
+
+    def should_be_hover(self):
+        cssValue = self.browser.find_element(*BTN_SIDEBAR).value_of_css_property(
+            "cursor"
+        )
+        assert cssValue == "pointer"
