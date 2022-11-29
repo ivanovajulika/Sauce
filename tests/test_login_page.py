@@ -138,7 +138,7 @@ def test_username_with_rusletters(browser, username):
     "TC_001.00.13 | Login page > Авторизация при вводе в поле 'Username' спец символов"
 )
 @pytest.mark.parametrize("username", ["«»‘~!@#$%^&()?>,./<][ /<!—«», «${code}»;—>"])
-def test_username_is_empty(browser, username):
+def test_username_is_symbols(browser, username):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
