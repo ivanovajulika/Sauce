@@ -50,12 +50,13 @@ class BasePage:
     def reset_cart(self):
         self.browser.find_element(*BTN_SIDEBAR).click()
         self.browser.find_element(*MENU_RESET).click()
-        wait = WebDriverWait(self.browser, 10)
-        cross_btn = wait.until(EC.presence_of_element_located(CROSS_BTN))
+        wait = WebDriverWait(self.browser, 15)
+        cross_btn = wait.until(EC.element_to_be_clickable(CROSS_BTN))
         cross_btn.click()
 
     def return_to_inventory_page(self):
-        self.browser.find_element(*BTN_SIDEBAR).click()
+        menu_sidebar = self.browser.find_element(*BTN_SIDEBAR)
+        self.browser.execute_script("arguments[0].click();", menu_sidebar)
         self.browser.find_element(*MENU_ALL_ITEMS).click()
         assert "inventory" in self.browser.current_url, "Wrong page"
 
