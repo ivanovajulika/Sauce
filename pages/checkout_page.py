@@ -3,6 +3,7 @@ from pages.inventory_page import InventoryPage
 
 # locators
 BTN_CANCEL = (By.ID, "cancel")
+BTN_CONTINUE = (By.ID, "continue")
 
 
 class Checkout_page(InventoryPage):
@@ -15,7 +16,7 @@ class Checkout_page(InventoryPage):
             By.CSS_SELECTOR, "#postal-code"
         )
         zip_postal_code_input.send_keys(zip_postal_code)
-        self.browser.find_element(By.CSS_SELECTOR, "#continue").click()
+        self.browser.find_element(*BTN_CONTINUE).click()
 
     def finish_btn(
         self,
@@ -39,3 +40,8 @@ class Checkout_page(InventoryPage):
             By.CSS_SELECTOR, "#postal-code"
         )
         zip_postal_code_input.send_keys(zip_postal_code)
+
+    def btn_continue_click(self):
+        btn_continue = self.browser.find_element(*BTN_CONTINUE)
+        btn_continue.click()
+        assert "checkout-step-two" in self.browser.current_url, "Wrong page"
