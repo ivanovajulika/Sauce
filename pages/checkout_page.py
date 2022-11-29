@@ -3,6 +3,7 @@ from pages.inventory_page import InventoryPage
 
 # locators
 BTN_CANCEL = (By.ID, "cancel")
+BTN_CONTINUE = (By.ID, "continue")
 
 
 class Checkout_page(InventoryPage):
