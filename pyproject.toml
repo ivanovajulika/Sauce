@@ -15,6 +15,7 @@ webdriver-manager = "^3.8.4"
 pytest-html = "^3.2.0"
 allure-pytest = "^2.11.1"
 allure-python-commons = "^2.11.1"
+pyenchant = "^3.2.2"
 
 
 [build-system]
