@@ -33,13 +33,11 @@ class Checkout_page(InventoryPage):
     def checkout_user_not_click(
         self, first_name="John", last_name="Smith", zip_postal_code=122
     ):
-        first_name_input = self.browser.find_element(By.CSS_SELECTOR, "#first-name")
+        first_name_input = self.browser.find_element(*INPUT_FIRST_NAME)
         first_name_input.send_keys(first_name)
-        last_name_input = self.browser.find_element(By.CSS_SELECTOR, "#last-name")
+        last_name_input = self.browser.find_element(*INPUT_LAST_NAME)
         last_name_input.send_keys(last_name)
-        zip_postal_code_input = self.browser.find_element(
-            By.CSS_SELECTOR, "#postal-code"
-        )
+        zip_postal_code_input = self.browser.find_element(*ZIP_CODE)
         zip_postal_code_input.send_keys(zip_postal_code)
 
     def btn_continue_click(self):
@@ -47,6 +45,10 @@ class Checkout_page(InventoryPage):
         btn_continue.click()
         assert "checkout-step-two" in self.browser.current_url, "Wrong page"
 
-    def frst_name_input_clear(self):
-        first_name_input = self.browser.find_element(By.CSS_SELECTOR, "#first-name")
+    def first_name_input_clear(self):
+        first_name_input = self.browser.find_element(*INPUT_FIRST_NAME)
         first_name_input.clear()
+
+    def last_name_input_clear(self):
+        last_name_input = self.browser.find_element(*INPUT_LAST_NAME)
+        last_name_input.clear()
