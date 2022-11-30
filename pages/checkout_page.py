@@ -7,6 +7,7 @@ BTN_CONTINUE = (By.ID, "continue")
 INPUT_FIRST_NAME = (By.CSS_SELECTOR, "#first-name")
 INPUT_LAST_NAME = (By.CSS_SELECTOR, "#last-name")
 ZIP_CODE = (By.CSS_SELECTOR, "#postal-code")
+ERROR = (By.CLASS_NAME, "error-message-container")
 
 
 class Checkout_page(InventoryPage):
@@ -42,13 +43,18 @@ class Checkout_page(InventoryPage):
 
     def btn_continue_click(self):
         btn_continue = self.browser.find_element(*BTN_CONTINUE)
-        btn_continue.click()
-        assert "checkout-step-two" in self.browser.current_url, "Wrong page"
+        self.browser.execute_script("arguments[0].click();", btn_continue)
 
-    def first_name_input_clear(self):
-        first_name_input = self.browser.find_element(*INPUT_FIRST_NAME)
-        first_name_input.clear()
+    def error_message_first(self):
+        error_message = self.browser.find_element(*ERROR)
+        error_message_text = error_message.text
+        assert (
+            error_message_text == "Error: First Name is required"
+        ), "Wrong error message"
 
-    def last_name_input_clear(self):
-        last_name_input = self.browser.find_element(*INPUT_LAST_NAME)
-        last_name_input.clear()
+    def error_message_last(self):
+        error_message = self.browser.find_element(*ERROR)
+        error_message_text = error_message.text
+        assert (
+            error_message_text == "Error: Last Name is required"
+        ), "Wrong error message"
