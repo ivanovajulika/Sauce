@@ -24,132 +24,159 @@ ALL_PRICES_REMOVE = (
     By.XPATH,
     "//button[contains(text(),'Remove')]/../../div/following-sibling::div/div",
 )
+BACKPACK = (By.XPATH, '//*[@id="item_4_title_link"]')
+BOLT_T_SHIRT = (By.ID, "item_1_title_link")
+ONESIE = (By.ID, "item_2_title_link")
+BIKE_LIGHT = (By.ID, "item_0_title_link")
+FLEECE_JACKET = (By.ID, "item_5_title_link")
+T_SHIRT_RED = (By.ID, "item_3_title_link")
 
 
 class InventoryPage(BasePage):
-    # на странице "Products" кликнуть по 'Backpack'
-    # переход на страницу 'Backpack'
     def item_backpack(self):
-        self.browser.find_element(By.XPATH, '//*[@id="item_4_title_link"]').click()
+        """Метод находит на странице Products товар Backpack,
+        кликает на него и переходит в его карточку товара,
+        проверяет что находится в нужной карточке товара"""
+        self.browser.find_element(*BACKPACK).click()
         assert "id=4" in self.browser.current_url, "Wrong page"
 
     def should_be_item_backpack(self):
-        assert self.element_is_present(By.ID, "item_4_title_link"), "Element is absent"
+        """Метод проверяет на странице Products наличие товара Backpack"""
+        assert self.element_is_present(*BACKPACK), "Element is absent"
 
     def should_be_item_t_shirt(self):
-        assert self.element_is_present(By.ID, "item_1_title_link"), "Element is absent"
+        """Метод проверяет на странице Products наличие товара Bolt T-shirt"""
+        assert self.element_is_present(*BOLT_T_SHIRT), "Element is absent"
 
     def should_be_item_onesie(self):
-        assert self.element_is_present(By.ID, "item_2_title_link"), "Element is absent"
+        """Метод проверяет на странице Products наличие товара Onesie"""
+        assert self.element_is_present(*ONESIE), "Element is absent"
 
     def should_be_item_bike_light(self):
-        assert self.element_is_present(By.ID, "item_0_title_link"), "Element is absent"
+        """Метод проверяет на странице Products наличие товара Bike Light"""
+        assert self.element_is_present(*BIKE_LIGHT), "Element is absent"
 
     def should_be_item_fleece_jacket(self):
-        assert self.element_is_present(By.ID, "item_5_title_link"), "Element is absent"
+        """Метод проверяет на странице Products наличие товара Fleece Jacket"""
+        assert self.element_is_present(*FLEECE_JACKET), "Element is absent"
 
     def should_be_item_t_shirt_red(self):
-        assert self.element_is_present(By.ID, "item_3_title_link"), "Element is absent"
+        """Метод проверяет на странице Products наличие товара T-shirt (Red)"""
+        assert self.element_is_present(*T_SHIRT_RED), "Element is absent"
 
     # проверка наличия описания
     def should_be_description_t_shirt(self):
+        """Метод проверяет на странице Products наличие описания товара Bolt T-shirt"""
         assert self.element_is_present(
             By.XPATH, "(//*[@class='inventory_item_desc'])[3]"
         ), "Element is absent"
 
     # переход по клику на картинку
     def img_backpack(self):
+        """Метод находит на странице Products товар Backpack,
+        кликает на его фото и переходит в его карточку товара,
+         проверяет что находится в нужной карточке товара"""
         self.browser.find_element(By.CSS_SELECTOR, "#item_4_img_link > img").click()
         assert "id=4" in self.browser.current_url, "Wrong page"
 
     def count_products(self):
+        """Метод подсчитывает общее количество товаров на странице Products и
+        проверяет, что их 6"""
         elements = len(self.browser.find_elements(By.CSS_SELECTOR, ".inventory_item"))
         assert elements == 6
 
     def price_backpack(self):
+        """Метод находит цену товара Backpack и проверяет, что цена $29.99"""
         price = self.browser.find_element(
             By.XPATH, "(//*[@class='inventory_item_price'])[1]"
         ).text
         assert price == "$29.99", "Wrong price"
 
     def price_t_shirt(self):
+        """Метод находит цену товара Bolt T-shirt и проверяет, что цена $15.99"""
         price = self.browser.find_element(
             By.XPATH, "(//*[@class='inventory_item_price'])[3]"
         ).text
         assert price == "$15.99", "Wrong price"
 
     def price_onesie(self):
+        """Метод находит цену товара Onesie и проверяет, что цена $7.99"""
         price = self.browser.find_element(
             By.XPATH, "(//*[@class='inventory_item_price'])[5]"
         ).text
         assert price == "$7.99", "Wrong price"
 
     def price_bike_light(self):
+        """Метод находит цену товара Bike Light и проверяет, что цена $9.99"""
         price = self.browser.find_element(
             By.XPATH, "(//*[@class='inventory_item_price'])[2]"
         ).text
         assert price == "$9.99", "Wrong price"
 
     def price_fleece_jacket(self):
+        """Метод находит цену товара Fleece Jacket и проверяет, что цена $49.99"""
         price = self.browser.find_element(
             By.XPATH, "(//*[@class='inventory_item_price'])[4]"
         ).text
         assert price == "$49.99", "Wrong price"
 
     def price_t_shirt_red(self):
+        """Метод находит цену товара T-shirt (Red) и проверяет, что цена $15.99"""
         price = self.browser.find_element(
             By.XPATH, "(//*[@class='inventory_item_price'])[6]"
         ).text
         assert price == "$15.99", "Wrong price"
 
-    # проверка наличия фильтра
     def should_be_filter(self):
+        """Метод проверяет на странице Products наличие элемента Filter"""
         assert self.element_is_present(*BTN_FILTER), "Element is absent"
 
-    # нажать кнопку фильтр
     def click_filter(self):
+        """Метод на странице Products кликает элемент Filter и вызывает появление drop-down menu"""
         self.browser.find_element(*BTN_FILTER).click()
 
-    # выбор меню фильтра Z-A
     def choice_z_a(self):
+        """Метод выбирает в drop-down menu элемента Filter пункт Name (Z to A) и кликает на него"""
         select = Select(self.browser.find_element(By.TAG_NAME, "select"))
         select.select_by_value("za")
 
-    # выбор меню фильтра A-Z
     def choice_a_z(self):
+        """Метод выбирает в drop-down menu элемента Filter пункт Name (A to Z) и кликает на него"""
         select = Select(self.browser.find_element(By.TAG_NAME, "select"))
         select.select_by_value("az")
 
-    # выбор меню фильтра Price (low to high)
     def choice_price_lo_to_hi(self):
+        """Метод выбирает в drop-down menu элемента Filter пункт Price (low to high) и кликает на него"""
         select = Select(self.browser.find_element(By.TAG_NAME, "select"))
         select.select_by_value("lohi")
 
-    # выбор меню фильтра Price (high to low)
     def choice_price_hi_to_lo(self):
+        """Метод выбирает в drop-down menu элемента Filter пункт Price (high to low) и кликает на него"""
         select = Select(self.browser.find_element(By.TAG_NAME, "select"))
         select.select_by_value("hilo")
 
-    # получить все наименования товаров
     def get_all_names(self):
+        """Метод возвращает список со всеми наименованиями товаров со страницы Products"""
         all_names = list(self.browser.find_elements(*ALL_NAMES))
         list_all_names = [name.text for name in all_names]
         return list_all_names
 
-    # получить все описания товаров
     def get_all_desc(self):
+        """Метод возвращает список со всеми описаниями товаров со страницы Products"""
         all_desc = list(self.browser.find_elements(*ALL_DESC))
         list_all_desc = [desc.text for desc in all_desc]
         return list_all_desc
 
-    # получить все цены товара (цена товара без знака $)
     def get_all_prices(self):
+        """Метод возвращает список со всеми ценами товаров (цена товара без знака $)
+        со страницы Products"""
         all_prices = list(self.browser.find_elements(*ALL_PRICES))
         list_all_prices = [float(price.text[1:]) for price in all_prices]
         return list_all_prices
 
-    # проверка наличия фотографий всех товаров
     def should_be_img_all_item(self):
+        """Метод создает список со всеми фото товаров со страницы Products и
+        сравнивает с эталонным списком фото"""
         list_required_img = [
             "https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.34e7aa42.jpg",
             "https://www.saucedemo.com/static/media/bike-light-1200x1500.a0c9caae.jpg",
@@ -165,59 +192,64 @@ class InventoryPage(BasePage):
             list_all_img.append(img)
         assert list_all_img == list_required_img
 
-    # Добавляем все товары в корзину
     def add_all_items(self):
+        """Метод добавляет все товары со страницы Products в корзину"""
         add_cart = list(self.browser.find_elements(*BTN_ADD))
         for btn_add_cart in add_cart:
             btn_add_cart.click()
 
     def add_to_cart_backpack(self):
+        """Метод кликает кнопку Add to cart товара Backpack (добавляет его в корзину)"""
         self.browser.find_element(
             By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack"
         ).click()
 
     def add_to_cart_bike_light(self):
+        """Метод кликает кнопку Add to cart товара Bike Light (добавляет его в корзину)"""
         self.browser.find_element(
             By.CSS_SELECTOR, "#add-to-cart-sauce-labs-bike-light"
         ).click()
 
     def add_to_cart_bolt_t_shirt(self):
+        """Метод кликает кнопку Add to cart товара Bolt T-shirt (добавляет его в корзину)"""
         self.browser.find_element(
             By.CSS_SELECTOR, "#add-to-cart-sauce-labs-bolt-t-shirt"
         ).click()
 
     def add_to_cart_fleece_jacket(self):
+        """Метод кликает кнопку Add to cart товара Fleece Jacket (добавляет его в корзину)"""
         self.browser.find_element(
             By.CSS_SELECTOR, "#add-to-cart-sauce-labs-fleece-jacket"
         ).click()
 
     def add_to_cart_onesie(self):
+        """Метод кликает кнопку Add to cart товара Onsie (добавляет его в корзину)"""
         self.browser.find_element(
             By.CSS_SELECTOR, "#add-to-cart-sauce-labs-onesie"
         ).click()
 
     def add_to_cart_allthethings_t_shirt(self):
-        self.browser.find_element(By.XPATH, "//div[6]/div[2]/div[2]/button").click()
+        """Метод кликает кнопку Add to cart товара T-shirt (Red) (добавляет его в корзину)"""
+        self.browser.find_element(
+            By.ID, "add-to-cart-test.allthethings()-t-shirt-(red)"
+        ).click()
 
-    def count_products_in_the_cart(self):
-        elements = len(self.browser.find_elements(By.CSS_SELECTOR, ".cart_item"))
-        assert elements == 6
-
-    # со страницы Products положить 1 любой товар в корзину
     def add_to_cart_random(self):
+        """Метод кликает кнопку Add to cart одного рандомно выбранного товара (добавляет его в корзину)"""
         all_names = list(self.browser.find_elements(*BTN_ADD))
         random_index = random.randrange(len(all_names))
         add_cart_button = self.browser.find_elements(*BTN_ADD)[random_index]
         add_cart_button.click()
 
-    # проверить, что на странице Products присутствуют кнопки Remove
     def btn_remove_is_present_random(self):
+        """Метод проверяет наличие кнопки Remove на странице Products"""
         wait = WebDriverWait(self.browser, 15)
         btn_remove = wait.until(EC.element_to_be_clickable(BTN_REMOVE))
         assert self.element_is_present(*BTN_REMOVE)
 
-    # выбрать на странице Products все атрибуты товаров, добавленным в корзину
     def get_all_items_remove(self):
+        """Метод возвращает список из списков наименований, описаний и цен товаров,
+        добавленных в корзину со страницы Products"""
         all_names_remove = list(self.browser.find_elements(*ALL_NAMES_REMOVE))
         list_all_names_remove = [name.text for name in all_names_remove]
 
@@ -237,9 +269,9 @@ class InventoryPage(BasePage):
         ]
         return list_all_remove
 
-    # Создаем список из списков всех товаров
     def all_items(self):
-
+        """Метод возвращает список из списков наименований, описаний и цен всех товаров,
+        со страницы Products"""
         all_names = list(self.browser.find_elements(*ALL_NAMES))
         list_all_names = [name.text for name in all_names]
 
@@ -255,9 +287,9 @@ class InventoryPage(BasePage):
         ]
         return list_all
 
-    # Словарь название, описание и цена 5 товара
-    # И кладем его в корзину
     def list_item(self):
+        """Метод возвращает словарь из наименования, описания и цены товара Fleece Jacket,
+        затем добавляет его в корзину"""
         title = self.browser.find_element(
             By.CSS_SELECTOR, "#item_5_title_link > div"
         ).text
@@ -274,6 +306,7 @@ class InventoryPage(BasePage):
         return dict_id5
 
     def spell_check_t_shirt(self):
+        """Метод проверяет орфографические ошибки в описании товара Bolt T-shirt """
         checker = SpellChecker("en_US")
         desc = self.browser.find_element(
             By.XPATH, "(//*[@class='inventory_item_desc'])[3]"

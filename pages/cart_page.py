@@ -39,3 +39,8 @@ class CartPage(InventoryPage):
         ).text
         dict_id5_item = {"name": title_item, "description": desc_item, "price": pr_item}
         return dict_id5_item
+
+    def count_products_in_the_cart(self):
+        """Метод проверяет, что в корзину добавлено все 6 товаров"""
+        elements = len(self.browser.find_elements(By.CSS_SELECTOR, ".cart_item"))
+        assert elements == 6
