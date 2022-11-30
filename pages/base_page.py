@@ -39,6 +39,9 @@ class BasePage:
         text = self.browser.find_element(*CART_BADGE).text
         assert text == quantity
 
+    def element_cart(self):
+        self.browser.find_element(*BTN_CART)
+
     def go_to_cart(self):
         """Метод перехода в корзину."""
         self.browser.find_element(*BTN_CART).click()
