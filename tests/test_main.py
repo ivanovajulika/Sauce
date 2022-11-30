@@ -243,6 +243,7 @@ def test_add_to_cart_btn_add(browser):
     page.add_to_cart_allthethings_t_shirt()
     page.cart_counter(quantity="6")
     page.go_to_cart()
+    page = CartPage(browser, link)
     page.count_products_in_the_cart()
 
 
