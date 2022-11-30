@@ -306,7 +306,7 @@ class InventoryPage(BasePage):
         return dict_id5
 
     def spell_check_t_shirt(self):
-        """Метод проверяет орфографические ошибки в описании товара Bolt T-shirt """
+        """Метод проверяет орфографические ошибки в описании товара Bolt T-shirt"""
         checker = SpellChecker("en_US")
         desc = self.browser.find_element(
             By.XPATH, "(//*[@class='inventory_item_desc'])[3]"
