@@ -88,6 +88,18 @@ def test_link_to_price_t_shirt_red(browser):
 
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story(
+    "TC_002.03.01 | Products > Описание товара на странице 'Products' - Backpack"
+)
+@allure.severity("minor")
+@pytest.mark.xfail
+def test_correct_description_backpack(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_description_backpack()
+    page.spell_check(id=1)
+
+
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
     "TC_002.03.02 | Products > Описание товара на странице 'Products' - Bolt T-Shirt"
 )
 @allure.severity("minor")
@@ -95,7 +107,55 @@ def test_link_to_price_t_shirt_red(browser):
 def test_correct_description_t_shirt(browser):
     page = InventoryPage(browser, link)
     page.should_be_description_t_shirt()
-    page.spell_check_t_shirt()
+    page.spell_check(id=3)
+
+
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
+    "TC_002.03.03 | Products > Описание товара на странице 'Products' - Onesie"
+)
+@allure.severity("minor")
+@pytest.mark.xfail
+def test_correct_description_onesie(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_description_onesie()
+    page.spell_check(id=5)
+
+
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
+    "TC_002.03.04 | Products > Описание товара на странице 'Products' - Bike Light"
+)
+@allure.severity("minor")
+@pytest.mark.xfail
+def test_correct_description_bike_light(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_description_bike_light()
+    page.spell_check(id=2)
+
+
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
+    "TC_002.03.05 | Products > Описание товара на странице 'Products' - Fleece Jacket"
+)
+@allure.severity("minor")
+@pytest.mark.xfail
+def test_correct_description_fleece_jacket(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_description_fleece_jacket()
+    page.spell_check(id=4)
+
+
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
+    "TC_002.03.06 | Products > Описание товара на странице 'Products' - T-Shirt (Red)"
+)
+@allure.severity("minor")
+@pytest.mark.xfail
+def test_correct_description_t_shirt_red(browser):
+    page = InventoryPage(browser, link)
+    page.should_be_description_t_shirt_red()
+    page.spell_check(id=6)
 
 
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
