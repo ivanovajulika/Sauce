@@ -87,7 +87,7 @@ def test_continue_empty_input_fist_name(browser):
 @allure.story(
     "TC_005.02.04| Checkout: your information > Отсутствие вводимых данных в поле 'Last name' на странице 'Checkout: your information' и работа кнопки 'CONTINUE' (негативный тест)."
 )
-def test_continue_empty_input_fist_name(browser):
+def test_continue_empty_input_last_name(browser):
     page = InventoryPage(browser, link)
     page.add_to_cart_random()
     page.go_to_cart()
