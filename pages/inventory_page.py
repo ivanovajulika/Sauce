@@ -64,14 +64,42 @@ class InventoryPage(BasePage):
         """Метод проверяет на странице Products наличие товара T-shirt (Red)"""
         assert self.element_is_present(*T_SHIRT_RED), "Element is absent"
 
-    # проверка наличия описания
+    def should_be_description_backpack(self):
+        """Метод проверяет на странице Products наличие описания товара Backpack"""
+        assert self.element_is_present(
+            By.XPATH, "(//*[@class='inventory_item_desc'])[1]"
+        ), "Element is absent"
+
     def should_be_description_t_shirt(self):
         """Метод проверяет на странице Products наличие описания товара Bolt T-shirt"""
         assert self.element_is_present(
             By.XPATH, "(//*[@class='inventory_item_desc'])[3]"
         ), "Element is absent"
 
-    # переход по клику на картинку
+    def should_be_description_onesie(self):
+        """Метод проверяет на странице Products наличие описания товара Onesie"""
+        assert self.element_is_present(
+            By.XPATH, "(//*[@class='inventory_item_desc'])[5]"
+        ), "Element is absent"
+
+    def should_be_description_bike_light(self):
+        """Метод проверяет на странице Products наличие описания товара Bike Light"""
+        assert self.element_is_present(
+            By.XPATH, "(//*[@class='inventory_item_desc'])[2]"
+        ), "Element is absent"
+
+    def should_be_description_fleece_jacket(self):
+        """Метод проверяет на странице Products наличие описания товара Fleece Jacket"""
+        assert self.element_is_present(
+            By.XPATH, "(//*[@class='inventory_item_desc'])[4]"
+        ), "Element is absent"
+
+    def should_be_description_t_shirt_red(self):
+        """Метод проверяет на странице Products наличие описания товара T-shirt (Red)"""
+        assert self.element_is_present(
+            By.XPATH, "(//*[@class='inventory_item_desc'])[6]"
+        ), "Element is absent"
+
     def img_backpack(self):
         """Метод находит на странице Products товар Backpack,
         кликает на его фото и переходит в его карточку товара,
@@ -305,11 +333,11 @@ class InventoryPage(BasePage):
         ).click()
         return dict_id5
 
-    def spell_check_t_shirt(self):
-        """Метод проверяет орфографические ошибки в описании товара Bolt T-shirt"""
+    def spell_check(self, id):
+        """Метод проверяет орфографические ошибки в описании товара."""
         checker = SpellChecker("en_US")
         desc = self.browser.find_element(
-            By.XPATH, "(//*[@class='inventory_item_desc'])[3]"
+            By.XPATH, f"(//*[@class='inventory_item_desc'])[{id}]"
         )
         checker.set_text(desc.text)
         possible_error = [i.word for i in checker]

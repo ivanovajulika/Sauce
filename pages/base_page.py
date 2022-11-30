@@ -26,35 +26,29 @@ class BasePage:
         self.browser = browser
         self.link = link
 
-    def open_page(self):
-        self.browser.get(self.link)
-
     def element_is_present(self, method, locator):
+        """Метод провряет наличие элемента."""
         try:
             self.browser.find_element(method, locator)
         except NoSuchElementException:
             return False
         return True
 
-    # получить значение счетчика на кнопке Корзина и сравнить с quantity
     def cart_counter(self, quantity):
+        """Метод получает значение счетчика на кнопке Корзина и сравнивает его с quantity."""
         text = self.browser.find_element(*CART_BADGE).text
         assert text == quantity
 
     def go_to_cart(self):
+        """Метод перехода в корзину."""
         self.browser.find_element(*BTN_CART).click()
 
-    # получить значение счетчика на кнопке Корзина и сравнить с ''
-    # счетчик пуст
     def empty_cart_counter(self):
-        # text = self.browser.find_element(*CART_BADGE).text
-        # assert text == ""
+        """Метод проверяет что счетчик кнопки Корзина пуст."""
         assert not self.element_is_present(*CART_BADGE)
 
-    def element_cart(self):
-        self.browser.find_element(*BTN_CART)
-
     def reset_cart(self):
+        """Метод обнуления корзины через пункт меню 'Reset app state'."""
         self.browser.find_element(*BTN_SIDEBAR).click()
         self.browser.find_element(*MENU_RESET).click()
         wait = WebDriverWait(self.browser, 15)
@@ -62,12 +56,14 @@ class BasePage:
         cross_btn.click()
 
     def return_to_inventory_page(self):
+        """Метод перехода на страницу 'Products' через пункт меню 'All Items'."""
         menu_sidebar = self.browser.find_element(*BTN_SIDEBAR)
         self.browser.execute_script("arguments[0].click();", menu_sidebar)
         self.browser.find_element(*MENU_ALL_ITEMS).click()
         assert "inventory" in self.browser.current_url, "Wrong page"
 
     def should_be_menu_sidebar(self):
+        """Метод проверяет наличие всех элементов меню Sidebar."""
         self.browser.find_element(*BTN_SIDEBAR).click()
         assert self.element_is_present(*MENU_ALL_ITEMS), "Element is absent"
         self.browser.implicitly_wait(10)
@@ -80,19 +76,23 @@ class BasePage:
         self.browser.find_element(*CROSS_BTN).click()
 
     def go_to_about(self):
+        """Метод перехода на страницу 'https://saucelabs.com/' по пункту меню 'About'."""
         self.browser.find_element(*BTN_SIDEBAR).click()
         self.browser.find_element(*MENU_ABOUT).click()
         assert "saucelabs.com" in self.browser.current_url, "Wrong page"
 
     def go_to_logout(self):
+        """Метод перехода на страницу авторизации по клику на пункт меню 'Logout'."""
         self.browser.find_element(*BTN_SIDEBAR).click()
         self.browser.find_element(*MENU_LOGOUT).click()
         assert "saucedemo.com" in self.browser.current_url, "Wrong page"
 
     def should_be_logo(self):
+        """Метод проверяет наличие логотипа."""
         assert self.element_is_present(*LOGO)
 
     def should_be_click_on_logo(self):
+        """Метод проверяет переход на главную страницу сайта по логотипу."""
         self.browser.find_element(*LOGO).click()
         assert "inventory.html" in self.browser.current_url, "Wrong page"
 
@@ -103,6 +103,7 @@ class BasePage:
         assert cssValue == "pointer"
 
     def should_be_footer(self):
+        """Метод проверяет наличие и соответствие всех элементов футера."""
         # Наличие серого фона
         assert self.element_is_present(*FOOTER), "Element is absent"
         background_color = self.browser.find_element(*FOOTER).value_of_css_property(
