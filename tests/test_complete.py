@@ -1,7 +1,5 @@
 import time
-
 import allure
-import pytest
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import Checkout_page
@@ -22,7 +20,6 @@ def test_should_be_complete(browser):
     page = CartPage(browser, link)
     page.checkout_btn()
     page = Checkout_page(browser, link)
-    time.sleep(5)
     page.checkout_user()
     page = Overview_page(browser, link)
     page.go_to_finish()
