@@ -157,7 +157,7 @@ def test_locked_out_user(browser, username):
 @allure.story(
     "TC_001.00.11 | Login page > Авторизация при вводе в поле 'Username' валидного логина в верхнем регистре"
 )
-@pytest.mark.parametrize("username", [LIST_USERNAME])
+@pytest.mark.parametrize("username", LIST_USERNAME)
 def test_username_is_upper(browser, username):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
