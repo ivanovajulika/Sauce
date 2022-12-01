@@ -36,7 +36,7 @@ class Checkout_page(InventoryPage):
     def checkout_user_not_click(
         self, first_name="John", last_name="Smith", zip_postal_code=122
     ):
-        """Метод заполняет поля ввода First name, Last name and Zip/Postal Code code личными данными
+        """Метод заполняет поля ввода First name, Last name and Zip/Postal Code  личными данными
         указанными по дефолту, но не делает отправку формы"""
         first_name_input = self.browser.find_element(*INPUT_FIRST_NAME)
         first_name_input.send_keys(first_name)
@@ -64,4 +64,12 @@ class Checkout_page(InventoryPage):
         error_message_text = error_message.text
         assert (
             error_message_text == "Error: Last Name is required"
+        ), "Wrong error message"
+
+    def error_message_zip(self):
+        """Метод получает сообщение об ошибке при незаполненном поле ввода Zip/Postal Code"""
+        error_message = self.browser.find_element(*ERROR)
+        error_message_text = error_message.text
+        assert (
+            error_message_text == "Error: Postal Code is required"
         ), "Wrong error message"
