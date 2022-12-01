@@ -97,3 +97,22 @@ def test_continue_empty_input_last_name(browser):
     page.btn_continue_click()
     page.error_message_last()
     assert "checkout-step-two" not in browser.current_url, "Wrong page"
+
+
+@allure.feature("US_005.00 | Checkout: your information > Страница 'Ваша информация'")
+@allure.story(
+    "TC_005.02.05| Checkout: your information > Отсутствие вводимых данных в поле 'Zip/Postal Code' на странице 'Checkout: your information' и работа кнопки 'CONTINUE' (негативный тест)."
+)
+def test_continue_empty_zip_code(browser):
+    page = InventoryPage(browser, link)
+    page.add_to_cart_random()
+    page.go_to_cart()
+    page = CartPage(browser, link)
+    page.checkout_btn()
+    page = Checkout_page(browser, link)
+    page.checkout_user_not_click(
+        first_name="John", last_name="Smith", zip_postal_code=""
+    )
+    page.btn_continue_click()
+    page.error_message_last()
+    assert "checkout-step-two" not in browser.current_url, "Wrong page"

@@ -12,7 +12,7 @@ ERROR = (By.CLASS_NAME, "error-message-container")
 
 class Checkout_page(InventoryPage):
     def checkout_user(self, first_name="John", last_name="Smith", zip_postal_code=122):
-        """Метод заполняет поля ввода First name, Last name and Zip/postal code личными данными
+        """Метод заполняет поля ввода First name, Last name and Zip/Postal Code личными данными
         указанными по дефолту  нажимает кнопку CONTINUE для отправки формы"""
         first_name_input = self.browser.find_element(*INPUT_FIRST_NAME)
         first_name_input.send_keys(first_name)
@@ -36,7 +36,7 @@ class Checkout_page(InventoryPage):
     def checkout_user_not_click(
         self, first_name="John", last_name="Smith", zip_postal_code=122
     ):
-        """Метод заполняет поля ввода First name, Last name and Zip/postal code личными данными
+        """Метод заполняет поля ввода First name, Last name and Zip/Postal Code code личными данными
         указанными по дефолту, но не делает отправку формы"""
         first_name_input = self.browser.find_element(*INPUT_FIRST_NAME)
         first_name_input.send_keys(first_name)
