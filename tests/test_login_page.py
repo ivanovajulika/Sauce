@@ -79,6 +79,20 @@ def test_username_is_password(browser, username):
     ), "Wrong error message"
 
 
+# Login Page > Авторизация c логином и паролем "admin"
+@allure.feature("US_001.00 | Login page > Страница авторизации.")
+@allure.story("TC_001.00.05 | Login page > Авторизация c логином и паролем 'admin'")
+@pytest.mark.parametrize("username", ["admin"])
+@pytest.mark.parametrize("password", ["admin"])
+def test_username_is_admin(browser, username, password):
+    assert "inventory" not in browser.current_url, "Wrong page"
+    error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
+    assert (
+        error_message.text
+        == "Epic sadface: Username and password do not match any user in this service"
+    ), "Wrong error message"
+
+
 @allure.feature("US_001.00 | Login page > Страница авторизации.")
 @allure.story(
     "TC_001.00.07 | Login Page > Авторизация при вводе пробелов в поле Username'"
@@ -105,6 +119,20 @@ def test_password_is_whitespace(browser, password, username):
     assert (
         error_message.text
         == "Epic sadface: Username and password do not match any user in this service"
+    ), "Wrong error message"
+
+
+@allure.feature("US_001.00 | Login page > Страница авторизации.")
+@allure.story(
+    "TC_001.00.09 | Login page > Авторизация с пустыми полями 'Username' и 'Password'"
+)
+@pytest.mark.parametrize("username", [""])
+@pytest.mark.parametrize("password", [""])
+def test_username_password_is_empty(browser, username, password):
+    assert "inventory" not in browser.current_url, "Wrong page"
+    error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
+    assert (
+        error_message.text == "Epic sadface: Username is required"
     ), "Wrong error message"
 
 
