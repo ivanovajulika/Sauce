@@ -158,11 +158,12 @@ def test_locked_out_user(browser, username):
     "TC_001.00.11 | Login page > Авторизация при вводе в поле 'Username' валидного логина в верхнем регистре"
 )
 @pytest.mark.parametrize("username", [LIST_USERNAME])
-def test_username_password_is_empty(browser, username):
+def test_username_is_upper(browser, username):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
-        error_message.text == "Epic sadface: Username is required"
+        error_message.text
+        == "Epic sadface: Username and password do not match any user in this service"
     ), "Wrong error message"
 
 
