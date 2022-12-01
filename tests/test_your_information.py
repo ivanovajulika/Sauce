@@ -1,6 +1,5 @@
 import allure
 import pytest
-
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import Checkout_page
@@ -171,7 +170,7 @@ def test_zip_code(browser):
     page.checkout_btn()
     page = Checkout_page(browser, link)
     page.checkout_user_not_click(
-        first_name="John", last_name="Smith", zip_postal_code='abc'
+        first_name="John", last_name="Smith", zip_postal_code="abc"
     )
     page.btn_continue_click()
     assert "checkout-step-two" not in browser.current_url, "Wrong page"
