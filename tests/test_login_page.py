@@ -9,7 +9,7 @@ list_username = [
     "problem_user",
     "performance_glitch_user",
 ]
-
+LIST_USERNAME = [(list_username[0]).upper(), (list_username[1]).upper(), (list_username[2]).upper(), (list_username[3]).upper()]
 
 @allure.feature("US_001.00 | Login page > Страница авторизации.")
 @allure.story("TC_001.00.01 Login page > Авторизация под валидными данными")
@@ -146,12 +146,22 @@ def test_locked_out_user(browser, username):
         error_message.text == "Epic sadface: Sorry, this user has been locked out."
     ), "Wrong error message"
 
-
+@allure.feature("US_001.00 | Login page > Страница авторизации.")
+@allure.story(
+    "TC_001.00.11 | Login page > Авторизация при вводе в поле 'Username' валидного логина в верхнем регистре"
+)
+@pytest.mark.parametrize("username", [LIST_USERNAME])
+def test_username_password_is_empty(browser, username):
+    assert "inventory" not in browser.current_url, "Wrong page"
+    error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
+    assert (
+        error_message.text == "Epic sadface: Username is required"
+    ), "Wrong error message"
 @allure.feature("US_001.00 | Login page > Страница авторизации.")
 @allure.story(
     "AT_001.00.12 | Login page > Авторизация при вводе в поле 'Username' с латинскими и русскими буквами"
 )
-@pytest.mark.parametrize("username", ["stаndаrd_usеr"])
+@pytest.mark.parametrize("username", [list_username.upper()])
 def test_username_with_rusletters(browser, username):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
@@ -173,3 +183,4 @@ def test_username_is_symbols(browser, username):
         error_message.text
         == "Epic sadface: Username and password do not match any user in this service"
     ), "Wrong error message"
+
