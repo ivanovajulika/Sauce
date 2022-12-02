@@ -6,12 +6,29 @@ BTN_BACK_HOME = (By.ID, "back-to-products")
 IMG_PONY = (By.CLASS_NAME, "pony_express")
 THANK_YOUR = (By.CLASS_NAME, "complete-header")
 ORDER_TEXT = (By.CLASS_NAME, "complete-text")
+BTN_CANCEL = (By.ID, "cancel")
+PAYMENT = (By.CLASS_NAME, "summary_value_label")
+DELIVERY = ()
 
 
 class Overview_page(InventoryPage):
     def go_to_finish(self):
         """Метод кликает на кнопку Finish"""
         self.browser.find_element(*BTN_FINISH).click()
+
+    def cancel_btn(self):
+        """Метод кликает на кнопку Cancel и проверяет, что произошел переход на страницу Products"""
+        btn_cancel = self.browser.find_element(*BTN_CANCEL)
+        btn_cancel.click()
+        assert "inventory" in self.browser.current_url, "Wrong page"
+
+    def should_be_overview(self):
+        """Метод проверяет наличие и содержание информации о заказе
+        (наименование, количество товара, краткое описание, платежная информация, доставка, итоговая стоимость)"""
+        assert self.element_is_present(*PAYMENT)
+        assert (
+            self.browser.find_element(*PAYMENT).text == "SauceCard #31337"
+        ), "Wrong payment information"
 
 
 class Complete_page(InventoryPage):
