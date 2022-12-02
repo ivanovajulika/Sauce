@@ -7,6 +7,7 @@ from pages.checkout_page import Checkout_page
 from pages.overview_page import Overview_page
 from pages.overview_page import Complete_page
 from pages.item_id4 import ItemPage_4
+from pages.inventory_page import ALL_NAMES
 
 link = "https://www.saucedemo.com/inventory.html"
 
@@ -96,13 +97,17 @@ def test_should_be_elements_of_header_on_checkout_complete_page(browser):
     "TC_008.01.06 | Header > Наличие хедера и его элементов на странице товара 'Inventory item."
 )
 def test_should_be_elements_of_header_on_inventory_item(browser):
+    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
-    page.item_backpack()
-    page = ItemPage_4(browser, link)
-    page.should_be_logo()
-    page.should_be_menu_sidebar()
-    page.element_cart()
-    page.should_be_hover()
+    list_all_names = page.get_all_names()
+    count = len(list_all_names)
+    for index in range(count):
+        name = browser.find_elements(*ALL_NAMES)[index]
+        name.click()
+        link = browser.current_url
+        page = ItemPage_4(browser, link)
+        page.should_be_hover()
+        page.return_to_inventory_page()
 
 
 @allure.feature("US_008.00 | Header")
@@ -171,7 +176,14 @@ def test_click_on_logo_from_complete_page(browser):
 )
 @pytest.mark.xfail
 def test_click_on_logo_from_inventory_item(browser):
+    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
-    page.item_backpack()
-    page = ItemPage_4(browser, link)
-    page.should_be_click_on_logo()
+    list_all_names = page.get_all_names()
+    count = len(list_all_names)
+    for index in range(count):
+        name = browser.find_elements(*ALL_NAMES)[index]
+        name.click()
+        link = browser.current_url
+        page = ItemPage_4(browser, link)
+        page.should_be_click_on_logo()
+        page.return_to_inventory_page()
