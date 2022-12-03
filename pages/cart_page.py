@@ -19,8 +19,8 @@ class CartPage(InventoryPage):
     def return_to_item_page(self):
         self.browser.find_element(By.ID, "item_4_title_link").click()
 
-    # количество товара на странице Your Cart
     def cart_page_counter(self, quantity):
+        """Метод сверяет значение на счетчике кнопки Корзина с количеством quantity"""
         text = self.browser.find_element(By.CLASS_NAME, "cart_quantity").text
         assert text == quantity
 
