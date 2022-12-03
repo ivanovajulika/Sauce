@@ -7,8 +7,11 @@ IMG_PONY = (By.CLASS_NAME, "pony_express")
 THANK_YOUR = (By.CLASS_NAME, "complete-header")
 ORDER_TEXT = (By.CLASS_NAME, "complete-text")
 BTN_CANCEL = (By.ID, "cancel")
-PAYMENT = (By.CLASS_NAME, "summary_value_label")
-DELIVERY = ()
+PAYMENT = (By.CSS_SELECTOR, ".summary_info>.summary_value_label:nth-child(2)")
+DELIVERY = (By.CSS_SELECTOR, ".summary_info>.summary_value_label:nth-child(4)")
+ITEM_TOTAL = (By.CSS_SELECTOR, ".summary_info>.summary_subtotal_label")
+TAX = (By.CSS_SELECTOR, ".summary_info>.summary_tax_label")
+TOTAL = (By.CSS_SELECTOR, ".summary_info>.summary_total_label")
 
 
 class Overview_page(InventoryPage):
@@ -23,12 +26,42 @@ class Overview_page(InventoryPage):
         assert "inventory" in self.browser.current_url, "Wrong page"
 
     def should_be_overview(self):
-        """Метод проверяет наличие и содержание информации о заказе
-        (наименование, количество товара, краткое описание, платежная информация, доставка, итоговая стоимость)"""
-        assert self.element_is_present(*PAYMENT)
+        """Метод проверяет наличие информации о заказе
+        (наименование, краткое описание, платежная информация, доставка, итоговая стоимость)"""
+        assert self.element_is_present(*PAYMENT), "Element is absent"
         assert (
             self.browser.find_element(*PAYMENT).text == "SauceCard #31337"
         ), "Wrong payment information"
+        assert self.element_is_present(*DELIVERY), "Element is absent"
+        assert (
+            self.browser.find_element(*DELIVERY).text == "FREE PONY EXPRESS DELIVERY!"
+        ), "Wrong delivery text"
+        assert self.element_is_present(*ITEM_TOTAL), "Element is absent"
+        assert self.element_is_present(*TAX), "Element is absent"
+        assert self.element_is_present(*TOTAL), "Element is absent"
+
+    def total(self):
+        """Метод проверяет подсчет стоимости заказа"""
+        item_total = self.browser.find_element(*ITEM_TOTAL)
+        item_total = item_total.text[13:]
+        assert (
+            item_total
+            == self.browser.find_element(By.CLASS_NAME, "inventory_item_price").text[:1]
+        ), "Wrong item total"
+        tax = self.browser.find_element(*TAX)
+        tax = tax.text[6:]
+        print(tax)
+        total = self.browser.find_element(*TOTAL)
+        total = total.text[8:]
+        print(total)
+        assert float(total) == float(item_total) + float(tax), "Wrong total price"
+
+    def free_delivery(self):
+        """Метод проверяет, что при бесплатной доставки сбор за доставку == 0"""
+        tax = self.browser.find_element(*TAX)
+        tax = tax.text[6:]
+        if self.browser.find_element(*DELIVERY).text == "FREE PONY EXPRESS DELIVERY!":
+            assert tax == 0, "Wrong tax"
 
 
 class Complete_page(InventoryPage):

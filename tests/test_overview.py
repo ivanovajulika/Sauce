@@ -20,10 +20,14 @@ def test_overview(browser):
     page.add_to_cart_random()
     page.go_to_cart()
     page = CartPage(browser, link)
+    list_all_cart = page.all_items()
     page.checkout_btn()
     page = Checkout_page(browser, link)
     page.checkout_user()
     page = Overview_page(browser, link)
+    list_all_overview = page.all_items()
+    assert list_all_cart == list_all_overview
+    page.cart_counter(quantity=1)
     page.should_be_overview()
 
 
@@ -31,10 +35,26 @@ def test_overview(browser):
     "US_006.00 | Checkout: overview > Страница проверки и подтверждения заказа.."
 )
 @allure.story(
-    "TC_006.00.02 |  Checkout: overview > Отображение информации о заказе на странице 'Checkout: overview'"
+    "TC_006.00.02 |  Checkout: overview > Отображение информации "
+    "о итоговой стоимости заказа на странице 'Checkout: overview'"
 )
 def test_total_sum(browser):
-    pass
+    test_overview(browser)
+    page = Overview_page(browser, link)
+    page.total()
+
+
+@allure.feature(
+    "US_006.00 | Checkout: overview > Страница проверки и подтверждения заказа.."
+)
+@allure.story(
+    "TC_006.00.03 |  Checkout: overview > Бесплатная доставка  заказа на странице 'Checkout: overview'"
+)
+@pytest.mark.xfail
+def test_total_sum(browser):
+    test_overview(browser)
+    page = Overview_page(browser, link)
+    page.free_delivery()
 
 
 @allure.feature(
