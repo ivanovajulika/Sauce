@@ -27,7 +27,7 @@ def test_overview(browser):
     page = Overview_page(browser, link)
     list_all_overview = page.all_items()
     assert list_all_cart == list_all_overview
-    page.cart_counter(quantity="1")
+    page.cart_counter(quantity=1)
     page.should_be_overview()
 
 
