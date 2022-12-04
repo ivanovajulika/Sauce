@@ -219,8 +219,6 @@ def test_link_go_from_img(browser):
     "TC_003.00.02 | Inventory item > Добавление товара в корзину на странице 'Inventory item'"
 )
 def test_add_all_products_by_one(browser):
-    link = "https://www.saucedemo.com/inventory.html"
-    page = InventoryPage(browser, link)
     list_all_names = page.get_all_names()
     count = len(list_all_names)
     for index in range(count):
@@ -356,7 +354,8 @@ def test_empty_cart_order(browser):
 
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
 @allure.story(
-    "TC_004.04.00 | Your cart > Положить в корзину все товары и проверить в корзине соответствие названия, описания, цены."
+    "TC_004.04.00 | Your cart > Положить в корзину все товары и проверить "
+    "в корзине соответствие названия, описания, цены."
 )
 def test_conform_all_items(browser):
     # Создаем экземпляр страницы с товарами
