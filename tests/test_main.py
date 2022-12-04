@@ -4,7 +4,7 @@ from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
 from pages.checkout_page import Checkout_page
-from pages.inventory_page import ALL_ID, ALL_NAMES, BTN_ADD
+from pages.inventory_page import ALL_NAMES, BTN_ADD
 
 
 link = "https://www.saucedemo.com/inventory.html"
@@ -174,14 +174,11 @@ def test_get_all_links(browser):
         page = ItemPage_4(browser, link)
         page.return_to_inventory_page()
 
-    all_id = browser.find_elements(*ALL_ID)
-    list_all_id = []
-    for i in range(len(all_id)):
-        id_ = all_id[i].get_attribute("id")
-        id = "id=" + id_[5]
-        list_all_id.append(id)
+    page = InventoryPage(browser, link)
+    list_all_id = page.get_all_id()
 
     assert list_all_id == list_all_link, "Wrong page"
+
 
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story(
@@ -205,6 +202,7 @@ def test_add_one_item(browser):
             # со списком товаров на странице Корзина
             assert list_all == list_all_cart
             page.user_can_go_continue_shopping()
+
 
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
 @allure.story(
