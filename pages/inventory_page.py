@@ -342,3 +342,14 @@ class InventoryPage(BasePage):
         checker.set_text(desc.text)
         possible_error = [i.word for i in checker]
         assert possible_error == [], f"Possibly a typo: {possible_error}"
+
+    def get_all_id(self):
+        """Метод возвращает список из списков всех id товаров со страницы"""
+        all_id = list(self.browser.find_elements(*ALL_ID))
+        list_all_id = ["id=" + id.get_attribute("id")[5:6] for id in all_id]
+
+        return list_all_id
+
+    def add_btn_is_present(self):
+        """Метод проверяет наличие кнопки Add to cart для товаров на странице Products"""
+        assert self.element_is_present(*BTN_ADD), "Element is absent"
