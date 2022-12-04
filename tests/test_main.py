@@ -127,7 +127,6 @@ def test_correct_description_onesie(browser):
     "TC_002.03.04 | Products > Описание товара на странице 'Products' - Bike Light"
 )
 @allure.severity("minor")
-@pytest.mark.xfail
 def test_correct_description_bike_light(browser):
     page = InventoryPage(browser, link)
     page.should_be_description_bike_light()
