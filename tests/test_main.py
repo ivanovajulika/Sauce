@@ -248,7 +248,8 @@ def test_add_remove_backpack(browser):
     "TC_003.00.04 | Inventory item > Переход на станицу 'PRODUCTS' по нажатию на кнопку 'Back to products'."
 )
 def test_go_back_to_products(browser):
-    link = "https://www.saucedemo.com/inventory-item.html?id=4"
+    page = InventoryPage(browser, link)
+    page.img_backpack()
     page = ItemPage_4(browser, link)
     page.back_to_products_btn_is_present()
     page.back_to_products()
