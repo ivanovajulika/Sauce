@@ -44,9 +44,8 @@ class Overview_page(InventoryPage):
         """Метод проверяет подсчет стоимости заказа"""
         item_total = self.browser.find_element(*ITEM_TOTAL)
         item_total = item_total.text[13:]
-        assert (
-            item_total
-            == self.browser.find_element(By.CLASS_NAME, "inventory_item_price").text[:1]
+        assert float(item_total) == float(
+            self.browser.find_element(By.CLASS_NAME, "inventory_item_price").text[1:]
         ), "Wrong item total"
         tax = self.browser.find_element(*TAX)
         tax = tax.text[6:]
