@@ -219,6 +219,7 @@ def test_link_go_from_img(browser):
     "TC_003.00.02 | Inventory item > Добавление товара в корзину на странице 'Inventory item'"
 )
 def test_add_all_products_by_one(browser):
+    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
     list_all_names = page.get_all_names()
     count = len(list_all_names)
