@@ -4,7 +4,7 @@ from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.item_id4 import ItemPage_4
 from pages.checkout_page import Checkout_page
-from pages.inventory_page import ALL_ID, ALL_NAMES
+from pages.inventory_page import ALL_ID, ALL_NAMES, BTN_ADD
 
 
 link = "https://www.saucedemo.com/inventory.html"
@@ -183,6 +183,28 @@ def test_get_all_links(browser):
 
     assert list_all_id == list_all_link, "Wrong page"
 
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
+    "TC_002.05.01 | Products > Добавление товара в корзину со страницы 'Products'."
+)
+def test_add_one_item(browser):
+    page = InventoryPage(browser, link)
+    count = len(page.get_all_names()) - 1
+    for index in range(count):
+        # проверить наличие кнопки Add to cart
+        add_btn = page.add_btn_is_present()
+        while add_btn is True:
+            # добавляем в корзину первый товар на странице
+            btn_add = browser.find_element(*BTN_ADD).click()
+            # добавляем в список все добавленные в корзину товары
+            list_all = page.get_all_items_remove()
+            page.go_to_cart()
+            page = CartPage(browser, link)
+            list_all_cart = page.all_items()
+            # сравниваем список всех добавленных товаров
+            # со списком товаров на странице Корзина
+            assert list_all == list_all_cart
+            page.user_can_go_continue_shopping()
 
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
 @allure.story(
