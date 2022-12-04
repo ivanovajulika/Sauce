@@ -37,7 +37,7 @@ class BasePage:
     def cart_counter(self, quantity):
         """Метод получает значение счетчика на кнопке Корзина и сравнивает его с quantity."""
         text = self.browser.find_element(*CART_BADGE).text
-        assert int(text) == quantity
+        assert text == quantity
 
     def element_cart(self):
         self.browser.find_element(*BTN_CART)

@@ -243,6 +243,17 @@ def test_add_remove_backpack(browser):
     page.empty_cart_page()
 
 
+@allure.feature("US_003.00 | Inventory item > Страница товара.")
+@allure.story(
+    "TC_003.00.04 | Inventory item > Переход на станицу 'PRODUCTS' по нажатию на кнопку 'Back to products'."
+)
+def test_go_back_to_products(browser):
+    link = "https://www.saucedemo.com/inventory-item.html?id=4"
+    page = ItemPage_4(browser, link)
+    page.back_to_products_btn_is_present()
+    page.back_to_products()
+
+
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
 @allure.story(
     "TC_004.01.01 | Your cart > Cоответствие выбранного товара добавленному в 'Корзину'."
