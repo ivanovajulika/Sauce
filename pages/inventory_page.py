@@ -334,7 +334,8 @@ class InventoryPage(BasePage):
         return dict_id5
 
     def spell_check(self, id):
-        """Метод проверяет орфографические ошибки в описании товара."""
+        """Метод проверяет орфографические ошибки в описании товара,
+        значение товара передается по id"""
         checker = SpellChecker("en_US")
         desc = self.browser.find_element(
             By.XPATH, f"(//*[@class='inventory_item_desc'])[{id}]"
