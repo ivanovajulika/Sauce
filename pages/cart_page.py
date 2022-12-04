@@ -9,9 +9,11 @@ BTN_CONTINUE = (By.ID, "continue-shopping")
 
 class CartPage(InventoryPage):
     def user_can_go_continue_shopping(self):
+        """Метод кликает кнопку Continue, происходит возврат на страницу Products"""
         self.browser.find_element(*BTN_CONTINUE).click()
 
     def checkout_btn(self):
+        """Метод кликает кнопку Checkout, происходит возврат на страницу Your information"""
         self.browser.find_element(*BTN_CHECKOUT).click()
 
     # возврат со страницы Корзина на страницу 'Backpack'
@@ -20,7 +22,7 @@ class CartPage(InventoryPage):
         self.browser.find_element(By.ID, "item_4_title_link").click()
 
     def cart_page_counter(self, quantity):
-        """Метод сверяет количество товара из колонки QTY quantity"""
+        """Метод сверяет значение количества товара в колонке QTY с количеством quantity"""
         text = self.browser.find_element(By.CLASS_NAME, "cart_quantity").text
         assert int(text) == quantity
 

@@ -127,6 +127,7 @@ def test_correct_description_onesie(browser):
     "TC_002.03.04 | Products > Описание товара на странице 'Products' - Bike Light"
 )
 @allure.severity("minor")
+@pytest.mark.xfail
 def test_correct_description_bike_light(browser):
     page = InventoryPage(browser, link)
     page.should_be_description_bike_light()
@@ -221,8 +222,7 @@ def test_link_go_from_img(browser):
 def test_add_all_products_by_one(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
-    list_all_names = page.get_all_names()
-    count = len(list_all_names)
+    count = len(page.get_all_names())
     for index in range(count):
         name = browser.find_elements(*ALL_NAMES)[index]
         name.click()
