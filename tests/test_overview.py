@@ -51,7 +51,7 @@ def test_total_sum(browser):
     "TC_006.00.03 |  Checkout: overview > Бесплатная доставка  заказа на странице 'Checkout: overview'"
 )
 @pytest.mark.xfail
-def test_total_sum(browser):
+def test_free_delivery(browser):
     test_overview(browser)
     page = Overview_page(browser, link)
     page.free_delivery()
