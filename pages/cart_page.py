@@ -29,9 +29,13 @@ class CartPage(InventoryPage):
         """Метод сверяет значение количества товара в колонке QTY с количеством quantity"""
         text = self.browser.find_element(*QTY).text
         if quantity >= 0:
-            assert int(text) == quantity, f' Wrong quantity, quantity={quantity}, QTY={text}'
+            assert (
+                int(text) == quantity
+            ), f' Wrong quantity, quantity={quantity}, QTY={text}'
         else:
-            assert int(text) != quantity, f' Wrong quantity, quantity={quantity}, QTY={text}'
+            assert (
+                int(text) != quantity
+            ), f' Wrong quantity, quantity={quantity}, QTY={text}'
 
     def change_cart_page_counter(self, quantity):
         """Метод отправляет значение quantity в колонку QTY"""
