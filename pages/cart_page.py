@@ -20,9 +20,9 @@ class CartPage(InventoryPage):
         """Метод кликает кнопку Checkout, происходит переход на страницу Your information"""
         self.browser.find_element(*BTN_CHECKOUT).click()
 
-    # возврат со страницы Корзина на страницу 'Backpack'
-    # по клику на ссылку на странице
     def return_to_item_page(self):
+        """Метод перехода со страницы Корзина на страницу 'Backpack' по клику на ссылку
+        данного товара"""
         self.browser.find_element(By.ID, "item_4_title_link").click()
 
     def cart_page_counter(self, quantity):
