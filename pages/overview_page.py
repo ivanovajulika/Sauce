@@ -98,7 +98,7 @@ class Complete_page(InventoryPage):
         self.browser.implicitly_wait(10)
         img_pony_size = img_pony.size
         assert img_pony_size == {
-            "height": 0,
+            "height": 381,
             "width": 523,
         }, f"Wrong size, right size = {img_pony_size}"
 

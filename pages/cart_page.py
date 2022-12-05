@@ -7,6 +7,8 @@ BTN_CHECKOUT = (By.ID, "checkout")
 BTN_CONTINUE = (By.ID, "continue-shopping")
 BTN_REMOVE_CART = (By.CLASS_NAME, "cart_button")
 QTY = (By.CLASS_NAME, "cart_quantity")
+QTY_IN_CART = (By.CSS_SELECTOR, ".cart_item_label")
+CART_BADGE = (By.CLASS_NAME, "shopping_cart_badge")
 
 
 class CartPage(InventoryPage):
@@ -69,3 +71,9 @@ class CartPage(InventoryPage):
         """Метод кликает кнопку Remove на странице Your cart"""
         btn_remove = self.browser.find_elements(*BTN_REMOVE_CART)[index]
         btn_remove.click()
+
+    def quantity_all_items_in_cart(self):
+        """Метод сравнивает фактическое кол-во товаров в корзине и количество на счетчике Корзина"""
+        all_items = len(list(self.browser.find_elements(*QTY_IN_CART)))
+        quantity_on_cart_badge = (self.browser.find_element(*CART_BADGE)).text
+        assert all_items == int(quantity_on_cart_badge)
