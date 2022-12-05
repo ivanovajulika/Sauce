@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 from pages.inventory_page import InventoryPage
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 BTN_FINISH = (By.CSS_SELECTOR, "#finish")
 BTN_BACK_HOME = (By.ID, "back-to-products")
@@ -93,8 +95,10 @@ class Complete_page(InventoryPage):
     def picture_is_present(self):
         """Метод проверяет наличие картинки Pony express и ее размер"""
         assert self.element_is_present(*IMG_PONY)
-        img_pony = self.browser.find_element(*IMG_PONY)
-        self.browser.implicitly_wait(10)
+        wait = WebDriverWait(self.browser, 20)
+        img_pony = wait.until(EC.element_attribute_to_include(IMG_PONY, attribute_='size'))
+        # img_pony = self.browser.find_element(*IMG_PONY)
+        # self.browser.implicitly_wait(10)
         img_pony_size = img_pony.size
         assert img_pony_size == {"height": 0, "width": 523}, f'Wrong size, right size = {img_pony_size}'
 
