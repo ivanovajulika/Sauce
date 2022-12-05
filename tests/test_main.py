@@ -439,7 +439,6 @@ def test_changed_to_cart_10_item(browser):
     "TC_004.01.08 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - "
     "удалить 2 товара из корзины."
 )
-@pytest.mark.xfail
 def test_add_all_delete_two_item(browser):
     test_conform_all_items(browser)
     # создаем экземпляр страницы корзины
