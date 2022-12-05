@@ -5,13 +5,19 @@ from selenium.webdriver.common.by import By
 # locators
 BTN_CHECKOUT = (By.ID, "checkout")
 BTN_CONTINUE = (By.ID, "continue-shopping")
+BTN_REMOVE_CART = (By.CLASS_NAME, "cart_button")
+QTY = (By.CLASS_NAME, "cart_quantity")
 
 
 class CartPage(InventoryPage):
     def user_can_go_continue_shopping(self):
+        """Метод кликает кнопку Continue, происходит возврат на страницу Products"""
+        assert self.element_is_present(*BTN_CONTINUE)
         self.browser.find_element(*BTN_CONTINUE).click()
+        assert "inventory" in self.browser.current_url
 
     def checkout_btn(self):
+        """Метод кликает кнопку Checkout, происходит переход на страницу Your information"""
         self.browser.find_element(*BTN_CHECKOUT).click()
 
     # возврат со страницы Корзина на страницу 'Backpack'
@@ -20,12 +26,26 @@ class CartPage(InventoryPage):
         self.browser.find_element(By.ID, "item_4_title_link").click()
 
     def cart_page_counter(self, quantity):
-        """Метод сверяет количество товара из колонки QTY quantity"""
-        text = self.browser.find_element(By.CLASS_NAME, "cart_quantity").text
-        assert int(text) == quantity
+        """Метод сверяет значение количества товара в колонке QTY с количеством quantity"""
+        text = self.browser.find_element(*QTY).text
+        if quantity >= 0:
+            assert (
+                int(text) == quantity
+            ), f" Wrong quantity, quantity={quantity}, QTY={text}"
+        else:
+            assert (
+                int(text) != quantity
+            ), f" Wrong quantity, quantity={quantity}, QTY={text}"
+
+    def change_cart_page_counter(self, quantity):
+        """Метод отправляет значение quantity в колонку QTY"""
+        qty = self.browser.find_element(*QTY)
+        value = quantity
+        qty.send_keys(value)
 
     def empty_cart_page(self):
-        assert not self.element_is_present(By.CLASS_NAME, "cart_quantity")
+        """Метод проверяет, что значение колонке QTY отсутствует"""
+        assert not self.element_is_present(*QTY)
 
     def list_item_id5(self):
         title_item = self.browser.find_element(
@@ -44,3 +64,8 @@ class CartPage(InventoryPage):
         """Метод проверяет, что в корзину добавлено все 6 товаров"""
         elements = len(self.browser.find_elements(By.CSS_SELECTOR, ".cart_item"))
         assert elements == 6
+
+    def remove_cart_page(self, index=0):
+        """Метод кликает кнопку Remove на странице Your cart"""
+        btn_remove = self.browser.find_elements(*BTN_REMOVE_CART)[index]
+        btn_remove.click()

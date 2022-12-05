@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from pages.inventory_page import InventoryPage
 
+
 BTN_FINISH = (By.CSS_SELECTOR, "#finish")
 BTN_BACK_HOME = (By.ID, "back-to-products")
 IMG_PONY = (By.CLASS_NAME, "pony_express")
@@ -96,7 +97,10 @@ class Complete_page(InventoryPage):
         img_pony = self.browser.find_element(*IMG_PONY)
         self.browser.implicitly_wait(10)
         img_pony_size = img_pony.size
-        assert img_pony_size == {"height": 381, "width": 523}
+        assert img_pony_size == {
+            "height": 0,
+            "width": 523,
+        }, f"Wrong size, right size = {img_pony_size}"
 
     def should_be_complete(self):
         """Метод проверяет наличие кнопки Back home, картинки Pony express и ее размер,
