@@ -495,3 +495,38 @@ def test_conform_all_items(browser):
     # Создаем список из списков всех товаров в корзине
     list_all_items_in_cart = page.all_items()
     assert list_all_items == list_all_items_in_cart
+
+
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story(
+    "TC_004.01.07 | ТС_04.01.07 | Your cart > Позитивная проверка интеграции "
+    "'Счетчика', 'Корзины', 'Количества товара' "
+    "при успешном завершении процесса добавления товара в корзину."
+)
+@pytest.mark.xfail
+def test_increase_quantity_in_cart(browser):
+    page = InventoryPage(browser, link)
+    page.add_to_cart_backpack()
+    page.go_to_cart()
+    page = CartPage(browser, link)
+    page.cart_page_counter(quantity=1)
+    page.change_cart_page_counter(quantity=2)
+    page.cart_page_counter(quantity=2)
+
+
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story(
+    "TC_004.01.09 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - "
+    "добавить 2 товара в корзину и удалить 1 товар."
+)
+def test_add_2_remove_1(browser):
+    page = InventoryPage(browser, link)
+    page.add_to_cart_backpack()
+    page.add_to_cart_fleece_jacket()
+    page.cart_counter(quantity=2)
+    page.go_to_cart()
+    page = CartPage(browser, link)
+    page.quantity_all_items_in_cart()
+    page.remove_cart_page()
+    page.cart_counter(quantity=1)
+    page.quantity_all_items_in_cart()
