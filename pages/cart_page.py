@@ -31,11 +31,11 @@ class CartPage(InventoryPage):
         if quantity >= 0:
             assert (
                 int(text) == quantity
-            ), f' Wrong quantity, quantity={quantity}, QTY={text}'
+            ), f" Wrong quantity, quantity={quantity}, QTY={text}"
         else:
             assert (
                 int(text) != quantity
-            ), f' Wrong quantity, quantity={quantity}, QTY={text}'
+            ), f" Wrong quantity, quantity={quantity}, QTY={text}"
 
     def change_cart_page_counter(self, quantity):
         """Метод отправляет значение quantity в колонку QTY"""
