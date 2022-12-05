@@ -451,6 +451,16 @@ def test_add_all_delete_two_item(browser):
 
 
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story(
+    "TC_004.02.01 | Your cart > Переход из Header в 'Корзину' при успешном добавление товара в корзину."
+)
+def test_go_to_cart(browser):
+    page = InventoryPage(browser, link)
+    page.add_to_cart_backpack()
+    page.go_to_cart()
+
+
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
 @allure.story("TC_004.03.01 | Your cart > Оформление заказа с пустой Корзиной.")
 @pytest.mark.xfail
 def test_empty_cart_order(browser):

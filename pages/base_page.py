@@ -45,6 +45,7 @@ class BasePage:
     def go_to_cart(self):
         """Метод перехода в корзину."""
         self.browser.find_element(*BTN_CART).click()
+        assert "cart" in self.browser.current_url, "Wrong page"
 
     def empty_cart_counter(self):
         """Метод проверяет что счетчик кнопки Корзина пуст."""
