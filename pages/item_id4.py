@@ -5,12 +5,16 @@ BTN_ADD_TO_CART = (By.CLASS_NAME, "btn_primary")
 BTN_REMOVE = (By.ID, "remove-sauce-labs-backpack")
 BTN_BACK = (By.ID, "back-to-products")
 DETAILS_IMG = (By.CSS_SELECTOR, ".inventory_details_img")
+NAMES = (By.CLASS_NAME, "inventory_details_name")
+DESC = (By.CSS_SELECTOR, ".inventory_details_desc")
+PRICES = (By.CLASS_NAME, "inventory_details_price")
 
 
 class ItemPage_4(InventoryPage):
     def photo_size_required(self):
-        """Метод проверяет наличие фотографии на странице 'Backpack'"""
-        photo = self.browser.find_element(*DETAILS_IMG)
+        """Метод проверяет наличие фотографии на странице и возвращает фото 'Backpack'"""
+        photo = self.element_is_present(*DETAILS_IMG), "Element is absent"
+        return self.browser.find_element(*DETAILS_IMG).get_attribute("src")
 
     def add_to_cart(self):
         """Метод добавляет товар в корзину на странице 'Backpack'"""
@@ -36,3 +40,9 @@ class ItemPage_4(InventoryPage):
         """Метод проверяет переход по кнопке Back to products на страницу Inventory"""
         self.browser.find_element(*BTN_BACK).click()
         assert "inventory" in self.browser.current_url, "Wrong page"
+
+    def should_be_item(self):
+        """Метод проверяет наличие названия, описания и цены на странице товара'"""
+        assert self.element_is_present(*NAMES), "Wrong name"
+        assert self.element_is_present(*DESC), "Wrong description"
+        assert self.element_is_present(*PRICES), "Wrong price"

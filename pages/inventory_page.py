@@ -220,6 +220,18 @@ class InventoryPage(BasePage):
             list_all_img.append(img)
         assert list_all_img == list_required_img
 
+    def list_required_img(self):
+        """Метод возвращает эталонный список со всеми фото товаров со страницы Products"""
+        list_required_img = [
+            "https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.34e7aa42.jpg",
+            "https://www.saucedemo.com/static/media/bike-light-1200x1500.a0c9caae.jpg",
+            "https://www.saucedemo.com/static/media/bolt-shirt-1200x1500.c0dae290.jpg",
+            "https://www.saucedemo.com/static/media/sauce-pullover-1200x1500.439fc934.jpg",
+            "https://www.saucedemo.com/static/media/red-onesie-1200x1500.1b15e1fa.jpg",
+            "https://www.saucedemo.com/static/media/red-tatt-1200x1500.e32b4ef9.jpg",
+        ]
+        return list_required_img
+
     def add_all_items(self):
         """Метод добавляет все товары со страницы Products в корзину"""
         add_cart = list(self.browser.find_elements(*BTN_ADD))
@@ -271,9 +283,15 @@ class InventoryPage(BasePage):
 
     def btn_remove_is_present_random(self):
         """Метод проверяет наличие кнопки Remove на странице Products"""
-        wait = WebDriverWait(self.browser, 15)
+        wait = WebDriverWait(self.browser, 20)
         btn_remove = wait.until(EC.element_to_be_clickable(BTN_REMOVE))
         assert self.element_is_present(*BTN_REMOVE)
+
+    def btn_remove_click_random(self):
+        """Метод дожидается появления кнопки Remove и кликает на нее на странице Products"""
+        wait = WebDriverWait(self.browser, 20)
+        btn_remove = wait.until(EC.element_to_be_clickable(BTN_REMOVE))
+        btn_remove.click()
 
     def get_all_items_remove(self):
         """Метод возвращает список из списков наименований, описаний и цен товаров,

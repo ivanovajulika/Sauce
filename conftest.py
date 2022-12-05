@@ -25,7 +25,7 @@ def password():
 def browser(username, password):
     options = webdriver.ChromeOptions()
     options.add_argument("--window-size=1600,1080")
-    options.headless = False
+    options.headless = True
     browser = webdriver.Chrome(
         service=ChromeService(ChromeDriverManager().install()), options=options
     )

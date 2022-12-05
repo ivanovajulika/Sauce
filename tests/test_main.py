@@ -1,3 +1,5 @@
+import time
+
 import pytest
 import allure
 from pages.inventory_page import InventoryPage
@@ -204,15 +206,46 @@ def test_add_one_item(browser):
             page.user_can_go_continue_shopping()
 
 
+@allure.feature("US_002.00 | Products > Страница выбора товаров.")
+@allure.story(
+    "TC_002.05.02 | Products > Удаление товара из корзины со страницы  'Products'."
+)
+def test_delete_one_item(browser):
+    page = InventoryPage(browser, link)
+    count = len(page.get_all_names()) - 1
+    for index in range(count):
+        # добавляем в корзину товары по очереди на странице
+        btn_add = browser.find_elements(*BTN_ADD)[index].click()
+        time.sleep(2)
+        # проверить наличие кнопки Remove
+        page.btn_remove_is_present_random()
+        page.btn_remove_click_random()
+        page.empty_cart_counter()
+        page.go_to_cart()
+        page = CartPage(browser, link)
+        page.empty_cart_page()
+        page.user_can_go_continue_shopping()
+
+
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
 @allure.story(
     "TC_003.00.01 | Inventory item > Переход на страницу товара по клику на картинку товара в его карточке."
 )
 def test_link_go_from_img(browser):
+    link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
-    page.img_backpack()
-    page = ItemPage_4(browser, link)
-    page.photo_size_required()
+    count = len(page.get_all_names())
+    for index in range(count):
+        name = browser.find_elements(*ALL_NAMES)[index]
+        name.click()
+        page = ItemPage_4(browser, link)
+        # проверяем наличие фото и получаем изображение
+        photo = page.photo_size_required()
+        # получаем эталонный список фото
+        list_required = page.list_required_img()
+        assert photo in list_required
+        page.should_be_item()
+        page.back_to_products()
 
 
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
@@ -274,6 +307,23 @@ def test_go_back_to_products(browser):
     page.back_to_products()
 
 
+@allure.feature("US_003.00 | Inventory item > Страница товара.")
+@allure.story(
+    "TC_003.00.05 | Inventory item > Наличие названия товара, его описания и цены на странице товара.."
+)
+def test_desc_photo_name_price(browser):
+    link = "https://www.saucedemo.com/inventory.html"
+    page = InventoryPage(browser, link)
+    count = len(page.get_all_names())
+    for index in range(count):
+        name = browser.find_elements(*ALL_NAMES)[index]
+        name.click()
+        page = ItemPage_4(browser, link)
+        page.photo_size_required()
+        page.all_items()
+        page.return_to_inventory_page()
+
+
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
 @allure.story(
     "TC_004.01.01 | Your cart > Cоответствие выбранного товара добавленному в 'Корзину'."
@@ -317,7 +367,21 @@ def test_add_to_cart_random_item(browser):
 
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
 @allure.story(
-    "TC_004.01.04 | Your cart >  проверить количество выбранного товара в корзине."
+    "TC_004.01.03 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - удалить 1 товар из корзины."
+)
+def test_delete_to_cart_random_item(browser):
+    test_add_to_cart_random_item(browser)
+    # создаем экземпляр страницы корзины
+    page = CartPage(browser, link)
+    # удаляем товар из корзины, кнопка remove
+    page.remove_cart_page()
+    page.empty_cart_counter()
+    page.user_can_go_continue_shopping()
+
+
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story(
+    "TC_004.01.04 | Your cart >  Проверить количество выбранного товара в корзине."
 )
 def test_add_to_cart_btn_add(browser):
     page = InventoryPage(browser, link)
@@ -336,6 +400,56 @@ def test_add_to_cart_btn_add(browser):
     page.go_to_cart()
     page = CartPage(browser, link)
     page.count_products_in_the_cart()
+
+
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story(
+    "TC_004.01.05 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - изменить количество товара '-1'."
+)
+def test_changed_to_cart_no_valid_item(browser):
+    test_add_to_cart_random_item(browser)
+    # создаем экземпляр страницы корзины
+    page = CartPage(browser, link)
+    # вводим в поле QTY количество -1
+    page.cart_page_counter(quantity=-1)
+    # проверяем, что значение не изменилось
+    page.cart_counter(quantity=1)
+    page.user_can_go_continue_shopping()
+
+
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story(
+    "TC_004.01.06 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - "
+    "изменить количество одного товара на '10'."
+)
+@pytest.mark.xfail
+def test_changed_to_cart_10_item(browser):
+    test_add_to_cart_random_item(browser)
+    # создаем экземпляр страницы корзины
+    page = CartPage(browser, link)
+    # вводим в поле QTY количество 10
+    page.cart_page_counter(quantity=10)
+    # проверяем, что значение изменилось
+    page.cart_counter(quantity=10)
+    page.user_can_go_continue_shopping()
+
+
+@allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
+@allure.story(
+    "TC_004.01.08 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - "
+    "удалить 2 товара из корзины."
+)
+@pytest.mark.xfail
+def test_add_all_delete_two_item(browser):
+    test_conform_all_items(browser)
+    # создаем экземпляр страницы корзины
+    page = CartPage(browser, link)
+    # удаляем 2 товара из корзины, кнопка remove
+    page.remove_cart_page(index=0)
+    page.remove_cart_page(index=1)
+    # проверяем, что значение изменилось
+    page.cart_counter(quantity=4)
+    # проверяем, что значение изменилось
 
 
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")

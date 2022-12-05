@@ -11,7 +11,8 @@ link = "https://www.saucedemo.com/inventory.html"
     "US_007.00 | Checkout: complete! > Страница завершения оформления заказа."
 )
 @allure.story(
-    "TC_007.00.01 | Checkout: complete! > Визуальная проверка корректного отображения графического интерфейса завершения заказа на странице."
+    "TC_007.00.01 | Checkout: complete! > Визуальная проверка корректного "
+    "отображения графического интерфейса завершения заказа на странице."
 )
 def test_should_be_complete(browser):
     page = InventoryPage(browser, link)
