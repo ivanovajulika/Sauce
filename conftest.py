@@ -1,5 +1,6 @@
 import pytest
 from selenium import webdriver
+from datetime import datetime
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
@@ -40,6 +41,14 @@ def browser(username, password):
 
     yield browser
     browser.quit()
+
+
+@pytest.fixture(autouse=True)
+def time_delta():
+    start_time = datetime.now()
+    yield
+    end_time = datetime.now()
+    print(f"\nТест шел: {end_time - start_time}")
 
 
 # эта фикстура делает скриншот при failed test
