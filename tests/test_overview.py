@@ -1,12 +1,10 @@
 import allure
 import pytest
-
+from conf import *
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import Checkout_page
 from pages.overview_page import Overview_page
-
-link = "https://www.saucedemo.com/inventory.html"
 
 
 @allure.feature(
@@ -14,6 +12,14 @@ link = "https://www.saucedemo.com/inventory.html"
 )
 @allure.story(
     "TC_006.00.01 |  Checkout: overview > Отображение информации о заказе на странице 'Checkout: overview'"
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
 )
 def test_overview(browser):
     page = InventoryPage(browser, link)
@@ -38,6 +44,14 @@ def test_overview(browser):
     "TC_006.00.02 |  Checkout: overview > Отображение информации "
     "о итоговой стоимости заказа на странице 'Checkout: overview'"
 )
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
+)
 def test_total_sum(browser):
     test_overview(browser)
     page = Overview_page(browser, link)
@@ -50,6 +64,7 @@ def test_total_sum(browser):
 @allure.story(
     "TC_006.00.03 |  Checkout: overview > Бесплатная доставка  заказа на странице 'Checkout: overview'"
 )
+@pytest.mark.parametrize("username", list_username)
 @pytest.mark.xfail
 def test_free_delivery(browser):
     test_overview(browser)
@@ -63,6 +78,14 @@ def test_free_delivery(browser):
 @allure.story(
     "TC_006.01.01 |  Checkout: overview > Работа кнопки 'CANCEL' на странице 'Checkout: overview' "
     "при добавлении товара в корзину."
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
 )
 def test_cancel_overview(browser):
     page = InventoryPage(browser, link)
@@ -83,6 +106,14 @@ def test_cancel_overview(browser):
     "TC_006.01.02 |  Checkout: overview > Работа кнопки 'CANCEL' на странице 'Checkout: overview' "
     "при отсутствии товаров в корзине."
 )
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
+)
 def test_cancel_overview_empty_cart(browser):
     page = InventoryPage(browser, link)
     page.go_to_cart()
@@ -100,6 +131,14 @@ def test_cancel_overview_empty_cart(browser):
 @allure.story(
     "TC_006.02.01 |  Checkout: overview > Работа кнопки 'FINISH' на странице 'Checkout: overview' "
     "при добавлении товара в корзину."
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
 )
 def test_finish_overview(browser):
     page = InventoryPage(browser, link)
@@ -121,6 +160,7 @@ def test_finish_overview(browser):
     "TC_006.02.02 |  Checkout: overview > Работа кнопки 'FINISH' на странице 'Checkout: overview' "
     "при отсутствии товаров в корзине."
 )
+@pytest.mark.parametrize("username", list_username)
 @pytest.mark.xfail
 def test_finish_overview_empty_cart(browser):
     page = InventoryPage(browser, link)

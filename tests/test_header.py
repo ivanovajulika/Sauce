@@ -1,6 +1,6 @@
 import allure
 import pytest
-
+from conf import link, list_username
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import Checkout_page
@@ -9,13 +9,12 @@ from pages.overview_page import Complete_page
 from pages.item_id4 import ItemPage_4
 from pages.inventory_page import ALL_NAMES
 
-link = "https://www.saucedemo.com/inventory.html"
-
 
 @allure.feature("US_008.00 | Header")
 @allure.story(
     "TC_008.01.01 | Header > Наличие хедера и его элементов на страницe 'Products'."
 )
+@pytest.mark.parametrize("username", list_username)
 def test_should_be_elements_of_header_on_inventory_page(browser):
     page = InventoryPage(browser, link)
     page.should_be_logo()
@@ -28,6 +27,7 @@ def test_should_be_elements_of_header_on_inventory_page(browser):
 @allure.story(
     "TC_008.01.02 | Header > Наличие хедера и его элементов на страницe 'Your cart'."
 )
+@pytest.mark.parametrize("username", list_username)
 def test_should_be_elements_of_header_on_cart_page(browser):
     page = InventoryPage(browser, link)
     page.go_to_cart()
@@ -42,6 +42,7 @@ def test_should_be_elements_of_header_on_cart_page(browser):
 @allure.story(
     "TC_008.01.03 | Header > Наличие хедера и его элементов на странице 'Checkout: your information'."
 )
+@pytest.mark.parametrize("username", list_username)
 def test_should_be_elements_of_header_on_checkout_page(browser):
     page = InventoryPage(browser, link)
     page.go_to_cart()
@@ -58,6 +59,7 @@ def test_should_be_elements_of_header_on_checkout_page(browser):
 @allure.story(
     "TC_008.01.04 | Header > Наличие хедера и его элементов на странице 'Checkout: overview'."
 )
+@pytest.mark.parametrize("username", list_username)
 def test_should_be_elements_of_header_on_overview_page(browser):
     page = InventoryPage(browser, link)
     page.go_to_cart()
@@ -75,6 +77,14 @@ def test_should_be_elements_of_header_on_overview_page(browser):
 @allure.feature("US_008.00 | Header")
 @allure.story(
     "TC_008.01.05 | Header > Наличие хедера и его элементов на странице 'Checkout: complete!'"
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
 )
 def test_should_be_elements_of_header_on_checkout_complete_page(browser):
     page = InventoryPage(browser, link)
@@ -96,6 +106,7 @@ def test_should_be_elements_of_header_on_checkout_complete_page(browser):
 @allure.story(
     "TC_008.01.06 | Header > Наличие хедера и его элементов на странице товара 'Inventory item."
 )
+@pytest.mark.parametrize("username", list_username)
 def test_should_be_elements_of_header_on_inventory_item(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
@@ -114,6 +125,7 @@ def test_should_be_elements_of_header_on_inventory_item(browser):
 @allure.story(
     "TC_008.02.01 | Header > Переход по клику на логотип со страницы 'You cart' на страницу 'Products'."
 )
+@pytest.mark.parametrize("username", list_username)
 @pytest.mark.xfail
 def test_click_on_logo_from_your_cart(browser):
     page = InventoryPage(browser, link)
@@ -126,6 +138,7 @@ def test_click_on_logo_from_your_cart(browser):
 @allure.story(
     "TC_008.02.02 | Header > Переход по клику на логотип со страницы Checkout: your information на страницу Products"
 )
+@pytest.mark.parametrize("username", list_username)
 @pytest.mark.xfail
 def test_click_on_logo_from_checkout_page(browser):
     page = InventoryPage(browser, link)
@@ -140,6 +153,7 @@ def test_click_on_logo_from_checkout_page(browser):
 @allure.story(
     "TC_008.02.03 | Header > Переход по клику на логотип со страницы Checkout: overview на страницу Products"
 )
+@pytest.mark.parametrize("username", list_username)
 @pytest.mark.xfail
 def test_click_on_logo_from_overview_page(browser):
     page = InventoryPage(browser, link)
@@ -156,6 +170,7 @@ def test_click_on_logo_from_overview_page(browser):
 @allure.story(
     "TC_008.02.04 | Header > Переход по клику на логотип со страницы Checkout: complete! на страницу Products"
 )
+@pytest.mark.parametrize("username", list_username)
 @pytest.mark.xfail
 def test_click_on_logo_from_complete_page(browser):
     page = InventoryPage(browser, link)
@@ -174,6 +189,7 @@ def test_click_on_logo_from_complete_page(browser):
 @allure.story(
     "TC_008.02.05 | Header > Переход по клику на логотип со страницы товара Inventory item на страницу Products."
 )
+@pytest.mark.parametrize("username", list_username)
 @pytest.mark.xfail
 def test_click_on_logo_from_inventory_item(browser):
     link = "https://www.saucedemo.com/inventory.html"

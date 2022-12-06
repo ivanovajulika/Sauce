@@ -1,4 +1,5 @@
 import allure
+import pytest
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import Checkout_page
@@ -13,6 +14,17 @@ link = "https://www.saucedemo.com/inventory.html"
 @allure.story(
     "TC_007.00.01 | Checkout: complete! > Визуальная проверка корректного "
     "отображения графического интерфейса завершения заказа на странице."
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        pytest.param(
+            "performance_glitch_user",
+            marks=pytest.mark.xfail(reason="performance_glitch_user"),
+        ),
+    ],
 )
 def test_should_be_complete(browser):
     page = InventoryPage(browser, link)
@@ -32,6 +44,17 @@ def test_should_be_complete(browser):
 )
 @allure.story(
     "TC_007.00.02 | Checkout: complete! > Проверка корректной работы кнопки 'BACK HOME'"
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        pytest.param(
+            "performance_glitch_user",
+            marks=pytest.mark.xfail(reason="performance_glitch_user"),
+        ),
+    ],
 )
 def test_back_home(browser):
     test_should_be_complete(browser)

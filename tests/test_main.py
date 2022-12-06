@@ -1,5 +1,5 @@
 import time
-
+from conf import link, list_username
 import pytest
 import allure
 from pages.inventory_page import InventoryPage
@@ -9,11 +9,9 @@ from pages.checkout_page import Checkout_page
 from pages.inventory_page import ALL_NAMES, BTN_ADD
 
 
-link = "https://www.saucedemo.com/inventory.html"
-
-
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story("TC_002.01.01 | Products > Количество товаров на странице 'Products'")
+@pytest.mark.parametrize("username", list_username)
 def test_count_products(browser):
     page = InventoryPage(browser, link)
     page.count_products()
@@ -21,6 +19,14 @@ def test_count_products(browser):
 
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story("TC_002.01.02 | Products > Фото товара на странице 'Products'")
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
+)
 def test_photo_products(browser):
     page = InventoryPage(browser, link)
     page.should_be_img_all_item()
@@ -28,6 +34,7 @@ def test_photo_products(browser):
 
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story("TC_002.02.01 | Products > Цена товара на странице 'Products' - Backpack")
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 def test_link_to_price_backpack(browser):
     page = InventoryPage(browser, link)
@@ -39,6 +46,7 @@ def test_link_to_price_backpack(browser):
 @allure.story(
     "TC_002.02.02 | Products > Цена товара на странице 'Products' - Bolt T-Shirt"
 )
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 def test_link_to_price_t_shirt(browser):
     page = InventoryPage(browser, link)
@@ -48,6 +56,7 @@ def test_link_to_price_t_shirt(browser):
 
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story("TC_002.02.03 | Products > Цена товара на странице 'Products' - Onesie")
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 def test_link_to_price_onesie(browser):
     page = InventoryPage(browser, link)
@@ -59,6 +68,7 @@ def test_link_to_price_onesie(browser):
 @allure.story(
     "TC_002.02.04 | Products > Цена товара на странице 'Products' - Bike Light"
 )
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 def test_link_to_price_bike_light(browser):
     page = InventoryPage(browser, link)
@@ -70,6 +80,7 @@ def test_link_to_price_bike_light(browser):
 @allure.story(
     "TC_002.02.05 | Products > Цена товара на странице 'Products' - Fleece Jacket"
 )
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 def test_link_to_price_fleece_jacket(browser):
     page = InventoryPage(browser, link)
@@ -81,6 +92,7 @@ def test_link_to_price_fleece_jacket(browser):
 @allure.story(
     "TC_002.02.06 | Products > Цена товара на странице 'Products' - T-Shirt (Red)"
 )
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 def test_link_to_price_t_shirt_red(browser):
     page = InventoryPage(browser, link)
@@ -92,6 +104,7 @@ def test_link_to_price_t_shirt_red(browser):
 @allure.story(
     "TC_002.03.01 | Products > Описание товара на странице 'Products' - Backpack"
 )
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 @pytest.mark.xfail
 def test_correct_description_backpack(browser):
@@ -104,6 +117,7 @@ def test_correct_description_backpack(browser):
 @allure.story(
     "TC_002.03.02 | Products > Описание товара на странице 'Products' - Bolt T-Shirt"
 )
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 @pytest.mark.xfail
 def test_correct_description_t_shirt(browser):
@@ -116,6 +130,7 @@ def test_correct_description_t_shirt(browser):
 @allure.story(
     "TC_002.03.03 | Products > Описание товара на странице 'Products' - Onesie"
 )
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 @pytest.mark.xfail
 def test_correct_description_onesie(browser):
@@ -128,6 +143,7 @@ def test_correct_description_onesie(browser):
 @allure.story(
     "TC_002.03.04 | Products > Описание товара на странице 'Products' - Bike Light"
 )
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 def test_correct_description_bike_light(browser):
     page = InventoryPage(browser, link)
@@ -139,6 +155,7 @@ def test_correct_description_bike_light(browser):
 @allure.story(
     "TC_002.03.05 | Products > Описание товара на странице 'Products' - Fleece Jacket"
 )
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 @pytest.mark.xfail
 def test_correct_description_fleece_jacket(browser):
@@ -151,6 +168,7 @@ def test_correct_description_fleece_jacket(browser):
 @allure.story(
     "TC_002.03.06 | Products > Описание товара на странице 'Products' - T-Shirt (Red)"
 )
+@pytest.mark.parametrize("username", list_username)
 @allure.severity("minor")
 @pytest.mark.xfail
 def test_correct_description_t_shirt_red(browser):
@@ -162,6 +180,14 @@ def test_correct_description_t_shirt_red(browser):
 @allure.feature("US_002.00 | Products > Страница выбора товаров.")
 @allure.story(
     "TC_002.04.00 | Products > Ссылка на страницу товара из карточки товара 'Products'."
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
 )
 @allure.severity("critical")
 def test_get_all_links(browser):
@@ -185,6 +211,7 @@ def test_get_all_links(browser):
 @allure.story(
     "TC_002.05.01 | Products > Добавление товара в корзину со страницы 'Products'."
 )
+@pytest.mark.parametrize("username", list_username)
 def test_add_one_item(browser):
     page = InventoryPage(browser, link)
     count = len(page.get_all_names()) - 1
@@ -209,6 +236,14 @@ def test_add_one_item(browser):
 @allure.story(
     "TC_002.05.02 | Products > Удаление товара из корзины со страницы  'Products'."
 )
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
+)
 def test_delete_one_item(browser):
     page = InventoryPage(browser, link)
     count = len(page.get_all_names()) - 1
@@ -230,6 +265,14 @@ def test_delete_one_item(browser):
 @allure.story(
     "TC_003.00.01 | Inventory item > Переход на страницу товара по клику на картинку товара в его карточке."
 )
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
+)
 def test_link_go_from_img(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
@@ -250,6 +293,14 @@ def test_link_go_from_img(browser):
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
 @allure.story(
     "TC_003.00.02 | Inventory item > Добавление товара в корзину на странице 'Inventory item'"
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
 )
 def test_add_all_products_by_one(browser):
     link = "https://www.saucedemo.com/inventory.html"
@@ -273,6 +324,14 @@ def test_add_all_products_by_one(browser):
 @allure.feature("US_003.00 | Inventory item > Страница товара.")
 @allure.story(
     "TC_003.00.03 | Inventory item > Удаление товара из корзины на странице 'Inventory item'."
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
 )
 def test_add_remove_backpack(browser):
     link = "https://www.saucedemo.com/inventory-item.html?id=4"
@@ -298,6 +357,14 @@ def test_add_remove_backpack(browser):
 @allure.story(
     "TC_003.00.04 | Inventory item > Переход на станицу 'PRODUCTS' по нажатию на кнопку 'Back to products'."
 )
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
+)
 def test_go_back_to_products(browser):
     page = InventoryPage(browser, link)
     page.img_backpack()
@@ -310,6 +377,7 @@ def test_go_back_to_products(browser):
 @allure.story(
     "TC_003.00.05 | Inventory item > Наличие названия товара, его описания и цены на странице товара.."
 )
+@pytest.mark.parametrize("username", list_username)
 def test_desc_photo_name_price(browser):
     link = "https://www.saucedemo.com/inventory.html"
     page = InventoryPage(browser, link)
@@ -326,6 +394,14 @@ def test_desc_photo_name_price(browser):
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
 @allure.story(
     "TC_004.01.01 | Your cart > Cоответствие выбранного товара добавленному в 'Корзину'."
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
 )
 def test_conformity_item(browser):
     # Создаем экземпляр страницы с товарами
@@ -345,6 +421,7 @@ def test_conformity_item(browser):
 @allure.story(
     "TC_004.01.02 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - добавить 1 товар в корзину."
 )
+@pytest.mark.parametrize("username", list_username)
 def test_add_to_cart_random_item(browser):
     page = InventoryPage(browser, link)
     # добавить в корзину 1 любой товар
@@ -368,6 +445,17 @@ def test_add_to_cart_random_item(browser):
 @allure.story(
     "TC_004.01.03 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - удалить 1 товар из корзины."
 )
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        pytest.param(
+            "performance_glitch_user",
+            marks=pytest.mark.xfail(reason="performance_glitch_user"),
+        ),
+    ],
+)
 def test_delete_to_cart_random_item(browser):
     test_add_to_cart_random_item(browser)
     # создаем экземпляр страницы корзины
@@ -381,6 +469,14 @@ def test_delete_to_cart_random_item(browser):
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
 @allure.story(
     "TC_004.01.04 | Your cart >  Проверить количество выбранного товара в корзине."
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
 )
 def test_add_to_cart_btn_add(browser):
     page = InventoryPage(browser, link)
@@ -405,6 +501,14 @@ def test_add_to_cart_btn_add(browser):
 @allure.story(
     "TC_004.01.05 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - изменить количество товара '-1'."
 )
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
+)
 def test_changed_to_cart_no_valid_item(browser):
     test_add_to_cart_random_item(browser)
     # создаем экземпляр страницы корзины
@@ -421,6 +525,7 @@ def test_changed_to_cart_no_valid_item(browser):
     "TC_004.01.06 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - "
     "изменить количество одного товара на '10'."
 )
+@pytest.mark.parametrize("username", list_username)
 @pytest.mark.xfail
 def test_changed_to_cart_10_item(browser):
     test_add_to_cart_random_item(browser)
@@ -438,6 +543,14 @@ def test_changed_to_cart_10_item(browser):
     "TC_004.01.08 | Your cart > Работа кнопки 'Корзина': ввод валидных данных - "
     "удалить 2 товара из корзины."
 )
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
+)
 def test_add_all_delete_two_item(browser):
     test_conform_all_items(browser)
     # создаем экземпляр страницы корзины
@@ -454,6 +567,7 @@ def test_add_all_delete_two_item(browser):
 @allure.story(
     "TC_004.02.01 | Your cart > Переход из Header в 'Корзину' при успешном добавление товара в корзину."
 )
+@pytest.mark.parametrize("username", list_username)
 def test_go_to_cart(browser):
     page = InventoryPage(browser, link)
     page.add_to_cart_backpack()
@@ -462,6 +576,7 @@ def test_go_to_cart(browser):
 
 @allure.feature("US_004.00 | Your cart > Страница корзины. Кнопка 'Корзина'.")
 @allure.story("TC_004.03.01 | Your cart > Оформление заказа с пустой Корзиной.")
+@pytest.mark.parametrize("username", list_username)
 @pytest.mark.xfail
 def test_empty_cart_order(browser):
     # Негативный тест-кейс - не должно быть перехода на checkout-complete!
@@ -480,6 +595,14 @@ def test_empty_cart_order(browser):
 @allure.story(
     "TC_004.04.00 | Your cart > Положить в корзину все товары и проверить "
     "в корзине соответствие названия, описания, цены."
+)
+@pytest.mark.parametrize(
+    "username",
+    [
+        "standard_user",
+        pytest.param("problem_user", marks=pytest.mark.xfail(reason="problem_user")),
+        "performance_glitch_user",
+    ],
 )
 def test_conform_all_items(browser):
     # Создаем экземпляр страницы с товарами

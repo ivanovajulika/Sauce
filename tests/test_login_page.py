@@ -38,7 +38,7 @@ def test_user_can_auth(browser, username):
 @allure.story("TC_001.00.02 | Login page > Авторизация при пустом поле 'Password'")
 @pytest.mark.parametrize("password", [""])
 @pytest.mark.parametrize("username", list_username)
-def test_password_is_empty(browser, password, username):
+def test_password_is_empty(browser):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
@@ -49,7 +49,7 @@ def test_password_is_empty(browser, password, username):
 @allure.feature("US_001.00 | Login page > Страница авторизации.")
 @allure.story("TC_001.00.03 | Login page > Авторизация при пустом поле 'Username'")
 @pytest.mark.parametrize("username", [""])
-def test_username_is_empty(browser, username):
+def test_username_is_empty(browser):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
@@ -63,7 +63,7 @@ def test_username_is_empty(browser, username):
 )
 @pytest.mark.parametrize("password", list_username)
 @pytest.mark.parametrize("username", list_username)
-def test_password_is_login(browser, password, username):
+def test_password_is_login(browser):
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
         error_message.text
@@ -76,7 +76,7 @@ def test_password_is_login(browser, password, username):
     "TC_001.00.05 | Login page > Авторизация при вводе в поле 'Username' валидного пароля"
 )
 @pytest.mark.parametrize("username", ["secret_sauce"])
-def test_username_is_password(browser, username):
+def test_username_is_password(browser):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
@@ -90,7 +90,7 @@ def test_username_is_password(browser, username):
 @allure.story("TC_001.00.05 | Login page > Авторизация c логином и паролем 'admin'")
 @pytest.mark.parametrize("username", ["admin"])
 @pytest.mark.parametrize("password", ["admin"])
-def test_username_is_admin(browser, username, password):
+def test_username_is_admin(browser):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
@@ -104,7 +104,7 @@ def test_username_is_admin(browser, username, password):
     "TC_001.00.07 | Login Page > Авторизация при вводе пробелов в поле Username'"
 )
 @pytest.mark.parametrize("username", ["   "])
-def test_username_is_whitespace(browser, username):
+def test_username_is_whitespace(browser):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
@@ -119,7 +119,7 @@ def test_username_is_whitespace(browser, username):
 )
 @pytest.mark.parametrize("password", ["   "])
 @pytest.mark.parametrize("username", list_username)
-def test_password_is_whitespace(browser, password, username):
+def test_password_is_whitespace(browser):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
@@ -134,7 +134,7 @@ def test_password_is_whitespace(browser, password, username):
 )
 @pytest.mark.parametrize("username", [""])
 @pytest.mark.parametrize("password", [""])
-def test_username_password_is_empty(browser, username, password):
+def test_username_password_is_empty(browser):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
@@ -145,7 +145,7 @@ def test_username_password_is_empty(browser, username, password):
 @allure.feature("US_001.00 | Login page > Страница авторизации.")
 @allure.story("TC_001.00.10 | Login page > Авторизация заблокированного пользователя")
 @pytest.mark.parametrize("username", ["locked_out_user"])
-def test_locked_out_user(browser, username):
+def test_locked_out_user(browser):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
@@ -158,7 +158,7 @@ def test_locked_out_user(browser, username):
     "TC_001.00.11 | Login page > Авторизация при вводе в поле 'Username' валидного логина в верхнем регистре"
 )
 @pytest.mark.parametrize("username", LIST_USERNAME)
-def test_username_is_upper(browser, username):
+def test_username_is_upper(browser):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
@@ -172,7 +172,7 @@ def test_username_is_upper(browser, username):
     "AT_001.00.12 | Login page > Авторизация при вводе в поле 'Username' с латинскими и русскими буквами"
 )
 @pytest.mark.parametrize("username", ["stаndаrd_usеr"])
-def test_username_with_rusletters(browser, username):
+def test_username_with_rusletters(browser):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
@@ -186,7 +186,7 @@ def test_username_with_rusletters(browser, username):
     "TC_001.00.13 | Login page > Авторизация при вводе в поле 'Username' спец символов"
 )
 @pytest.mark.parametrize("username", ["«»‘~!@#$%^&()?>,./<][ /<!—«», «${code}»;—>"])
-def test_username_is_symbols(browser, username):
+def test_username_is_symbols(browser):
     assert "inventory" not in browser.current_url, "Wrong page"
     error_message = browser.find_element(By.CLASS_NAME, "error-message-container")
     assert (
