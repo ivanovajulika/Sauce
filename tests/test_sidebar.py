@@ -1,6 +1,6 @@
 import allure
 import pytest
-from conf import *
+from conf import link, list_username
 from pages.inventory_page import InventoryPage
 from pages.checkout_page import Checkout_page
 from pages.overview_page import Overview_page
